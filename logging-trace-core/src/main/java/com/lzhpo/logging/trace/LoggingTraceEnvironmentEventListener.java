@@ -16,7 +16,7 @@ import org.springframework.core.env.PropertiesPropertySource;
  */
 @Slf4j
 @Configuration
-public class ApplicationEnvironmentPreparedEventListener
+public class LoggingTraceEnvironmentEventListener
     implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 
   private static final String LOGGING_TRACE_PROPERTIES = "loggingTraceProperties";

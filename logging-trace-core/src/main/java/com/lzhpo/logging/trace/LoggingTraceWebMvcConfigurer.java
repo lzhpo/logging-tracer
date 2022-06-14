@@ -27,6 +27,6 @@ public class LoggingTraceWebMvcConfigurer implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(
-        new LogTraceHandlerInterceptor(loggingTraceProperties, loggingTraceContentHandlers));
+        new LoggingTraceHandlerInterceptor(loggingTraceProperties, loggingTraceContentHandlers));
   }
 }

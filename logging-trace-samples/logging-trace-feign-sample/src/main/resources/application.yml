@@ -6,6 +6,8 @@ spring:
     name: logging-trace-feign-sample
 
 logging:
+  pattern:
+    level: '%5p'
   trace:
     headers:
       - X-B3-TraceId

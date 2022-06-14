@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author lzhpo
  */
 @RequiredArgsConstructor
-public class LogTraceHandlerInterceptor implements HandlerInterceptor {
+public class LoggingTraceHandlerInterceptor implements HandlerInterceptor {
 
   private final LoggingTraceProperties loggingTraceProperties;
   private final List<LoggingTraceContentHandler> loggingTraceContentHandlers;

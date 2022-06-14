@@ -2,4 +2,4 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.lzhpo.logging.trace.LoggingTraceAutoConfiguration
 
 org.springframework.context.ApplicationListener=\
-  com.lzhpo.logging.trace.ApplicationEnvironmentPreparedEventListener
+  com.lzhpo.logging.trace.LoggingTraceEnvironmentEventListener
