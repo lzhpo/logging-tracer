@@ -1,5 +1,6 @@
 package com.lzhpo.logging.trace.feign;
 
+import com.lzhpo.logging.trace.context.LoggingTraceContextFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public class LoggingTraceFeignAutoConfiguration {
 
   @Bean
-  public LoggingTraceFeignRequestInterceptor loggingTraceFeignRequestInterceptor() {
-    return new LoggingTraceFeignRequestInterceptor();
+  public LoggingTraceFeignRequestInterceptor loggingTraceFeignRequestInterceptor(
+      LoggingTraceContextFactory loggingTraceContextFactory) {
+    return new LoggingTraceFeignRequestInterceptor(loggingTraceContextFactory);
   }
 }

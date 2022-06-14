@@ -1,7 +1,7 @@
 package com.lzhpo.logging.trace;
 
 import cn.hutool.core.text.StrFormatter;
-import com.lzhpo.logging.trace.content.Xb3Const;
+import com.lzhpo.logging.trace.context.Xb3Const;
 import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
@@ -12,6 +12,8 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 
 /**
+ * TODO 此处新的logging.pattern.level无效
+ *
  * @author lzhpo
  */
 @Slf4j
@@ -27,10 +29,10 @@ public class LoggingTraceEnvironmentEventListener
     // Default configuration: logging.pattern.level=%5p
     String patternLevelValue =
         StrFormatter.formatWith(
-            "%5p [${#},%X{#},%X{#},%X{#}]",
+            "%5p [%X{#},%X{#},%X{#},%X{#}]",
             "#",
-            Xb3Const.PARENT_SPAN_NAME,
             Xb3Const.SPAN_NAME,
+            Xb3Const.PARENT_SPAN_NAME,
             Xb3Const.TRACE_ID,
             Xb3Const.SPAN_ID);
 

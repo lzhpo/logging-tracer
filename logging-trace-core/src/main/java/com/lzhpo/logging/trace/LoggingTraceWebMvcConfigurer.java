@@ -1,6 +1,6 @@
 package com.lzhpo.logging.trace;
 
-import com.lzhpo.logging.trace.content.LoggingTraceContentHandler;
+import com.lzhpo.logging.trace.context.LoggingTraceContextHandler;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class LoggingTraceWebMvcConfigurer implements WebMvcConfigurer {
 
   private final LoggingTraceProperties loggingTraceProperties;
-  private List<LoggingTraceContentHandler> loggingTraceContentHandlers;
+  private List<LoggingTraceContextHandler> loggingTraceContentHandlers;
 
   @Autowired(required = false)
   public void setLoggingTraceContextCustomizers(
-      List<LoggingTraceContentHandler> loggingTraceContentHandlers) {
+      List<LoggingTraceContextHandler> loggingTraceContentHandlers) {
     this.loggingTraceContentHandlers = loggingTraceContentHandlers;
   }
 

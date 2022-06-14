@@ -7,7 +7,7 @@ spring:
 
 logging:
   pattern:
-    level: '%5p'
+    level: '%5p [%X{X-B3-SpanName},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
   trace:
     headers:
       - X-B3-TraceId
