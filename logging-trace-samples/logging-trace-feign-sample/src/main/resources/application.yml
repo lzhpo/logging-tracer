@@ -1,0 +1,14 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: logging-trace-feign-sample
+
+logging:
+  trace:
+    headers:
+      - X-B3-TraceId
+      - X-B3-SpanId
+      - X-B3-SpanName
+      - X-B3-Parent-SpanName

@@ -3,6 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -10,16 +11,23 @@
     <relativePath/>
   </parent>
   <groupId>com.lzhpo</groupId>
-  <artifactId>trace-spring-boot-starter</artifactId>
+  <artifactId>logging-trace</artifactId>
   <version>${revision}</version>
-  <name>trace-spring-boot-starter</name>
-  <description>trace-spring-boot-starter</description>
+  <name>${project.groupId} ::: ${project.artifactId}</name>
 
   <properties>
     <revision>1.0.0</revision>
     <java.version>11</java.version>
+    <hutool.version>5.8.2</hutool.version>
+    <spring-cloud.version>2021.0.1</spring-cloud.version>
     <fmt-maven-plugin.version>2.18</fmt-maven-plugin.version>
   </properties>
+
+  <modules>
+    <module>logging-trace-adapters</module>
+    <module>logging-trace-samples</module>
+    <module>logging-trace-core</module>
+  </modules>
 
   <dependencies>
     <dependency>
@@ -37,7 +45,25 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>${hutool.version}</version>
+    </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <plugins>
