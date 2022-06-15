@@ -5,12 +5,12 @@ spring:
   application:
     name: logging-trace-service-sample
 
-logging:
-  pattern:
-    level: '%5p [%X{X-B3-SpanName},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
-  trace:
-    headers:
-      - X-B3-TraceId
-      - X-B3-SpanId
-      - X-B3-SpanName
-      - X-B3-Parent-SpanName
+#logging:
+#  pattern:
+#    level: '%5p [%X{X-B3-SpanName},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
+#  trace:
+#    headers:
+#      - X-B3-TraceId
+#      - X-B3-SpanId
+#      - X-B3-SpanName
+#      - X-B3-Parent-SpanName
