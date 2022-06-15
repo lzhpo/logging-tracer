@@ -1,7 +1,6 @@
 package com.lzhpo.logging.trace;
 
 import cn.hutool.core.text.StrFormatter;
-import com.lzhpo.logging.trace.context.Xb3Const;
 import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;

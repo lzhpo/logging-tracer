@@ -1,6 +1,7 @@
-package com.lzhpo.logging.trace.context;
+package com.lzhpo.logging.trace.handler;
 
 import java.util.Map;
+import org.slf4j.MDC;
 
 /**
  * @author lzhpo
@@ -23,5 +24,16 @@ public interface LoggingTraceContextHandler {
    */
   default void beforeAdapterRequest(Map<String, String> contextMap) {
     // NOP
+  }
+
+  /**
+   * Build adapter contextMap before to request new service
+   *
+   * @return contextMap
+   */
+  default Map<String, String> buildAdapterContextMap() {
+    Map<String, String> contextMap = MDC.getCopyOfContextMap();
+    beforeAdapterRequest(contextMap);
+    return contextMap;
   }
 }

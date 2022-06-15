@@ -1,6 +1,6 @@
 package com.lzhpo.logging.trace;
 
-import com.lzhpo.logging.trace.context.LoggingTraceContextHandler;
+import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,23 +18,19 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class LoggingTraceHandlerInterceptor implements HandlerInterceptor {
 
-  private final LoggingTraceProperties loggingTraceProperties;
-  private final List<LoggingTraceContextHandler> loggingTraceContentHandlers;
+  private final LoggingTraceProperties traceProperties;
+  private final LoggingTraceContextHandler traceContextHandler;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
 
-    List<String> headers = loggingTraceProperties.getHeaders();
+    List<String> headers = traceProperties.getHeaders();
     if (!CollectionUtils.isEmpty(headers)) {
       Map<String, String> contextMap = new HashMap<>(headers.size());
       headers.forEach(header -> contextMap.put(header, request.getHeader(header)));
 
-      if (!CollectionUtils.isEmpty(loggingTraceContentHandlers)) {
-        loggingTraceContentHandlers.forEach(
-            contextHandler -> contextHandler.whenReceivedRequest(contextMap));
-      }
-
+      traceContextHandler.whenReceivedRequest(contextMap);
       contextMap.forEach(MDC::put);
     }
 

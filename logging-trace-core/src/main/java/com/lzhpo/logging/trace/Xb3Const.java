@@ -1,4 +1,4 @@
-package com.lzhpo.logging.trace.context;
+package com.lzhpo.logging.trace;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

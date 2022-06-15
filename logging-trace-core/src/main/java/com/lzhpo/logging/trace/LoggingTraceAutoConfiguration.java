@@ -1,10 +1,8 @@
 package com.lzhpo.logging.trace;
 
-import com.lzhpo.logging.trace.context.DefaultLoggingTraceContextHandler;
-import com.lzhpo.logging.trace.context.LoggingTraceContextFactory;
-import com.lzhpo.logging.trace.context.LoggingTraceContextHandler;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lzhpo.logging.trace.handler.DefaultLoggingTraceContextHandler;
+import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,22 +14,13 @@ import org.springframework.context.annotation.Import;
  * @author lzhpo
  */
 @Configuration
-@Import({LoggingTraceWebMvcConfigurer.class, DefaultLoggingTraceContextHandler.class})
+@Import({LoggingTraceWebMvcConfigurer.class})
 @EnableConfigurationProperties({LoggingTraceProperties.class})
 public class LoggingTraceAutoConfiguration {
 
-  private List<LoggingTraceContextHandler> loggingTraceContentHandlers;
-
-  @Autowired(required = false)
-  public void setLoggingTraceContentHandlers(
-      List<LoggingTraceContextHandler> loggingTraceContentHandlers) {
-    this.loggingTraceContentHandlers = loggingTraceContentHandlers;
-  }
-
   @Bean
-  public LoggingTraceContextFactory loggingTraceContextFactory() {
-    LoggingTraceContextFactory loggingTraceContextFactory = new LoggingTraceContextFactory();
-    loggingTraceContextFactory.setLoggingTraceContentHandlers(loggingTraceContentHandlers);
-    return loggingTraceContextFactory;
+  @ConditionalOnMissingBean({LoggingTraceContextHandler.class})
+  public LoggingTraceContextHandler loggingTraceContextHandler() {
+    return new DefaultLoggingTraceContextHandler();
   }
 }
