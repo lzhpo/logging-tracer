@@ -16,6 +16,7 @@
     <module>logging-trace-dubbo-adapter</module>
     <module>logging-trace-feign-adapter</module>
     <module>logging-trace-httpclient-adapter</module>
+    <module>logging-trace-okhttp-adapter</module>
     <module>logging-trace-resttemplate-adapter</module>
   </modules>
 </project>

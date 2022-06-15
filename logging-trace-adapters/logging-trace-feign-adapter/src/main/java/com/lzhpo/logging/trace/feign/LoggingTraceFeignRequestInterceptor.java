@@ -6,6 +6,7 @@ import feign.RequestTemplate;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @author lzhpo
@@ -19,6 +20,8 @@ public class LoggingTraceFeignRequestInterceptor implements RequestInterceptor {
   @Override
   public void apply(RequestTemplate requestTemplate) {
     Map<String, String> contextMap = traceContextHandler.buildAdapterContextMap();
-    contextMap.forEach(requestTemplate::header);
+    if (!ObjectUtils.isEmpty(contextMap)) {
+      contextMap.forEach(requestTemplate::header);
+    }
   }
 }

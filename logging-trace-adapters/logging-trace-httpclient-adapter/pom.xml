@@ -11,4 +11,18 @@
   </parent>
   <artifactId>logging-trace-httpclient-adapter</artifactId>
   <name>${project.artifactId} ::: ${project.artifactId}</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.lzhpo</groupId>
+      <artifactId>logging-trace-core</artifactId>
+      <version>${revision}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>${httpclient.version}</version>
+    </dependency>
+  </dependencies>
 </project>
