@@ -18,5 +18,6 @@
     <module>logging-trace-httpclient-adapter</module>
     <module>logging-trace-okhttp-adapter</module>
     <module>logging-trace-resttemplate-adapter</module>
+    <module>logging-trace-webclient-adapter</module>
   </modules>
 </project>

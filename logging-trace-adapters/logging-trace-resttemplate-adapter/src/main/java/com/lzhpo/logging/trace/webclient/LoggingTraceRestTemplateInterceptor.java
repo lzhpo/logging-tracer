@@ -1,4 +1,4 @@
-package com.lzhpo.logging.trace.okhttp;
+package com.lzhpo.logging.trace.webclient;
 
 import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
 import java.io.IOException;

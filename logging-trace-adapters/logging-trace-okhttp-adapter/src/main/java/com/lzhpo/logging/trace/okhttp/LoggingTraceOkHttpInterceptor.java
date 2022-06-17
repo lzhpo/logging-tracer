@@ -27,7 +27,6 @@ public class LoggingTraceOkHttpInterceptor implements Interceptor {
     if (!ObjectUtils.isEmpty(contextMap)) {
       contextMap.forEach(builder::addHeader);
     }
-
     Request newRequest = builder.build();
     return chain.proceed(newRequest);
   }
