@@ -21,7 +21,12 @@ public class LoggingTraceOkHttpAuoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public OkHttpClient okHttpClient() {
-    return new OkHttpClient().newBuilder().addInterceptor(loggingTraceOkHttpInterceptor()).build();
+    return new OkHttpClient();
+  }
+
+  @Bean
+  public LoggingTraceOkHttpBeanPostProcessor loggingTraceOkHttpBeanPostProcessor() {
+    return new LoggingTraceOkHttpBeanPostProcessor(loggingTraceOkHttpInterceptor());
   }
 
   @Bean

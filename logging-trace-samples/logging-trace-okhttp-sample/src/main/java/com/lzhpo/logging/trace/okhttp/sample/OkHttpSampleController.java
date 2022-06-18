@@ -36,11 +36,8 @@ public class OkHttpSampleController {
 
     Request okHttpRequest =
         new Request.Builder().url("http://127.0.0.1:9002/callHello").get().build();
-    //    try (Response response = okHttpClient.newCall(okHttpRequest).execute()) {
-    //      return Objects.requireNonNull(response.body()).string();
-    //    }
-
-    Response response = okHttpClient.newCall(okHttpRequest).execute();
-    return Objects.requireNonNull(response.body()).string();
+    try (Response response = okHttpClient.newCall(okHttpRequest).execute()) {
+      return Objects.requireNonNull(response.body()).string();
+    }
   }
 }
