@@ -10,7 +10,7 @@
     <version>${revision}</version>
   </parent>
   <artifactId>logging-trace-adapters</artifactId>
-  <name>${project.artifactId} ::: ${project.artifactId}</name>
+  <name>${project.groupId} ::: ${project.artifactId}</name>
 
   <modules>
     <module>logging-trace-dubbo-adapter</module>

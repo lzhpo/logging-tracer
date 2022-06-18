@@ -1,10 +1,9 @@
 package com.lzhpo.logging.trace.webclient;
 
-import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
@@ -17,15 +16,13 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class LoggingTraceExchangeFilterFunction implements ExchangeFilterFunction {
 
-  private final LoggingTraceContextHandler traceContextHandler;
+  private final LoggingTraceHeaderProxy traceHeaderProxy;
 
   @Override
   public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
-    Map<String, String> contextMap = traceContextHandler.buildAdapterContextMap();
+    Map<String, String> proxyHeaderMap = traceHeaderProxy.buildProxyHeaderMap();
     HttpHeaders headers = request.headers();
-    if (!ObjectUtils.isEmpty(contextMap)) {
-      contextMap.forEach(headers::add);
-    }
+    proxyHeaderMap.forEach(headers::add);
     return next.exchange(request);
   }
 }

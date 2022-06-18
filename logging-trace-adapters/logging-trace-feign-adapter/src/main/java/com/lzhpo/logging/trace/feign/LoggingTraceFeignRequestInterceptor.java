@@ -1,12 +1,11 @@
 package com.lzhpo.logging.trace.feign;
 
-import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.ObjectUtils;
 
 /**
  * @author lzhpo
@@ -15,13 +14,11 @@ import org.springframework.util.ObjectUtils;
 @RequiredArgsConstructor
 public class LoggingTraceFeignRequestInterceptor implements RequestInterceptor {
 
-  private final LoggingTraceContextHandler traceContextHandler;
+  private final LoggingTraceHeaderProxy traceHeaderProxy;
 
   @Override
   public void apply(RequestTemplate requestTemplate) {
-    Map<String, String> contextMap = traceContextHandler.buildAdapterContextMap();
-    if (!ObjectUtils.isEmpty(contextMap)) {
-      contextMap.forEach(requestTemplate::header);
-    }
+    Map<String, String> proxyHeaderMap = traceHeaderProxy.buildProxyHeaderMap();
+    proxyHeaderMap.forEach(requestTemplate::header);
   }
 }

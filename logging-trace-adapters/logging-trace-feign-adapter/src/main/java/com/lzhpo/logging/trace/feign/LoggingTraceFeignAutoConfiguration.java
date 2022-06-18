@@ -1,6 +1,7 @@
 package com.lzhpo.logging.trace.feign;
 
-import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,11 +9,12 @@ import org.springframework.context.annotation.Configuration;
  * @author lzhpo
  */
 @Configuration
+@ConditionalOnBean({LoggingTraceHeaderProxy.class})
 public class LoggingTraceFeignAutoConfiguration {
 
   @Bean
   public LoggingTraceFeignRequestInterceptor loggingTraceFeignRequestInterceptor(
-      LoggingTraceContextHandler traceContextHandler) {
-    return new LoggingTraceFeignRequestInterceptor(traceContextHandler);
+      LoggingTraceHeaderProxy traceHeaderProxy) {
+    return new LoggingTraceFeignRequestInterceptor(traceHeaderProxy);
   }
 }

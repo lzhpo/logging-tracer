@@ -1,6 +1,6 @@
 package com.lzhpo.logging.trace.okhttp;
 
-import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import java.io.IOException;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,6 @@ import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.util.ObjectUtils;
 
 /**
  * @author lzhpo
@@ -17,16 +16,14 @@ import org.springframework.util.ObjectUtils;
 @RequiredArgsConstructor
 public class LoggingTraceOkHttpInterceptor implements Interceptor {
 
-  private final LoggingTraceContextHandler traceContextHandler;
+  private final LoggingTraceHeaderProxy traceHeaderProxy;
 
   @NotNull
   @Override
   public Response intercept(@NotNull Chain chain) throws IOException {
     Builder builder = chain.request().newBuilder();
-    Map<String, String> contextMap = traceContextHandler.buildAdapterContextMap();
-    if (!ObjectUtils.isEmpty(contextMap)) {
-      contextMap.forEach(builder::addHeader);
-    }
+    Map<String, String> proxyHeaderMap = traceHeaderProxy.buildProxyHeaderMap();
+    proxyHeaderMap.forEach(builder::addHeader);
     Request newRequest = builder.build();
     return chain.proceed(newRequest);
   }

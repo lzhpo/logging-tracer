@@ -1,8 +1,9 @@
 package com.lzhpo.logging.trace.okhttp;
 
-import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,23 +13,19 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @RequiredArgsConstructor
+@ConditionalOnBean({LoggingTraceHeaderProxy.class})
 public class LoggingTraceOkHttpAuoConfiguration {
 
-  private final LoggingTraceContextHandler traceContextHandler;
+  private final LoggingTraceHeaderProxy traceHeaderProxy;
 
   @Bean
   @ConditionalOnMissingBean
   public OkHttpClient okHttpClient() {
-    return new OkHttpClient().newBuilder().build();
+    return new OkHttpClient().newBuilder().addInterceptor(loggingTraceOkHttpInterceptor()).build();
   }
 
   @Bean
   public LoggingTraceOkHttpInterceptor loggingTraceOkHttpInterceptor() {
-    return new LoggingTraceOkHttpInterceptor(traceContextHandler);
-  }
-
-  @Bean
-  public LoggingTraceOkHttpBeanPostProcessor loggingTraceOkHttpBeanPostProcessor() {
-    return new LoggingTraceOkHttpBeanPostProcessor(loggingTraceOkHttpInterceptor());
+    return new LoggingTraceOkHttpInterceptor(traceHeaderProxy);
   }
 }

@@ -1,16 +1,15 @@
 server:
-  port: 8001
+  port: 9001
 
 spring:
   application:
-    name: logging-trace-feign-sample
+    name: @artifactId@
 
-#logging:
+logging:
 #  pattern:
-#    level: '%5p [%X{X-B3-SpanName},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
-#  trace:
-#    headers:
-#      - X-B3-TraceId
-#      - X-B3-SpanId
-#      - X-B3-SpanName
-#      - X-B3-Parent-SpanName
+#    level: '%5p [${spring.application.name},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
+  trace:
+#    enabled: false
+    proxy-headers:
+      - Authorization
+      - User-Id

@@ -1,9 +1,11 @@
 package com.lzhpo.logging.trace.webclient;
 
-import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,11 +14,13 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @RequiredArgsConstructor
+@ConditionalOnBean({LoggingTraceHeaderProxy.class})
 public class LoggingTraceHttpClientAuoConfiguration {
 
-  private final LoggingTraceContextHandler traceContextHandler;
+  private final LoggingTraceHeaderProxy traceHeaderProxy;
 
   @Bean
+  @ConditionalOnMissingBean
   public CloseableHttpClient httpClient() {
     return HttpClients.custom()
         .addRequestInterceptorFirst(loggingTraceHttpClientInterceptor())
@@ -25,6 +29,6 @@ public class LoggingTraceHttpClientAuoConfiguration {
 
   @Bean
   public LoggingTraceHttpClientInterceptor loggingTraceHttpClientInterceptor() {
-    return new LoggingTraceHttpClientInterceptor(traceContextHandler);
+    return new LoggingTraceHttpClientInterceptor(traceHeaderProxy);
   }
 }

@@ -1,8 +1,6 @@
 package com.lzhpo.logging.trace;
 
-import com.lzhpo.logging.trace.handler.DefaultLoggingTraceContextHandler;
-import com.lzhpo.logging.trace.handler.LoggingTraceContextHandler;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +12,17 @@ import org.springframework.context.annotation.Import;
  * @author lzhpo
  */
 @Configuration
-@Import({LoggingTraceWebMvcConfigurer.class})
+@ConditionalOnProperty(
+    prefix = "logging.trace",
+    name = "enabled",
+    havingValue = "true",
+    matchIfMissing = true)
+@Import({LoggingTraceWebMvcConfig.class})
 @EnableConfigurationProperties({LoggingTraceProperties.class})
 public class LoggingTraceAutoConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean({LoggingTraceContextHandler.class})
-  public LoggingTraceContextHandler loggingTraceContextHandler() {
-    return new DefaultLoggingTraceContextHandler();
+  public LoggingTraceHeaderProxy loggingTraceHeaderProxy(LoggingTraceProperties traceProperties) {
+    return new LoggingTraceHeaderProxy(traceProperties);
   }
 }
