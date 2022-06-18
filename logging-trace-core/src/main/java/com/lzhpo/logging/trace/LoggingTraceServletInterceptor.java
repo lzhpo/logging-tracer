@@ -13,7 +13,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @author lzhpo
  */
 @RequiredArgsConstructor
-public class LoggingTraceHandlerInterceptor implements HandlerInterceptor {
+public class LoggingTraceServletInterceptor implements HandlerInterceptor {
 
   private final LoggingTraceHeaderProxy traceHeaderProxy;
 

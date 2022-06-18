@@ -1,5 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.lzhpo.logging.trace.LoggingTraceAutoConfiguration
+  com.lzhpo.logging.trace.LoggingTraceAutoConfiguration,\
+  com.lzhpo.logging.trace.LoggingTraceServletAutoConfiguration,\
+  com.lzhpo.logging.trace.LoggingTraceWebfluxAutoConfiguration
 
 org.springframework.boot.env.EnvironmentPostProcessor=\
   com.lzhpo.logging.trace.LoggingTraceEnvPostProcessor

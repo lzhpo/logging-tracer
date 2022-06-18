@@ -1,7 +1,6 @@
 package com.lzhpo.logging.trace.webclient;
 
 import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -12,11 +11,8 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @author lzhpo
  */
 @Configuration
-@RequiredArgsConstructor
 @ConditionalOnBean({LoggingTraceHeaderProxy.class})
 public class LoggingTraceWebClientAuoConfiguration {
-
-  private final LoggingTraceHeaderProxy traceHeaderProxy;
 
   @Bean
   @ConditionalOnMissingBean
@@ -25,12 +21,8 @@ public class LoggingTraceWebClientAuoConfiguration {
   }
 
   @Bean
-  public LoggingTraceWebClientBeanPostProcessor loggingTraceWebClientBeanPostProcessor() {
-    return new LoggingTraceWebClientBeanPostProcessor(loggingTraceExchangeFilterFunction());
-  }
-
-  @Bean
-  public LoggingTraceExchangeFilterFunction loggingTraceExchangeFilterFunction() {
-    return new LoggingTraceExchangeFilterFunction(traceHeaderProxy);
+  public LoggingTraceWebClientBeanPostProcessor loggingTraceWebClientBeanPostProcessor(
+      LoggingTraceHeaderProxy traceHeaderProxy) {
+    return new LoggingTraceWebClientBeanPostProcessor(traceHeaderProxy);
   }
 }

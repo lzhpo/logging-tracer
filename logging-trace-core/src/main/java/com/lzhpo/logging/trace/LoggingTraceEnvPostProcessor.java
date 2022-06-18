@@ -27,13 +27,13 @@ import org.springframework.util.StringUtils;
 public class LoggingTraceEnvPostProcessor implements EnvironmentPostProcessor, Ordered {
 
   private static final String LEVEL_KEY = "logging.pattern.level";
-  private static final String ENABLED_TRACE_KEY = "logging.trace.enabled";
 
   @Override
   public void postProcessEnvironment(
       ConfigurableEnvironment environment, SpringApplication application) {
 
-    String enabled = environment.getProperty(ENABLED_TRACE_KEY, Boolean.TRUE.toString());
+    String enabled =
+        environment.getProperty(LoggingTraceConst.ENABLED_TRACE_KEY, Boolean.TRUE.toString());
     if (Boolean.parseBoolean(enabled)) {
       Console.log("Enabled logging trace.");
 

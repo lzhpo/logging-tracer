@@ -6,27 +6,17 @@
   <packaging>jar</packaging>
   <parent>
     <groupId>com.lzhpo</groupId>
-    <artifactId>logging-trace</artifactId>
+    <artifactId>logging-trace-samples</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>logging-trace-core</artifactId>
+  <artifactId>logging-trace-webclient-sample</artifactId>
   <name>${project.groupId} ::: ${project.artifactId}</name>
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-webflux</artifactId>
-      <optional>true</optional>
+      <groupId>com.lzhpo</groupId>
+      <artifactId>logging-trace-webclient-adapter</artifactId>
+      <version>${revision}</version>
     </dependency>
   </dependencies>
 </project>

@@ -17,6 +17,12 @@
       <groupId>com.lzhpo</groupId>
       <artifactId>logging-trace-core</artifactId>
       <version>${revision}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

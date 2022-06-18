@@ -17,5 +17,6 @@
     <module>logging-trace-httpclient-sample</module>
     <module>logging-trace-okhttp-sample</module>
     <module>logging-trace-service-sample</module>
+    <module>logging-trace-webclient-sample</module>
   </modules>
 </project>

@@ -19,4 +19,6 @@ public final class LoggingTraceConst {
   public static String X_B3_SPAN_NAME = "X-B3-SpanName";
 
   public static String X_B3_PARENT_SPAN_NAME = "X-B3-Parent-SpanName";
+
+  public static final String ENABLED_TRACE_KEY = "logging.trace.enabled";
 }
