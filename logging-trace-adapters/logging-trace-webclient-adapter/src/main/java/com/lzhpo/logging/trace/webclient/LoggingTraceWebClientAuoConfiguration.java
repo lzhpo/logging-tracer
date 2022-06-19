@@ -17,7 +17,7 @@ public class LoggingTraceWebClientAuoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public WebClient webClient() {
-    return WebClient.builder().build();
+    return WebClient.create();
   }
 
   @Bean
