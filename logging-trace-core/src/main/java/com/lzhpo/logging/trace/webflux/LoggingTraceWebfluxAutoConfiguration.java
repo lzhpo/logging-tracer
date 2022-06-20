@@ -1,5 +1,7 @@
-package com.lzhpo.logging.trace;
+package com.lzhpo.logging.trace.webflux;
 
+import com.lzhpo.logging.trace.LoggingTraceCondition;
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.context.annotation.Bean;
@@ -11,12 +13,12 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @Conditional({LoggingTraceCondition.class})
-@ConditionalOnWebApplication(type = Type.SERVLET)
-public class LoggingTraceServletAutoConfiguration {
+@ConditionalOnWebApplication(type = Type.REACTIVE)
+public class LoggingTraceWebfluxAutoConfiguration {
 
   @Bean
-  public LoggingTraceServletMvcConfigurer loggingTraceMvcConfigurer(
+  public LoggingTraceWebfluxFilter loggingTraceWebfluxFilter(
       LoggingTraceHeaderProxy traceHeaderProxy) {
-    return new LoggingTraceServletMvcConfigurer(traceHeaderProxy);
+    return new LoggingTraceWebfluxFilter(traceHeaderProxy);
   }
 }

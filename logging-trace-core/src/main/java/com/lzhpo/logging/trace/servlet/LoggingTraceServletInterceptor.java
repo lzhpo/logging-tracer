@@ -1,5 +1,6 @@
-package com.lzhpo.logging.trace;
+package com.lzhpo.logging.trace.servlet;
 
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import java.util.Enumeration;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;

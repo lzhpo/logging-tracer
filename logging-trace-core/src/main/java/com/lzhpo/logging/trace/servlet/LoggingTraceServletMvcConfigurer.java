@@ -1,5 +1,6 @@
-package com.lzhpo.logging.trace;
+package com.lzhpo.logging.trace.servlet;
 
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

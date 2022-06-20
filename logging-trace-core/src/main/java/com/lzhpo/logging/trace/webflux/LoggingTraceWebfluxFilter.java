@@ -1,5 +1,6 @@
-package com.lzhpo.logging.trace;
+package com.lzhpo.logging.trace.webflux;
 
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
