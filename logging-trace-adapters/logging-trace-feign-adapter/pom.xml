@@ -16,7 +16,6 @@
     <dependency>
       <groupId>com.lzhpo</groupId>
       <artifactId>logging-trace-core</artifactId>
-      <version>${revision}</version>
     </dependency>
 
     <dependency>

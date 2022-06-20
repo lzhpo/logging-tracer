@@ -16,7 +16,6 @@
   <name>${project.groupId} ::: ${project.artifactId}</name>
 
   <properties>
-    <revision>1.0.0</revision>
     <java.version>11</java.version>
     <okhttp.version>4.10.0</okhttp.version>
     <hutool.version>5.8.3</hutool.version>
@@ -27,6 +26,7 @@
 
   <modules>
     <module>logging-trace-adapters</module>
+    <module>logging-trace-bom</module>
     <module>logging-trace-samples</module>
     <module>logging-trace-core</module>
   </modules>
@@ -52,6 +52,14 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.lzhpo</groupId>
+        <artifactId>logging-trace-bom</artifactId>
+        <version>${revision}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
