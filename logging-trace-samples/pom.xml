@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>com.lzhpo</groupId>
-    <artifactId>panda-logging-trace</artifactId>
+    <artifactId>logging-trace-spring-boot-starter</artifactId>
     <version>${revision}</version>
   </parent>
   <artifactId>logging-trace-samples</artifactId>
@@ -19,4 +19,8 @@
     <module>logging-trace-service-sample</module>
     <module>logging-trace-webclient-sample</module>
   </modules>
+
+  <properties>
+    <maven.deploy.skip>true</maven.deploy.skip>
+  </properties>
 </project>

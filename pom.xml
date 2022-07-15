@@ -11,17 +11,17 @@
     <relativePath/>
   </parent>
   <groupId>com.lzhpo</groupId>
-  <artifactId>panda-logging-trace</artifactId>
+  <artifactId>logging-trace-spring-boot-starter</artifactId>
   <version>${revision}</version>
   <name>${project.groupId} ::: ${project.artifactId}</name>
 
-  <url>https://github.com/lzhpo/panda-logging-trace</url>
+  <url>https://github.com/lzhpo/logging-trace</url>
   <description>panda logging trace</description>
 
   <scm>
-    <url>git@github.com:lzhpo/panda-logging-trace.git</url>
-    <connection>scm:git@github.com:lzhpo/panda-logging-trace.git</connection>
-    <developerConnection>scm:git@github.com:lzhpo/panda-logging-trace.git</developerConnection>
+    <url>git@github.com:lzhpo/logging-trace.git</url>
+    <connection>scm:git@github.com:lzhpo/logging-trace.git</connection>
+    <developerConnection>scm:git@github.com:lzhpo/logging-trace.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 

@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>com.lzhpo</groupId>
-    <artifactId>panda-logging-trace</artifactId>
+    <artifactId>logging-trace-spring-boot-starter</artifactId>
     <version>${revision}</version>
   </parent>
   <artifactId>logging-trace-adapters</artifactId>
