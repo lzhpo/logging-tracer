@@ -11,17 +11,53 @@
     <relativePath/>
   </parent>
   <groupId>com.lzhpo</groupId>
-  <artifactId>logging-trace</artifactId>
+  <artifactId>panda-logging-trace</artifactId>
   <version>${revision}</version>
   <name>${project.groupId} ::: ${project.artifactId}</name>
 
+  <url>https://github.com/lzhpo/panda-logging-trace</url>
+  <description>panda logging trace</description>
+
+  <scm>
+    <url>git@github.com:lzhpo/panda-logging-trace.git</url>
+    <connection>scm:git@github.com:lzhpo/panda-logging-trace.git</connection>
+    <developerConnection>scm:git@github.com:lzhpo/panda-logging-trace.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>lzhpo</id>
+      <name>lzhpo</name>
+      <email>lzhpo1024@gmail.com</email>
+      <organizationUrl>http://www.lzhpo.com</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+8</timezone>
+    </developer>
+  </developers>
+
   <properties>
-    <java.version>11</java.version>
+    <java.version>1.8</java.version>
+    <server.id>ossrh</server.id>
     <okhttp.version>4.10.0</okhttp.version>
     <hutool.version>5.8.3</hutool.version>
     <httpclient.version>5.1.3</httpclient.version>
     <spring-cloud.version>2021.0.1</spring-cloud.version>
     <fmt-maven-plugin.version>2.19</fmt-maven-plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.gpg.version>3.0.1</maven.gpg.version>
+    <maven.source.version>3.0.1</maven.source.version>
+    <maven.javadoc.version>3.0.1</maven.javadoc.version>
   </properties>
 
   <modules>
@@ -93,4 +129,75 @@
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>release-ossrh</id>
+      <build>
+        <plugins>
+          <!-- Source -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven.source.version}</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Javadoc -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven.javadoc.version}</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <configuration>
+                  <locale>en_US</locale>
+                  <encoding>UTF-8</encoding>
+                  <charset>UTF-8</charset>
+                  <doclint>none</doclint>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- GPG -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven.gpg.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+
+      <distributionManagement>
+        <snapshotRepository>
+          <id>${server.id}</id>
+          <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+          <id>${server.id}</id>
+          <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+  </profiles>
 </project>

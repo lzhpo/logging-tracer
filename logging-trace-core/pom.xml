@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <parent>
     <groupId>com.lzhpo</groupId>
-    <artifactId>logging-trace</artifactId>
+    <artifactId>panda-logging-trace</artifactId>
     <version>${revision}</version>
   </parent>
   <artifactId>logging-trace-core</artifactId>
