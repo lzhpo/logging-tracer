@@ -33,30 +33,31 @@ import org.springframework.util.StringUtils;
 @Slf4j
 @RequiredArgsConstructor
 public final class LoggingTraceHeaderProxy {
-  private final LoggingTraceProperties traceProperties;
+
+  private final TracerProperties traceProperties;
 
   /**
    * Fill MDC content when received request.
    *
    * @param requestHeaderMap request header map
    */
-  public void fillMdcWhenReceivedRequest(Map<String, String> requestHeaderMap) {
-    MDC.put(LoggingTraceConst.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
+  public void fillMdcContext(Map<String, String> requestHeaderMap) {
+    MDC.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
     List<String> proxyHeaders = traceProperties.getProxyHeaders();
     proxyHeaders.forEach(proxyHeader -> MDC.put(proxyHeader, requestHeaderMap.get(proxyHeader)));
-    String traceId = requestHeaderMap.get(LoggingTraceConst.X_B3_TRACE_ID);
+    String traceId = requestHeaderMap.get(TracerConstants.X_B3_TRACE_ID);
 
     if (StringUtils.hasText(traceId)) {
-      String spanId = requestHeaderMap.get(LoggingTraceConst.X_B3_SPAN_ID);
-      String asParentSpanName = requestHeaderMap.get(LoggingTraceConst.X_B3_SPAN_NAME);
+      String spanId = requestHeaderMap.get(TracerConstants.X_B3_SPAN_ID);
+      String asParentSpanName = requestHeaderMap.get(TracerConstants.X_B3_SPAN_NAME);
 
-      MDC.put(LoggingTraceConst.X_B3_PARENT_SPAN_NAME, asParentSpanName);
-      MDC.put(LoggingTraceConst.X_B3_TRACE_ID, traceId);
-      MDC.put(LoggingTraceConst.X_B3_SPAN_ID, spanId + StrPool.DOT + 1);
+      MDC.put(TracerConstants.X_B3_PARENT_SPAN_NAME, asParentSpanName);
+      MDC.put(TracerConstants.X_B3_TRACE_ID, traceId);
+      MDC.put(TracerConstants.X_B3_SPAN_ID, spanId + StrPool.DOT + 1);
     } else {
-      MDC.put(LoggingTraceConst.X_B3_PARENT_SPAN_NAME, "this");
-      MDC.put(LoggingTraceConst.X_B3_TRACE_ID, IdUtil.fastSimpleUUID());
-      MDC.put(LoggingTraceConst.X_B3_SPAN_ID, "0");
+      MDC.put(TracerConstants.X_B3_PARENT_SPAN_NAME, "N/A");
+      MDC.put(TracerConstants.X_B3_TRACE_ID, IdUtil.fastSimpleUUID());
+      MDC.put(TracerConstants.X_B3_SPAN_ID, "0");
     }
   }
 
@@ -70,11 +71,11 @@ public final class LoggingTraceHeaderProxy {
     Map<String, String> proxyHeaderMap = new LinkedCaseInsensitiveMap<>(proxyHeaders.size() + 4);
     proxyHeaders.forEach(headerName -> proxyHeaderMap.put(headerName, MDC.get(headerName)));
 
-    proxyHeaderMap.put(LoggingTraceConst.X_B3_TRACE_ID, MDC.get(LoggingTraceConst.X_B3_TRACE_ID));
-    proxyHeaderMap.put(LoggingTraceConst.X_B3_SPAN_ID, MDC.get(LoggingTraceConst.X_B3_SPAN_ID));
-    proxyHeaderMap.put(LoggingTraceConst.X_B3_SPAN_NAME, MDC.get(LoggingTraceConst.X_B3_SPAN_NAME));
+    proxyHeaderMap.put(TracerConstants.X_B3_TRACE_ID, MDC.get(TracerConstants.X_B3_TRACE_ID));
+    proxyHeaderMap.put(TracerConstants.X_B3_SPAN_ID, MDC.get(TracerConstants.X_B3_SPAN_ID));
+    proxyHeaderMap.put(TracerConstants.X_B3_SPAN_NAME, MDC.get(TracerConstants.X_B3_SPAN_NAME));
     proxyHeaderMap.put(
-        LoggingTraceConst.X_B3_PARENT_SPAN_NAME, MDC.get(LoggingTraceConst.X_B3_PARENT_SPAN_NAME));
+        TracerConstants.X_B3_PARENT_SPAN_NAME, MDC.get(TracerConstants.X_B3_PARENT_SPAN_NAME));
     return proxyHeaderMap;
   }
 }

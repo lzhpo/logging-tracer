@@ -49,7 +49,7 @@ public class LoggingTraceEnvPostProcessor implements EnvironmentPostProcessor, O
       ConfigurableEnvironment environment, SpringApplication application) {
 
     String enabled =
-        environment.getProperty(LoggingTraceConst.ENABLED_TRACE_KEY, Boolean.TRUE.toString());
+        environment.getProperty(TracerConstants.ENABLED_TRACE_KEY, Boolean.TRUE.toString());
     if (Boolean.parseBoolean(enabled)) {
       Console.log("Enabled logging trace.");
 
@@ -63,9 +63,9 @@ public class LoggingTraceEnvPostProcessor implements EnvironmentPostProcessor, O
             StrFormatter.formatWith(
                 "%5p [${spring.application.name},%X{#},%X{#},%X{#}]",
                 "#",
-                LoggingTraceConst.X_B3_PARENT_SPAN_NAME,
-                LoggingTraceConst.X_B3_TRACE_ID,
-                LoggingTraceConst.X_B3_SPAN_ID);
+                TracerConstants.X_B3_PARENT_SPAN_NAME,
+                TracerConstants.X_B3_TRACE_ID,
+                TracerConstants.X_B3_SPAN_ID);
         System.setProperty(LEVEL_KEY, levelValue);
         Console.log("{} updated value: {}", LEVEL_KEY, levelValue);
       }

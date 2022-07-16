@@ -24,13 +24,13 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 /**
  * @author lzhpo
  */
-public class LoggingTraceCondition implements Condition {
+public class TracerCondition implements Condition {
 
   @Override
   public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
     Environment environment = context.getEnvironment();
     String enabled =
-        environment.getProperty(LoggingTraceConst.ENABLED_TRACE_KEY, Boolean.TRUE.toString());
+        environment.getProperty(TracerConstants.ENABLED_TRACE_KEY, Boolean.TRUE.toString());
     return Boolean.parseBoolean(enabled);
   }
 }

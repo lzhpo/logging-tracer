@@ -3,4 +3,4 @@ server:
 
 spring:
   application:
-    name: @artifactId@
+    name: logging-trace-webclient-sample

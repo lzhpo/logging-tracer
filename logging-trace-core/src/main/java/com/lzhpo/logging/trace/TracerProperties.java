@@ -16,23 +16,21 @@
 
 package com.lzhpo.logging.trace;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Trace auto configure
- *
  * @author lzhpo
  */
-@Configuration
-@Conditional({LoggingTraceCondition.class})
-@EnableConfigurationProperties({LoggingTraceProperties.class})
-public class LoggingTraceAutoConfiguration {
+@Data
+@ConfigurationProperties(prefix = "logging.trace")
+public class TracerProperties {
 
-  @Bean
-  public LoggingTraceHeaderProxy loggingTraceHeaderProxy(LoggingTraceProperties traceProperties) {
-    return new LoggingTraceHeaderProxy(traceProperties);
-  }
+  /** Whether enable logging trace */
+  private boolean enabled = true;
+
+  /** Will proxy headers, ignore case. */
+  private List<String> proxyHeaders = new ArrayList<>();
 }

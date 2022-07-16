@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package com.lzhpo.logging.trace;
+package com.lzhpo.logging.trace.servlet;
 
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author lzhpo
  */
-@Data
-@ConfigurationProperties(prefix = "logging.trace")
-public class LoggingTraceProperties {
+@RequiredArgsConstructor
+public class TracerServletMvcConfigurer implements WebMvcConfigurer {
 
-  /** Whether enable logging trace */
-  private boolean enabled = true;
+  private final LoggingTraceHeaderProxy traceHeaderProxy;
 
-  /** Will proxy headers, ignore case. */
-  private List<String> proxyHeaders = new ArrayList<>();
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new TracerServletInterceptor(traceHeaderProxy));
+  }
 }

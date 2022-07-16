@@ -31,7 +31,7 @@ import reactor.core.publisher.Mono;
  * @author lzhpo
  */
 @RequiredArgsConstructor
-public class LoggingTraceWebfluxFilter implements WebFilter {
+public class TracerWebfluxFilter implements WebFilter {
 
   private final LoggingTraceHeaderProxy traceHeaderProxy;
 
@@ -40,7 +40,7 @@ public class LoggingTraceWebfluxFilter implements WebFilter {
     ServerHttpRequest request = exchange.getRequest();
     HttpHeaders headers = request.getHeaders();
     Map<String, String> requestHeaderMap = headers.toSingleValueMap();
-    traceHeaderProxy.fillMdcWhenReceivedRequest(requestHeaderMap);
+    traceHeaderProxy.fillMdcContext(requestHeaderMap);
     return chain.filter(exchange).doFinally(x -> MDC.clear());
   }
 }

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: @artifactId@
+    name: logging-trace-feign-sample
 
 logging:
 #  pattern:

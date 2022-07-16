@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
  * @author lzhpo
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class LoggingTraceConst {
+public final class TracerConstants {
 
   public static final String X_B3_TRACE_ID = "X-B3-TraceId";
 

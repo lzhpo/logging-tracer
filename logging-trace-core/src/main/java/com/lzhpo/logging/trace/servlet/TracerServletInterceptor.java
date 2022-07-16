@@ -30,7 +30,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @author lzhpo
  */
 @RequiredArgsConstructor
-public class LoggingTraceServletInterceptor implements HandlerInterceptor {
+public class TracerServletInterceptor implements HandlerInterceptor {
 
   private final LoggingTraceHeaderProxy traceHeaderProxy;
 
@@ -43,7 +43,7 @@ public class LoggingTraceServletInterceptor implements HandlerInterceptor {
       String headerName = headerNames.nextElement();
       requestHeaderMap.put(headerName, request.getHeader(headerName));
     }
-    traceHeaderProxy.fillMdcWhenReceivedRequest(requestHeaderMap);
+    traceHeaderProxy.fillMdcContext(requestHeaderMap);
     return true;
   }
 

@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
-package com.lzhpo.logging.trace.servlet;
+package com.lzhpo.logging.trace;
 
-import com.lzhpo.logging.trace.LoggingTraceHeaderProxy;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
 
 /**
+ * Trace auto configure
+ *
  * @author lzhpo
  */
-@RequiredArgsConstructor
-public class LoggingTraceServletMvcConfigurer implements WebMvcConfigurer {
+@Configuration
+@Conditional({TracerCondition.class})
+@EnableConfigurationProperties({TracerProperties.class})
+public class TracerAutoConfiguration {
 
-  private final LoggingTraceHeaderProxy traceHeaderProxy;
-
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new LoggingTraceServletInterceptor(traceHeaderProxy));
+  @Bean
+  public LoggingTraceHeaderProxy loggingTraceHeaderProxy(TracerProperties traceProperties) {
+    return new LoggingTraceHeaderProxy(traceProperties);
   }
 }
