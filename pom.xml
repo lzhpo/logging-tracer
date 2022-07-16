@@ -11,17 +11,17 @@
     <relativePath/>
   </parent>
   <groupId>com.lzhpo</groupId>
-  <artifactId>logging-trace-spring-boot-starter</artifactId>
+  <artifactId>logging-tracer-spring-boot-starter</artifactId>
   <version>${revision}</version>
   <name>${project.groupId} ::: ${project.artifactId}</name>
 
-  <url>https://github.com/lzhpo/logging-trace</url>
+  <url>https://github.com/lzhpo/logging-tracer</url>
   <description>panda logging trace</description>
 
   <scm>
-    <url>git@github.com:lzhpo/logging-trace.git</url>
-    <connection>scm:git@github.com:lzhpo/logging-trace.git</connection>
-    <developerConnection>scm:git@github.com:lzhpo/logging-trace.git</developerConnection>
+    <url>git@github.com:lzhpo/logging-tracer.git</url>
+    <connection>scm:git@github.com:lzhpo/logging-tracer.git</connection>
+    <developerConnection>scm:git@github.com:lzhpo/logging-tracer.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
@@ -61,10 +61,10 @@
   </properties>
 
   <modules>
-    <module>logging-trace-adapters</module>
-    <module>logging-trace-bom</module>
-    <module>logging-trace-samples</module>
-    <module>logging-trace-core</module>
+    <module>logging-tracer-adapters</module>
+    <module>logging-tracer-bom</module>
+    <module>logging-tracer-samples</module>
+    <module>logging-tracer-core</module>
   </modules>
 
   <dependencies>
@@ -90,7 +90,7 @@
     <dependencies>
       <dependency>
         <groupId>com.lzhpo</groupId>
-        <artifactId>logging-trace-bom</artifactId>
+        <artifactId>logging-tracer-bom</artifactId>
         <version>${revision}</version>
         <scope>import</scope>
         <type>pom</type>
@@ -108,11 +108,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-
       <plugin>
         <groupId>com.spotify.fmt</groupId>
         <artifactId>fmt-maven-plugin</artifactId>
