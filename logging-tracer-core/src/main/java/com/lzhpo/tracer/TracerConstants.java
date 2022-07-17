@@ -29,6 +29,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TracerConstants {
 
+  public static final String N_A = "N/A";
+
   public static final String X_B3_TRACE_ID = "X-B3-TraceId";
 
   public static final String X_B3_SPAN_ID = "X-B3-SpanId";

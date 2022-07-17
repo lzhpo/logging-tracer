@@ -17,6 +17,7 @@
 package com.lzhpo.tracer.servlet;
 
 import com.lzhpo.tracer.TracerContextFactory;
+import com.lzhpo.tracer.TracerProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -27,10 +28,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class TracerServletMvcConfigurer implements WebMvcConfigurer {
 
+  private final TracerProperties tracerProperties;
   private final TracerContextFactory tracerContextFactory;
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new TracerServletInterceptor(tracerContextFactory));
+    registry.addInterceptor(new TracerServletInterceptor(tracerProperties, tracerContextFactory));
   }
 }

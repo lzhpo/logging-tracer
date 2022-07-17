@@ -6,6 +6,8 @@ spring:
     name: httpclient-sample
 
 logging:
+  level:
+    com.lzhpo: debug
   tracer:
     proxy-headers:
       - Authorization

@@ -1,7 +1,6 @@
 package com.lzhpo.tracer;
 
 import java.util.Map;
-import org.springframework.util.LinkedCaseInsensitiveMap;
 
 /**
  * @author lzhpo
@@ -9,17 +8,19 @@ import org.springframework.util.LinkedCaseInsensitiveMap;
 public interface TracerContextFactory {
 
   /**
-   * Fill context.
+   * Set tracer context.
    *
-   * @param headers headers
-   * @return context
+   * @param context tracer context
    */
-  LinkedCaseInsensitiveMap<String> fillContext(Map<String, String> headers);
+  void setContext(Map<String, String> context);
 
   /**
-   * Build context.
+   * Get tracer context.
    *
-   * @return Ignore case proxy header
+   * @return tracer context
    */
   Map<String, String> getContext();
+
+  /** Clear tracer context. */
+  void clearContext();
 }

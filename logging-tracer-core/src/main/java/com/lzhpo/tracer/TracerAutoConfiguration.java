@@ -18,7 +18,8 @@ package com.lzhpo.tracer;
 
 import com.lzhpo.tracer.servlet.TracerServletAutoConfiguration;
 import com.lzhpo.tracer.webflux.TracerWebfluxAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -36,13 +37,19 @@ import org.springframework.context.annotation.Import;
     value = "enabled",
     havingValue = "true",
     matchIfMissing = true)
-@Import({TracerServletAutoConfiguration.class, TracerWebfluxAutoConfiguration.class})
 @EnableConfigurationProperties({TracerProperties.class})
+@Import({TracerServletAutoConfiguration.class, TracerWebfluxAutoConfiguration.class})
 public class TracerAutoConfiguration {
 
+  private List<TracerContextCustomizer> tracerContextCustomizers;
+
+  @Autowired(required = false)
+  public void setTracerContextCustomizers(List<TracerContextCustomizer> tracerContextCustomizers) {
+    this.tracerContextCustomizers = tracerContextCustomizers;
+  }
+
   @Bean
-  @ConditionalOnMissingBean
-  public TracerContextFactory tracerContextFactory(TracerProperties traceProperties) {
-    return new DefaultTracerContextFactory(traceProperties);
+  public TracerContextFactory tracerContextFactory() {
+    return new DefaultTracerContextFactory(tracerContextCustomizers);
   }
 }

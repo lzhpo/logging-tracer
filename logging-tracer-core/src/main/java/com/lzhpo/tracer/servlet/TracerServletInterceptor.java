@@ -17,39 +17,43 @@
 package com.lzhpo.tracer.servlet;
 
 import com.lzhpo.tracer.TracerContextFactory;
-import java.util.Enumeration;
+import com.lzhpo.tracer.TracerProperties;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.MDC;
-import org.springframework.util.LinkedCaseInsensitiveMap;
-import org.springframework.util.ObjectUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
  * @author lzhpo
  */
+@Slf4j
 @RequiredArgsConstructor
 public class TracerServletInterceptor implements HandlerInterceptor {
 
+  private final TracerProperties tracerProperties;
   private final TracerContextFactory tracerContextFactory;
 
   @Override
   public boolean preHandle(
-      HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+      @NonNull HttpServletRequest request,
+      @NonNull HttpServletResponse response,
+      @NonNull Object handler) {
 
-    Enumeration<String> headerNames = request.getHeaderNames();
-    Map<String, String> headers = new LinkedCaseInsensitiveMap<>(16);
-    while (headerNames.hasMoreElements()) {
-      String headerName = headerNames.nextElement();
-      headers.put(headerName, request.getHeader(headerName));
+    List<String> proxyHeaders = tracerProperties.getProxyHeaders();
+    Map<String, String> context = new HashMap<>(proxyHeaders.size());
+    proxyHeaders.forEach(headerName -> context.put(headerName, request.getHeader(headerName)));
+    if (log.isDebugEnabled()) {
+      log.debug("Original tracer context from proxy headers: {}", context);
     }
 
-    LinkedCaseInsensitiveMap<String> context = tracerContextFactory.fillContext(headers);
-    if (!ObjectUtils.isEmpty(context)) {
-      context.forEach(MDC::put);
+    tracerContextFactory.setContext(context);
+    if (log.isDebugEnabled()) {
+      log.debug("Built logging tracer context: {}", context);
     }
 
     return true;
@@ -61,6 +65,6 @@ public class TracerServletInterceptor implements HandlerInterceptor {
       @NonNull HttpServletResponse response,
       @NonNull Object handler,
       Exception ex) {
-    MDC.clear();
+    tracerContextFactory.clearContext();
   }
 }

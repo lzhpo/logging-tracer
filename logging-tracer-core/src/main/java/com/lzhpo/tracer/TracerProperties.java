@@ -19,6 +19,7 @@ package com.lzhpo.tracer;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -26,7 +27,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @ConfigurationProperties(prefix = "logging.tracer")
-public class TracerProperties {
+public class TracerProperties implements InitializingBean {
 
   /** Whether enable logging trace */
   private boolean enabled = true;
@@ -40,4 +41,12 @@ public class TracerProperties {
 
   /** Will proxy headers, ignore the case */
   private List<String> proxyHeaders = new ArrayList<>();
+
+  @Override
+  public void afterPropertiesSet() {
+    proxyHeaders.add(TracerConstants.X_B3_SPAN_NAME);
+    proxyHeaders.add(TracerConstants.X_B3_PARENT_SPAN_NAME);
+    proxyHeaders.add(TracerConstants.X_B3_TRACE_ID);
+    proxyHeaders.add(TracerConstants.X_B3_SPAN_ID);
+  }
 }

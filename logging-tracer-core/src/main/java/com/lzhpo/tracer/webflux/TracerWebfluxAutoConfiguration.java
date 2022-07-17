@@ -17,6 +17,7 @@
 package com.lzhpo.tracer.webflux;
 
 import com.lzhpo.tracer.TracerContextFactory;
+import com.lzhpo.tracer.TracerProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +31,8 @@ import org.springframework.context.annotation.Configuration;
 public class TracerWebfluxAutoConfiguration {
 
   @Bean
-  public TracerWebfluxFilter loggingTraceWebfluxFilter(TracerContextFactory tracerContextFactory) {
-    return new TracerWebfluxFilter(tracerContextFactory);
+  public TracerWebfluxFilter loggingTraceWebfluxFilter(
+      TracerProperties tracerProperties, TracerContextFactory tracerContextFactory) {
+    return new TracerWebfluxFilter(tracerProperties, tracerContextFactory);
   }
 }

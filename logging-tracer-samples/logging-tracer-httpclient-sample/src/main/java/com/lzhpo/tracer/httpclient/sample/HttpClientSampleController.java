@@ -53,8 +53,10 @@ public class HttpClientSampleController {
     }
 
     HttpGet httpGet = new HttpGet("http://127.0.0.1:8002/hello");
-    CloseableHttpClient closeableHttpClient = tracerHttpClients.createDefault();
-    CloseableHttpResponse response = closeableHttpClient.execute(httpGet);
+    CloseableHttpResponse response;
+    try (CloseableHttpClient closeableHttpClient = tracerHttpClients.createDefault()) {
+      response = closeableHttpClient.execute(httpGet);
+    }
     return EntityUtils.toString(response.getEntity());
   }
 }

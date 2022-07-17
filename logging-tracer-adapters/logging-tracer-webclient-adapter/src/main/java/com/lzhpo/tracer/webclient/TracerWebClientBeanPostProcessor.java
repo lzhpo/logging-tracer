@@ -34,11 +34,14 @@ public class TracerWebClientBeanPostProcessor implements BeanPostProcessor {
   @Override
   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
     if (bean instanceof WebClient) {
-      Map<String, String> context = tracerContextFactory.getContext();
       WebClient webClient = (WebClient) bean;
       return webClient
           .mutate()
-          .defaultRequest(requestHeadersSpec -> context.forEach(requestHeadersSpec::header))
+          .defaultRequest(
+              requestHeadersSpec -> {
+                Map<String, String> context = tracerContextFactory.getContext();
+                context.forEach(requestHeadersSpec::header);
+              })
           .build();
     }
     return bean;

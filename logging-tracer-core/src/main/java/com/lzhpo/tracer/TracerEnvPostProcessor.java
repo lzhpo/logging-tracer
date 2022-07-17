@@ -48,23 +48,19 @@ public class TracerEnvPostProcessor implements EnvironmentPostProcessor, Ordered
   public void postProcessEnvironment(
       ConfigurableEnvironment environment, SpringApplication application) {
 
-    Boolean enabled = environment.getProperty("logging.tracer.enabled", Boolean.class);
-    if (Boolean.TRUE.equals(enabled)) {
-      Console.log("Enabled logging trace.");
-
-      String pattern = environment.getProperty("logging.tracer.pattern", String.class);
-      if (!StringUtils.hasText(pattern)) {
-        pattern = environment.getProperty(LEVEL_KEY);
-      }
-
-      if (!StringUtils.hasText(pattern)) {
-        // Almost never happens
-        pattern = "%5p";
-      }
-
-      System.setProperty(LEVEL_KEY, pattern);
-      Console.log("{} updated value: {}", LEVEL_KEY, pattern);
+    Boolean enabled = environment.getProperty("logging.tracer.enabled", Boolean.class, true);
+    if (Boolean.FALSE.equals(enabled)) {
+      return;
     }
+
+    Console.log("Enabled logging tracer.");
+    String pattern = environment.getProperty("logging.tracer.pattern", String.class);
+    if (!StringUtils.hasText(pattern)) {
+      pattern = environment.getProperty(LEVEL_KEY, "%5p");
+    }
+
+    System.setProperty(LEVEL_KEY, pattern);
+    Console.log("{} updated value: {}", LEVEL_KEY, pattern);
   }
 
   @Override

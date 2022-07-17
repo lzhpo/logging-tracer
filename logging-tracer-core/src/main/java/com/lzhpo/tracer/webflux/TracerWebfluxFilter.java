@@ -17,13 +17,15 @@
 package com.lzhpo.tracer.webflux;
 
 import com.lzhpo.tracer.TracerContextFactory;
+import com.lzhpo.tracer.TracerProperties;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.MDC;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.util.LinkedCaseInsensitiveMap;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -32,20 +34,31 @@ import reactor.core.publisher.Mono;
 /**
  * @author lzhpo
  */
+@Slf4j
 @RequiredArgsConstructor
 public class TracerWebfluxFilter implements WebFilter {
 
+  private final TracerProperties tracerProperties;
   private final TracerContextFactory tracerContextFactory;
 
   @Override
   @NonNull
   public Mono<Void> filter(ServerWebExchange exchange, @NonNull WebFilterChain chain) {
     ServerHttpRequest request = exchange.getRequest();
-    Map<String, String> headers = request.getHeaders().toSingleValueMap();
-    LinkedCaseInsensitiveMap<String> context = tracerContextFactory.fillContext(headers);
-    if (!ObjectUtils.isEmpty(context)) {
-      context.forEach(MDC::put);
+    HttpHeaders headers = request.getHeaders();
+    List<String> proxyHeaders = tracerProperties.getProxyHeaders();
+    Map<String, String> context = new HashMap<>(proxyHeaders.size());
+
+    proxyHeaders.forEach(headerName -> context.put(headerName, headers.getFirst(headerName)));
+    if (log.isDebugEnabled()) {
+      log.debug("Original tracer context from proxy headers: {}", context);
     }
-    return chain.filter(exchange).doFinally(x -> MDC.clear());
+
+    tracerContextFactory.setContext(context);
+    if (log.isDebugEnabled()) {
+      log.debug("Built logging tracer context: {}", context);
+    }
+
+    return chain.filter(exchange).doFinally(x -> tracerContextFactory.clearContext());
   }
 }

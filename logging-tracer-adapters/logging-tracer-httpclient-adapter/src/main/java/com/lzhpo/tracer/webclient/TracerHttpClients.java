@@ -8,6 +8,7 @@ import org.apache.hc.client5.http.impl.classic.MinimalHttpClient;
 import org.apache.hc.client5.http.io.HttpClientConnectionManager;
 
 /**
+ * @see HttpClients
  * @author lzhpo
  */
 @RequiredArgsConstructor
