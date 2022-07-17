@@ -12,7 +12,7 @@
   </parent>
   <groupId>com.lzhpo</groupId>
   <artifactId>logging-tracer</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <name>${project.groupId} ::: ${project.artifactId}</name>
 
   <url>https://github.com/lzhpo/logging-tracer</url>
