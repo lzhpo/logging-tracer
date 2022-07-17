@@ -1,5 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.lzhpo.tracer.TracerAutoConfiguration
+  com.lzhpo.tracer.TracerAutoConfiguration,\
+  com.lzhpo.tracer.servlet.TracerServletAutoConfiguration,\
+  com.lzhpo.tracer.webflux.TracerWebfluxAutoConfiguration
 
 org.springframework.boot.env.EnvironmentPostProcessor=\
   com.lzhpo.tracer.TracerEnvPostProcessor

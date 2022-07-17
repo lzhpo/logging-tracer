@@ -16,15 +16,12 @@
 
 package com.lzhpo.tracer;
 
-import com.lzhpo.tracer.servlet.TracerServletAutoConfiguration;
-import com.lzhpo.tracer.webflux.TracerWebfluxAutoConfiguration;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 /**
  * Trace auto configure
@@ -38,7 +35,6 @@ import org.springframework.context.annotation.Import;
     havingValue = "true",
     matchIfMissing = true)
 @EnableConfigurationProperties({TracerProperties.class})
-@Import({TracerServletAutoConfiguration.class, TracerWebfluxAutoConfiguration.class})
 public class TracerAutoConfiguration {
 
   private List<TracerContextCustomizer> tracerContextCustomizers;

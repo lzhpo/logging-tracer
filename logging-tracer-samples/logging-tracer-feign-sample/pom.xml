@@ -7,7 +7,7 @@
   <parent>
     <groupId>com.lzhpo</groupId>
     <artifactId>logging-tracer-samples</artifactId>
-    <version>${revision}</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>logging-tracer-feign-sample</artifactId>
   <name>${project.groupId} ::: ${project.artifactId}</name>
@@ -16,7 +16,7 @@
     <dependency>
       <groupId>com.lzhpo</groupId>
       <artifactId>logging-tracer-feign-adapter</artifactId>
-      <version>${revision}</version>
+      <version>1.0.0</version>
     </dependency>
 
     <dependency>

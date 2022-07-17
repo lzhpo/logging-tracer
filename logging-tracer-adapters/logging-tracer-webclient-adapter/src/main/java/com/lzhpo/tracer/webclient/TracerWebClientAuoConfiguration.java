@@ -18,6 +18,7 @@ package com.lzhpo.tracer.webclient;
 
 import com.lzhpo.tracer.TracerContextFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @author lzhpo
  */
 @Configuration
+@ConditionalOnClass({WebClient.class})
 @ConditionalOnBean({TracerContextFactory.class})
 public class TracerWebClientAuoConfiguration {
 

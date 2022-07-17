@@ -16,8 +16,11 @@
 
 package com.lzhpo.tracer.servlet;
 
+import com.lzhpo.tracer.TracerAutoConfiguration;
 import com.lzhpo.tracer.TracerContextFactory;
 import com.lzhpo.tracer.TracerProperties;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +30,9 @@ import org.springframework.context.annotation.Configuration;
  * @author lzhpo
  */
 @Configuration
+@ConditionalOnBean({TracerContextFactory.class})
 @ConditionalOnWebApplication(type = Type.SERVLET)
+@AutoConfigureAfter({TracerAutoConfiguration.class})
 public class TracerServletAutoConfiguration {
 
   @Bean

@@ -56,7 +56,7 @@ public class TracerEnvPostProcessor implements EnvironmentPostProcessor, Ordered
     Console.log("Enabled logging tracer.");
     String pattern = environment.getProperty("logging.tracer.pattern", String.class);
     if (!StringUtils.hasText(pattern)) {
-      pattern = environment.getProperty(LEVEL_KEY, "%5p");
+      pattern = environment.getProperty(LEVEL_KEY, TracerConstants.DEFAULT_PATTERN);
     }
 
     System.setProperty(LEVEL_KEY, pattern);
