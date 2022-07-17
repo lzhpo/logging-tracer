@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.lzhpo.logging.trace.webclient.TracerRestTemplateAuoConfiguration
+  com.lzhpo.tracer.webclient.TracerRestTemplateAuoConfiguration

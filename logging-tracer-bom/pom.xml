@@ -20,12 +20,6 @@
 
       <dependency>
         <groupId>com.lzhpo</groupId>
-        <artifactId>logging-tracer-dubbo-adapter</artifactId>
-        <version>${revision}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.lzhpo</groupId>
         <artifactId>logging-tracer-feign-adapter</artifactId>
         <version>${revision}</version>
       </dependency>

@@ -1,6 +1,13 @@
 server:
-  port: 9003
+  port: 8002
 
 spring:
   application:
-    name: logging-trace-okhttp-sample
+    name: okhttp-sample
+
+logging:
+  tracer:
+    proxy-headers:
+      - Authorization
+      - User-Id
+    pattern: '%5p [${spring.application.name},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'

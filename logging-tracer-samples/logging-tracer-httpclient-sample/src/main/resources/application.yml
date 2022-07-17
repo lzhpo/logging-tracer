@@ -1,6 +1,13 @@
 server:
-  port: 9002
+  port: 8001
 
 spring:
   application:
-    name: logging-trace-httpclient-sample
+    name: httpclient-sample
+
+logging:
+  tracer:
+    proxy-headers:
+      - Authorization
+      - User-Id
+    pattern: '%5p [${spring.application.name},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'

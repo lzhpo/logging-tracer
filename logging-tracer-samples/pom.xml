@@ -17,6 +17,7 @@
     <module>logging-tracer-httpclient-sample</module>
     <module>logging-tracer-okhttp-sample</module>
     <module>logging-tracer-service-sample</module>
+    <module>logging-tracer-resttemplate-sample</module>
     <module>logging-tracer-webclient-sample</module>
   </modules>
 
