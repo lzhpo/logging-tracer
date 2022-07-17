@@ -16,7 +16,7 @@
   <name>${project.groupId} ::: ${project.artifactId}</name>
 
   <url>https://github.com/lzhpo/logging-tracer</url>
-  <description>panda logging trace</description>
+  <description>logging tracer</description>
 
   <scm>
     <url>git@github.com:lzhpo/logging-tracer.git</url>
@@ -46,10 +46,10 @@
   </developers>
 
   <properties>
-    <java.version>1.8</java.version>
     <server.id>ossrh</server.id>
+    <java.version>1.8</java.version>
     <okhttp.version>4.10.0</okhttp.version>
-    <hutool.version>5.8.3</hutool.version>
+    <hutool.version>5.8.4</hutool.version>
     <httpclient.version>5.1.3</httpclient.version>
     <spring-cloud.version>2021.0.1</spring-cloud.version>
     <fmt-maven-plugin.version>2.19</fmt-maven-plugin.version>
