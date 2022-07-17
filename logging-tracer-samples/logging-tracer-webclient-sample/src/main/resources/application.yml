@@ -8,9 +8,3 @@ spring:
 logging:
   level:
     com.lzhpo: debug
-  tracer:
-    proxy-headers:
-      - Authorization
-      - User-Id
-    pattern: '%5p [${spring.application.name},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
-

@@ -14,8 +14,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.lzhpo</groupId>
-      <artifactId>logging-tracer-core</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
   </dependencies>
 
