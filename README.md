@@ -36,11 +36,16 @@
 |  5   |  webclient-sample   |  webclient示例   | 8004 |
 |  6   |   service-sample    |  最终的服务名称  | 9000 |
 
-
-
 #### 1.Feign
 
-直接使用即可。
+导入feign依赖将自动生效。
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
 
 **参考示例**：logging-tracer-feign-sample
 
@@ -49,6 +54,16 @@
 ```
 
 #### 2.HttpClient
+
+导入httpclient依赖将自动生效。
+
+```xml
+<dependency>
+    <groupId>org.apache.httpcomponents.client5</groupId>
+    <artifactId>httpclient5</artifactId>
+    <version>${httpclient.version}</version>
+</dependency>
+```
 
 和使用`HttpClients`一样，不同的是在这使用的`TracerHttpClients` 的Bean，方法和`HttpClients`一样。
 
@@ -59,6 +74,16 @@
 ```
 
 #### 3.Okhttp
+
+导入okhttp依赖将自动生效。
+
+```xml
+<dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>${okhttp.version}</version>
+</dependency>
+```
 
 - **之前**：
 

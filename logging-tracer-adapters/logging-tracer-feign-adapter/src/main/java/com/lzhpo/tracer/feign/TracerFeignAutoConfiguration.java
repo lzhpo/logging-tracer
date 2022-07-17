@@ -17,7 +17,9 @@
 package com.lzhpo.tracer.feign;
 
 import com.lzhpo.tracer.TracerContextFactory;
+import feign.RequestInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +27,7 @@ import org.springframework.context.annotation.Configuration;
  * @author lzhpo
  */
 @Configuration
+@ConditionalOnClass({RequestInterceptor.class})
 @ConditionalOnBean({TracerContextFactory.class})
 public class TracerFeignAutoConfiguration {
 

@@ -18,7 +18,9 @@ package com.lzhpo.tracer.webclient;
 
 import com.lzhpo.tracer.TracerContextFactory;
 import lombok.RequiredArgsConstructor;
+import org.apache.hc.core5.http.HttpRequestInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,6 +29,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @RequiredArgsConstructor
+@ConditionalOnClass({HttpRequestInterceptor.class})
 @ConditionalOnBean({TracerContextFactory.class})
 public class TracerHttpClientAuoConfiguration {
 

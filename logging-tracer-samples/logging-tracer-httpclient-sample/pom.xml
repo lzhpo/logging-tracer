@@ -17,6 +17,12 @@
       <groupId>com.lzhpo</groupId>
       <artifactId>logging-tracer-httpclient-adapter</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>${httpclient.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
