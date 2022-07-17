@@ -4,6 +4,11 @@
 [![Style check](https://github.com/lzhpo/logging-tracer-spring-boot-starter/actions/workflows/style-check.yml/badge.svg)](https://github.com/lzhpo/logging-tracer-spring-boot-starter/actions/workflows/style-check.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51f27097abaf4fb891f11d7eb06241fe)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lzhpo/logging-tracer-spring-boot-starter&amp;utm_campaign=Badge_Grade)
 
+## 开源地址
+
+- GitHub：[https://github.com/lzhpo/logging-tracer](https://github.com/lzhpo/logging-tracer)
+- Gitee：[https://gitee.com/lzhpo/logging-tracer](https://gitee.com/lzhpo/logging-tracer)
+
 ## 前言
 
 > 当我们使用Splunk、ELK等日志组件的时候，我们希望有一个`traceId`就可以把这个请求关联的所有服务日志都搜索出来，并且可以看到上下游服务名称，以及当前请求经历了几层服务，这样子更加方便我们定位问题。
