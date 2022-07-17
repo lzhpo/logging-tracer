@@ -16,6 +16,7 @@
     <dependency>
       <groupId>com.lzhpo</groupId>
       <artifactId>logging-tracer-httpclient-adapter</artifactId>
+      <version>${revision}</version>
     </dependency>
 
     <dependency>

@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>com.lzhpo</groupId>
-    <artifactId>logging-tracer-spring-boot-starter</artifactId>
+    <artifactId>logging-tracer</artifactId>
     <version>${revision}</version>
   </parent>
   <artifactId>logging-tracer-samples</artifactId>
