@@ -12,6 +12,7 @@ public class SampleTracerContextCustomizer implements TracerContextCustomizer {
 
   @Override
   public void customize(Map<String, String> context) {
-    context.put("Country-Code", "CHN");
+    context.put("abc", "123");
+    context.put("def", "456");
   }
 }

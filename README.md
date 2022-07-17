@@ -158,6 +158,15 @@ logging:
       - User-Id
 ```
 
+然后，这些请求头将会自动转发到下游服务，比如，我需要在日志中只显示一个`User-Id`，就可以这样配置：
+```yaml
+logging:
+  pattern:
+    level: '%5p [%X{User-Id}]'
+```
+
+_如果是多个，英文逗号分隔即可。_
+
 #### 关闭`logging-tracer`功能
 
 ```yaml
@@ -178,19 +187,12 @@ public class SampleTracerContextCustomizer implements TracerContextCustomizer {
 
   @Override
   public void customize(Map<String, String> context) {
-    context.put("Country-Code", "CHN");
+    context.put("abc", "123");
+    context.put("def", "456");
   }
 }
 ```
 
-然后在此处添加代理的请求头：
-
-```yaml
-logging:
-  tracer:
-    proxy-headers:
-      - Country-Code
-```
 
 
 
