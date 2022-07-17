@@ -34,7 +34,7 @@ public class TracerFeignRequestInterceptor implements RequestInterceptor {
 
   @Override
   public void apply(RequestTemplate requestTemplate) {
-    Map<String, String> context = tracerContextFactory.buildContext();
+    Map<String, String> context = tracerContextFactory.getContext();
     context.forEach(requestTemplate::header);
   }
 }

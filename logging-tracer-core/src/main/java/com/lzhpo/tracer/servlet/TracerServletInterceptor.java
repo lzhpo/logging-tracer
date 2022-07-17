@@ -21,9 +21,11 @@ import java.util.Enumeration;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
 import org.springframework.util.LinkedCaseInsensitiveMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
@@ -36,20 +38,29 @@ public class TracerServletInterceptor implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(
-      HttpServletRequest request, HttpServletResponse response, Object handler) {
+      HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+
     Enumeration<String> headerNames = request.getHeaderNames();
-    Map<String, String> requestHeaderMap = new LinkedCaseInsensitiveMap<>(16);
+    Map<String, String> headers = new LinkedCaseInsensitiveMap<>(16);
     while (headerNames.hasMoreElements()) {
       String headerName = headerNames.nextElement();
-      requestHeaderMap.put(headerName, request.getHeader(headerName));
+      headers.put(headerName, request.getHeader(headerName));
     }
-    tracerContextFactory.fillContext(requestHeaderMap);
+
+    LinkedCaseInsensitiveMap<String> context = tracerContextFactory.fillContext(headers);
+    if (!ObjectUtils.isEmpty(context)) {
+      context.forEach(MDC::put);
+    }
+
     return true;
   }
 
   @Override
   public void afterCompletion(
-      HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+      @NonNull HttpServletRequest request,
+      @NonNull HttpServletResponse response,
+      @NonNull Object handler,
+      Exception ex) {
     MDC.clear();
   }
 }

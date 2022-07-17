@@ -38,7 +38,7 @@ public class TracerRestTemplateInterceptor implements ClientHttpRequestIntercept
   public ClientHttpResponse intercept(
       HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
     HttpHeaders requestHeaders = request.getHeaders();
-    Map<String, String> context = tracerContextFactory.buildContext();
+    Map<String, String> context = tracerContextFactory.getContext();
     context.forEach(requestHeaders::add);
     return execution.execute(request, body);
   }

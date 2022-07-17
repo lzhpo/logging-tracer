@@ -16,7 +16,7 @@ public interface InjectTracerContext {
    * @param httpRequest {@link HttpRequest}
    */
   default void inject(TracerContextFactory tracerContextFactory, HttpRequest httpRequest) {
-    Map<String, String> context = tracerContextFactory.buildContext();
+    Map<String, String> context = tracerContextFactory.getContext();
     context.forEach(httpRequest::addHeader);
   }
 }

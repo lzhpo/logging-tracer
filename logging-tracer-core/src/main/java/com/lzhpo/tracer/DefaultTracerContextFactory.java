@@ -37,37 +37,40 @@ public final class DefaultTracerContextFactory implements TracerContextFactory {
   private final TracerProperties traceProperties;
 
   @Override
-  public void fillContext(Map<String, String> requestHeaderMap) {
-    MDC.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
+  public LinkedCaseInsensitiveMap<String> fillContext(Map<String, String> headers) {
+    LinkedCaseInsensitiveMap<String> context = new LinkedCaseInsensitiveMap<>();
+
+    context.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
     List<String> proxyHeaders = traceProperties.getProxyHeaders();
-    proxyHeaders.forEach(proxyHeader -> MDC.put(proxyHeader, requestHeaderMap.get(proxyHeader)));
-    String traceId = requestHeaderMap.get(TracerConstants.X_B3_TRACE_ID);
+    proxyHeaders.forEach(proxyHeader -> context.put(proxyHeader, headers.get(proxyHeader)));
+    String traceId = headers.get(TracerConstants.X_B3_TRACE_ID);
 
     if (StringUtils.hasText(traceId)) {
-      String spanId = requestHeaderMap.get(TracerConstants.X_B3_SPAN_ID);
-      String asParentSpanName = requestHeaderMap.get(TracerConstants.X_B3_SPAN_NAME);
-
-      MDC.put(TracerConstants.X_B3_PARENT_SPAN_NAME, asParentSpanName);
-      MDC.put(TracerConstants.X_B3_TRACE_ID, traceId);
-      MDC.put(TracerConstants.X_B3_SPAN_ID, spanId + StrPool.DOT + 1);
+      String spanId = headers.get(TracerConstants.X_B3_SPAN_ID);
+      String asParentSpanName = headers.get(TracerConstants.X_B3_SPAN_NAME);
+      context.put(TracerConstants.X_B3_PARENT_SPAN_NAME, asParentSpanName);
+      context.put(TracerConstants.X_B3_TRACE_ID, traceId);
+      context.put(TracerConstants.X_B3_SPAN_ID, spanId + StrPool.DOT + 1);
     } else {
-      MDC.put(TracerConstants.X_B3_PARENT_SPAN_NAME, "N/A");
-      MDC.put(TracerConstants.X_B3_TRACE_ID, IdUtil.fastSimpleUUID());
-      MDC.put(TracerConstants.X_B3_SPAN_ID, "0");
+      context.put(TracerConstants.X_B3_PARENT_SPAN_NAME, "N/A");
+      context.put(TracerConstants.X_B3_TRACE_ID, IdUtil.fastSimpleUUID());
+      context.put(TracerConstants.X_B3_SPAN_ID, "0");
     }
+
+    return context;
   }
 
   @Override
-  public Map<String, String> buildContext() {
+  public Map<String, String> getContext() {
     List<String> proxyHeaders = traceProperties.getProxyHeaders();
-    Map<String, String> proxyHeaderMap = new LinkedCaseInsensitiveMap<>(proxyHeaders.size() + 4);
-    proxyHeaders.forEach(headerName -> proxyHeaderMap.put(headerName, MDC.get(headerName)));
+    Map<String, String> context = new LinkedCaseInsensitiveMap<>(proxyHeaders.size() + 4);
+    proxyHeaders.forEach(headerName -> context.put(headerName, MDC.get(headerName)));
 
-    proxyHeaderMap.put(TracerConstants.X_B3_TRACE_ID, MDC.get(TracerConstants.X_B3_TRACE_ID));
-    proxyHeaderMap.put(TracerConstants.X_B3_SPAN_ID, MDC.get(TracerConstants.X_B3_SPAN_ID));
-    proxyHeaderMap.put(TracerConstants.X_B3_SPAN_NAME, MDC.get(TracerConstants.X_B3_SPAN_NAME));
-    proxyHeaderMap.put(
+    context.put(TracerConstants.X_B3_TRACE_ID, MDC.get(TracerConstants.X_B3_TRACE_ID));
+    context.put(TracerConstants.X_B3_SPAN_ID, MDC.get(TracerConstants.X_B3_SPAN_ID));
+    context.put(TracerConstants.X_B3_SPAN_NAME, MDC.get(TracerConstants.X_B3_SPAN_NAME));
+    context.put(
         TracerConstants.X_B3_PARENT_SPAN_NAME, MDC.get(TracerConstants.X_B3_PARENT_SPAN_NAME));
-    return proxyHeaderMap;
+    return context;
   }
 }

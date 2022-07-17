@@ -18,11 +18,12 @@ package com.lzhpo.tracer.webflux;
 
 import com.lzhpo.tracer.TracerContextFactory;
 import java.util.Map;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.MDC;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.LinkedCaseInsensitiveMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -37,12 +38,14 @@ public class TracerWebfluxFilter implements WebFilter {
   private final TracerContextFactory tracerContextFactory;
 
   @Override
-  public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+  @NonNull
+  public Mono<Void> filter(ServerWebExchange exchange, @NonNull WebFilterChain chain) {
     ServerHttpRequest request = exchange.getRequest();
-    HttpHeaders headers = request.getHeaders();
-    Map<String, String> requestHeaderMap = new LinkedCaseInsensitiveMap<>(16);
-    requestHeaderMap.putAll(headers.toSingleValueMap());
-    tracerContextFactory.fillContext(requestHeaderMap);
+    Map<String, String> headers = request.getHeaders().toSingleValueMap();
+    LinkedCaseInsensitiveMap<String> context = tracerContextFactory.fillContext(headers);
+    if (!ObjectUtils.isEmpty(context)) {
+      context.forEach(MDC::put);
+    }
     return chain.filter(exchange).doFinally(x -> MDC.clear());
   }
 }

@@ -34,7 +34,7 @@ public class TracerWebClientBeanPostProcessor implements BeanPostProcessor {
   @Override
   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
     if (bean instanceof WebClient) {
-      Map<String, String> context = tracerContextFactory.buildContext();
+      Map<String, String> context = tracerContextFactory.getContext();
       WebClient webClient = (WebClient) bean;
       return webClient
           .mutate()

@@ -38,7 +38,7 @@ public class TracerOkHttpInterceptor implements Interceptor {
   @Override
   public Response intercept(@NotNull Chain chain) throws IOException {
     Builder builder = chain.request().newBuilder();
-    Map<String, String> context = tracerContextFactory.buildContext();
+    Map<String, String> context = tracerContextFactory.getContext();
     context.forEach(builder::addHeader);
     Request newRequest = builder.build();
     return chain.proceed(newRequest);
