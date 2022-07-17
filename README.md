@@ -4,6 +4,31 @@
 [![Style check](https://github.com/lzhpo/logging-tracer-spring-boot-starter/actions/workflows/style-check.yml/badge.svg)](https://github.com/lzhpo/logging-tracer-spring-boot-starter/actions/workflows/style-check.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/51f27097abaf4fb891f11d7eb06241fe)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lzhpo/logging-tracer-spring-boot-starter&amp;utm_campaign=Badge_Grade)
 
+
+
+## 前言
+
+> 当我们使用Splunk、ELK等日志组件的时候，我们希望有一个`traceId`就可以把这个请求关联的所有服务日志都搜索出来，并且可以看到上下游服务名称，以及当前请求经历了几层服务，这样子更加方便我们定位问题。
+
+日志样例：
+
+```shell
+2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [accept-encoding: gzip]
+2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [user-agent: ReactorNetty/1.0.19]
+2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [host: 127.0.0.1:9000]
+```
+
+`[service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1]`：
+
+- service-sample：当前服务名称。
+- webclient-sample：上游服务名称。
+- 86b65402341e4d479725cc6e92b0bf61：链路ID，即traceId。
+- 0.1.1.1.1：请求经历的服务层级。
+  - 假设是0：表示到达当前位置，没有经历下游服务。
+  - 假设是0.1：表示到达当前位置，当前经历了1层下游服务。
+  - 假设是0.1.1：表示到达当前位置，当前经历了2层下游服务。
+  - 以此类推...
+
 ## 快速使用
 
 ### 导入依赖
@@ -27,14 +52,14 @@
 
 在这模拟多链路调用服务，按如下顺序逐层call：
 
-| 顺序 |      服务名称       |       描述       | 端口 |
-| :--: | :-----------------: | :--------------: | :--: |
-|  1   |    feign-sample     |    feign示例     | 8000 |
-|  2   |  httpclient-sample  |  httpclient示例  | 8001 |
-|  3   |    okhttp-sample    |    okhttp示例    | 8002 |
-|  4   | resttemplate-sample | resttemplate示例 | 8003 |
-|  5   |  webclient-sample   |  webclient示例   | 8004 |
-|  6   |   service-sample    |  最终的服务名称  | 9000 |
+| 顺序 |      服务名称       |                     截取的部分trace样例                      |
+| :--: | :-----------------: | :----------------------------------------------------------: |
+|  1   |    feign-sample     |   `[feign-sample,N/A,86b65402341e4d479725cc6e92b0bf61,0]`    |
+|  2   |  httpclient-sample  | `[httpclient-sample,feign-sample,86b65402341e4d479725cc6e92b0bf61,0.1]` |
+|  3   |    okhttp-sample    | `[okhttp-sample,httpclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1]` |
+|  4   | resttemplate-sample | `[resttemplate-sample,okhttp-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1]` |
+|  5   |  webclient-sample   | `[webclient-sample,okhttp-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1]` |
+|  6   |   service-sample    | `[service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1]` |
 
 #### 1.Feign
 
@@ -48,10 +73,6 @@
 ```
 
 **参考示例**：logging-tracer-feign-sample
-
-```shell
-2022-07-17 18:46:00.458  INFO [feign-sample,N/A,86b65402341e4d479725cc6e92b0bf61,0] 11816 --- [nio-8000-exec-2] c.l.t.s.feign.FeignSampleController      : Received new request for hello api.
-```
 
 #### 2.HttpClient
 
@@ -68,10 +89,6 @@
 和使用`HttpClients`一样，不同的是在这使用的`TracerHttpClients` 的Bean，方法和`HttpClients`一样。
 
 **参考示例**：logging-tracer-httpclient-sample
-
-```shell
-2022-07-17 18:46:00.581  INFO [httpclient-sample,feign-sample,86b65402341e4d479725cc6e92b0bf61,0.1] 19904 --- [nio-8001-exec-2] c.l.t.h.s.HttpClientSampleController     : Received new request for hello api.
-```
 
 #### 3.Okhttp
 
@@ -99,19 +116,11 @@
 
 **参考示例**：logging-tracer-okhttp-sample
 
-```shell
-2022-07-17 18:46:00.894  INFO [okhttp-sample,httpclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1] 7996 --- [nio-8002-exec-1] c.l.t.o.sample.OkHttpSampleController    : Received new request for hello api.
-```
-
 #### 4.RestTemplate
 
 直接注入`RestTemplate`Bean使用即可。
 
 **参考示例**：logging-tracer-resttemplate-sample
-
-```shell
-2022-07-17 18:46:01.162  INFO [resttemplate-sample,okhttp-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1] 15084 --- [nio-8003-exec-2] c.l.t.s.f.RestTemplateSampleController   : Received new request for hello api.
-```
 
 #### 5.Webclient
 
@@ -119,6 +128,69 @@
 
 **参考示例**：logging-tracer-webclient-sample
 
-```shell
-2022-07-17 18:46:01.375  INFO [webclient-sample,okhttp-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1] 2252 --- [ctor-http-nio-2] c.l.t.w.s.WebClientSampleController      : Request header with [Accept: [text/plain, application/json, application/*+json, */*]]
+## 自定义配置
+
+### 自定义配置文件
+
+#### 自定义日志链路输出格式
+
+```yaml
+logging:
+  tracer:
+    pattern: '%5p [${spring.application.name},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
 ```
+
+当然，你也可以按照以前的方式配置，也是一样生效的，如果两个都配置了，优先使用上面的。
+
+```yaml
+logging:
+  pattern:
+    level: '%5p [${spring.application.name},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
+```
+
+#### 自定义转发到下游服务的请求头
+
+```yaml
+logging:
+  tracer:
+    proxy-headers:
+      - Authorization
+      - User-Id
+```
+
+#### 关闭`logging-tracer`功能
+
+```yaml
+logging:
+  tracer:
+    enabled: false
+```
+
+### 自定义业务逻辑
+
+实现接口`TracerContextCustomizer`，加入到Spring容器中即可。
+
+比如，当你需要添加请求头转发到下游服务的时候，又或者是你自定义日志链路输出格式，就需要将相关的变量添加到context中。
+
+```java
+@Component
+public class SampleTracerContextCustomizer implements TracerContextCustomizer {
+
+  @Override
+  public void customize(Map<String, String> context) {
+    context.put("Country-Code", "CHN");
+  }
+}
+```
+
+然后在此处添加代理的请求头：
+
+```yaml
+logging:
+  tracer:
+    proxy-headers:
+      - Country-Code
+```
+
+
+
