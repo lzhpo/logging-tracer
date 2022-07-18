@@ -12,7 +12,7 @@
   </parent>
   <groupId>com.lzhpo</groupId>
   <artifactId>logging-tracer</artifactId>
-  <version>1.0.1</version>
+  <version>${revision}</version>
   <name>${project.groupId} ::: ${project.artifactId}</name>
 
   <url>https://github.com/lzhpo/logging-tracer</url>
@@ -58,6 +58,7 @@
     <maven.gpg.version>3.0.1</maven.gpg.version>
     <maven.source.version>3.0.1</maven.source.version>
     <maven.javadoc.version>3.0.1</maven.javadoc.version>
+    <flatten-maven-plugin>1.2.7</flatten-maven-plugin>
   </properties>
 
   <modules>
@@ -100,6 +101,33 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>${flatten-maven-plugin}</version>
+        <configuration>
+          <!-- whether to update the pom file, e.g: revision -->
+          <updatePomFile>true</updatePomFile>
+          <flattenMode>resolveCiFriendliesOnly</flattenMode>
+        </configuration>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>flatten.clean</id>
+            <phase>clean</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>com.spotify.fmt</groupId>
         <artifactId>fmt-maven-plugin</artifactId>

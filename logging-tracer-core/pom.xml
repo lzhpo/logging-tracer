@@ -7,14 +7,10 @@
   <parent>
     <groupId>com.lzhpo</groupId>
     <artifactId>logging-tracer</artifactId>
-    <version>1.0.1</version>
+    <version>${revision}</version>
   </parent>
   <artifactId>logging-tracer-core</artifactId>
   <name>${project.groupId} ::: ${project.artifactId}</name>
-
-  <properties>
-    <maven.deploy.skip>true</maven.deploy.skip>
-  </properties>
 
   <dependencies>
     <dependency>
