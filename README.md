@@ -142,7 +142,7 @@ _PS：如果不需要定制，直接导入相关依赖按照下面组件说明�
 ```yaml
 logging:
   tracer:
-    pattern: '%5p [${spring.application.name},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
+    pattern: '%5p [${spring.application.name:},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
 ```
 
 当然，你也可以按照以前的方式配置，也是一样生效的，如果两个都配置了，优先使用上面的。
@@ -150,7 +150,7 @@ logging:
 ```yaml
 logging:
   pattern:
-    level: '%5p [${spring.application.name},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
+    level: '%5p [${spring.application.name:},%X{X-B3-Parent-SpanName},%X{X-B3-TraceId},%X{X-B3-SpanId}]'
 ```
 
 #### 自定义转发到下游服务的请求头

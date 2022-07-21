@@ -41,6 +41,6 @@ public final class TracerConstants {
 
   public static final String DEFAULT_PATTERN =
       StrFormatter.formatWith(
-          "%5p [${spring.application.name},%X{#},%X{#},%X{#}]",
+          "%5p [${spring.application.name:},%X{#},%X{#},%X{#}]",
           "#", X_B3_PARENT_SPAN_NAME, X_B3_TRACE_ID, X_B3_SPAN_ID);
 }
