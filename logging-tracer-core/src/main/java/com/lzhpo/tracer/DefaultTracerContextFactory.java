@@ -18,7 +18,9 @@ package com.lzhpo.tracer;
 
 import cn.hutool.core.text.StrPool;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.extra.spring.SpringUtil;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +65,7 @@ public class DefaultTracerContextFactory implements TracerContextFactory {
 
   @Override
   public Map<String, String> getContext() {
-    return MDC.getCopyOfContextMap();
+    return ObjectUtil.defaultIfNull(MDC.getCopyOfContextMap(), HashMap::new);
   }
 
   @Override
