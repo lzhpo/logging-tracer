@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lzhpo.tracer.webclient;
+package com.lzhpo.tracer.resttemplate;
 
 import com.lzhpo.tracer.TracerContextFactory;
 import java.io.IOException;

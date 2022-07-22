@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lzhpo.tracer.webclient;
+package com.lzhpo.tracer.httpclient;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;

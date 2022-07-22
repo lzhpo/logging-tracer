@@ -14,41 +14,34 @@
  * limitations under the License.
  */
 
-package com.lzhpo.tracer.webclient;
+package com.lzhpo.tracer.httpclient;
 
 import com.lzhpo.tracer.TracerContextFactory;
 import lombok.RequiredArgsConstructor;
+import org.apache.hc.core5.http.HttpRequestInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @author lzhpo
  */
 @Configuration
 @RequiredArgsConstructor
-@ConditionalOnClass({RestTemplate.class})
+@ConditionalOnClass({HttpRequestInterceptor.class})
 @ConditionalOnBean({TracerContextFactory.class})
-public class TracerRestTemplateAuoConfiguration {
+public class TracerHttpClientAuoConfiguration {
 
   private final TracerContextFactory tracerContextFactory;
 
   @Bean
-  @ConditionalOnMissingBean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
+  public TracerHttpClients tracerHttpClients() {
+    return new TracerHttpClients(tracerHttpClientInterceptor());
   }
 
   @Bean
-  public TracerRestTemplateInterceptor tracerRestTemplateInterceptor() {
-    return new TracerRestTemplateInterceptor(tracerContextFactory);
-  }
-
-  @Bean
-  public TracerRestTemplateBeanPostProcessor tracerRestTemplateBeanPostProcessor() {
-    return new TracerRestTemplateBeanPostProcessor(tracerRestTemplateInterceptor());
+  public TracerHttpClientInterceptor tracerHttpClientInterceptor() {
+    return new TracerHttpClientInterceptor(tracerContextFactory);
   }
 }

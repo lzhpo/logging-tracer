@@ -16,7 +16,7 @@
 
 package com.lzhpo.tracer.httpclient.sample;
 
-import com.lzhpo.tracer.webclient.TracerHttpClients;
+import com.lzhpo.tracer.httpclient.TracerHttpClients;
 import java.io.IOException;
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;

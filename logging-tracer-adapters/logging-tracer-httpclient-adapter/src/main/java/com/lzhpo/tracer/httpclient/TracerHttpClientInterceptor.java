@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-package com.lzhpo.tracer.webclient;
+package com.lzhpo.tracer.httpclient;
 
 import com.lzhpo.tracer.TracerContextFactory;
-import java.util.Map;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.apache.hc.core5.http.EntityDetails;
 import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.core5.http.HttpRequestInterceptor;
+import org.apache.hc.core5.http.protocol.HttpContext;
 
 /**
  * @author lzhpo
  */
-public interface InjectTracerContext {
+@RequiredArgsConstructor
+public class TracerHttpClientInterceptor implements HttpRequestInterceptor, InjectTracerContext {
 
-  /**
-   * Inject tracer logic
-   *
-   * @param tracerContextFactory {@link TracerContextFactory}
-   * @param httpRequest {@link HttpRequest}
-   */
-  default void inject(TracerContextFactory tracerContextFactory, HttpRequest httpRequest) {
-    Map<String, String> context = tracerContextFactory.getContext();
-    context.forEach(httpRequest::addHeader);
+  @Getter private final TracerContextFactory tracerContextFactory;
+
+  @Override
+  public void process(
+      HttpRequest httpRequest, EntityDetails entityDetails, HttpContext httpContext) {
+    inject(tracerContextFactory, httpRequest);
   }
 }
