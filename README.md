@@ -198,6 +198,12 @@ public class SampleTracerContextCustomizer implements TracerContextCustomizer {
 }
 ```
 
+## 鸣谢
+
+感谢Jetbrains提供的License！
+
+<img width="150" height="150" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo.">
+
 ## 公众号
 
 |         微信          |            公众号             |
