@@ -15,17 +15,19 @@
 
 日志样例：
 
+![](./docs/images/service-sample-console-log.png)
+
 ```shell
-2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [accept-encoding: gzip]
-2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [user-agent: ReactorNetty/1.0.19]
-2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [host: 127.0.0.1:9000]
+2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [accept-encoding: gzip]
+2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [user-agent: ReactorNetty/1.0.19]
+2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [host: 127.0.0.1:9000]
 ```
 
-`[service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1]`：
+`[service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1]`：
 
 - `service-sample`：当前服务名称。
 - `webclient-sample`：上游服务名称。
-- `86b65402341e4d479725cc6e92b0bf61`：链路ID，即traceId。
+- `f14ab51816a54ace989bf0db0102aee2`：链路ID，即traceId。
 - `0.1.1.1.1`：请求经历的服务层级。
   - 假设是0：表示到达当前位置，没有经历下游服务。
   - 假设是0.1：表示到达当前位置，已经经历了1层下游服务。
@@ -59,12 +61,12 @@ _PS：如果不需要定制，直接导入相关依赖按照下面组件说明�
 
 | 顺序 |      服务名称       |                     截取的部分trace样例                      |
 | :--: | :-----------------: | :----------------------------------------------------------: |
-|  1   |    feign-sample     |   `[feign-sample,N/A,86b65402341e4d479725cc6e92b0bf61,0]`    |
-|  2   |  httpclient-sample  | `[httpclient-sample,feign-sample,86b65402341e4d479725cc6e92b0bf61,0.1]` |
-|  3   |    okhttp-sample    | `[okhttp-sample,httpclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1]` |
-|  4   | resttemplate-sample | `[resttemplate-sample,okhttp-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1]` |
-|  5   |  webclient-sample   | `[webclient-sample,okhttp-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1]` |
-|  6   |   service-sample    | `[service-sample,webclient-sample,86b65402341e4d479725cc6e92b0bf61,0.1.1.1.1]` |
+|  1   |    feign-sample     |   `[feign-sample,N/A,f14ab51816a54ace989bf0db0102aee2,0]`    |
+|  2   |  httpclient-sample  | `[httpclient-sample,feign-sample,f14ab51816a54ace989bf0db0102aee2,0.1]` |
+|  3   |    okhttp-sample    | `[okhttp-sample,httpclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1]` |
+|  4   | resttemplate-sample | `[resttemplate-sample,okhttp-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1]` |
+|  5   |  webclient-sample   | `[webclient-sample,okhttp-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1]` |
+|  6   |   service-sample    | `[service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1]` |
 
 #### 1.Feign
 
