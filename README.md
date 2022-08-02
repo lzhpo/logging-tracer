@@ -18,9 +18,9 @@
 ![](./docs/images/service-sample-console-log.png)
 
 ```shell
-2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [accept-encoding: gzip]
-2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [user-agent: ReactorNetty/1.0.19]
-2022-07-17 18:46:01.702  INFO [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 1740 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [host: 127.0.0.1:9000]
+2022-08-02 20:47:39.628 DEBUG [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 15404 --- [nio-9000-exec-1] c.l.t.servlet.TracerServletInterceptor   : Built logging tracer context: {X-B3-TraceId=f14ab51816a54ace989bf0db0102aee2, X-B3-SpanName=service-sample, X-B3-SpanId=0.1.1.1.1, X-B3-Parent-SpanName=webclient-sample}
+2022-08-02 20:47:39.639  INFO [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 15404 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Received new request for hello api.
+2022-08-02 20:47:39.640  INFO [service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1] 15404 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [accept-encoding: gzip]
 ```
 
 `[service-sample,webclient-sample,f14ab51816a54ace989bf0db0102aee2,0.1.1.1.1]`：
