@@ -17,7 +17,6 @@
 package com.lzhpo.tracer.sample.feign;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +28,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,17 +55,15 @@ public class RestTemplateSampleController {
     threadPool();
     multiThread();
 
-    LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<>(16);
     Enumeration<String> headerNames = request.getHeaderNames();
     while (headerNames.hasMoreElements()) {
       String headerName = headerNames.nextElement();
       String headerValue = request.getHeader(headerName);
       log.info("Request header with [{}: {}]", headerName, headerValue);
-      headers.put(headerName, Collections.singletonList(headerValue));
     }
 
     URI uri = UriComponentsBuilder.fromHttpUrl("http://127.0.0.1:8004/hello").build().toUri();
-    HttpEntity<Object> entity = new HttpEntity<>(null, headers);
+    HttpEntity<Object> entity = new HttpEntity<>(null, null);
     ResponseEntity<String> response =
         restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
     return response.getBody();
