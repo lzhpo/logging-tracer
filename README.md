@@ -184,7 +184,7 @@ logging:
 
 #### 多线程环境下使用
 
-> 可以参考`logging-tracer-samples/logging-tracer-resttemplate-sample/src/main/java/com/lzhpo/tracer/sample/feign/RestTemplateSampleController.java`中的示例代码。
+> 可以参考`logging-tracer-resttemplate-sample`模块中的`RestTemplateSampleController`中示例代码。
 
 1. `ThreadPoolTaskExecutor`【推荐】：如果是注入`ThreadPoolTaskExecutor`线程池执行多线程任务的话，则正常使用即可，`logging-tracer`会自动处理相关逻辑。
    

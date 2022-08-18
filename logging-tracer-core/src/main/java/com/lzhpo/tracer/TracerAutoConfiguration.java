@@ -18,6 +18,7 @@ package com.lzhpo.tracer;
 
 import com.lzhpo.tracer.support.ThreadPoolTaskExecutorBeanPostProcessor;
 import com.lzhpo.tracer.support.TracerContextTaskDecorator;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -25,8 +26,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
-
-import java.util.List;
 
 /**
  * Trace auto configure
