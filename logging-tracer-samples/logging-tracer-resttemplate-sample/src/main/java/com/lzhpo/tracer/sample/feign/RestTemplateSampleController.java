@@ -19,12 +19,16 @@ package com.lzhpo.tracer.sample.feign;
 import java.net.URI;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +46,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class RestTemplateSampleController {
 
   private final RestTemplate restTemplate;
+  private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
   @GetMapping("/hello")
   public String hello(HttpServletRequest request) {
     log.info("Received new request for hello api.");
+
+    // Test multiThread environment
+    async();
+    threadPool();
+    multiThread();
 
     LinkedMultiValueMap<String, String> headers = new LinkedMultiValueMap<>(16);
     Enumeration<String> headerNames = request.getHeaderNames();
@@ -61,5 +71,25 @@ public class RestTemplateSampleController {
     ResponseEntity<String> response =
         restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
     return response.getBody();
+  }
+
+  @Async
+  public void async() {
+    log.info("[async] Hello, I'm async.");
+  }
+
+  private void threadPool() {
+    threadPoolTaskExecutor.execute(() -> log.info("[threadPool] Hello, I'm threadPool."));
+  }
+
+  private void multiThread() {
+    Map<String, String> context = MDC.getCopyOfContextMap();
+    Thread thread =
+        new Thread(
+            () -> {
+              MDC.setContextMap(context);
+              log.info("[multiThread] Hello, I'm multiThread.");
+            });
+    thread.start();
   }
 }

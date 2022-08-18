@@ -182,6 +182,31 @@ logging:
     enabled: false
 ```
 
+#### 多线程环境下使用
+
+> 可以参考`logging-tracer-samples/logging-tracer-resttemplate-sample/src/main/java/com/lzhpo/tracer/sample/feign/RestTemplateSampleController.java`中的示例代码。
+
+1. `ThreadPoolTaskExecutor`【推荐】：如果是注入`ThreadPoolTaskExecutor`线程池执行多线程任务的话，则正常使用即可，`logging-tracer`会自动处理相关逻辑。
+   
+   ```java
+   @Autowired
+   private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+   
+   // 略...
+   threadPoolTaskExecutor.execute(() -> log.info("[threadPool] Hello, I'm threadPool."));
+   ```
+2. `Thread`: 因为`logging-tracer`依赖的是`MDC`，所以，如果是使用的`Thread`，需要手动在子父线程中维持MDC相关上下文。
+   
+   ```java
+    Map<String, String> context = MDC.getCopyOfContextMap();
+    Thread thread = new Thread(() -> {
+      MDC.setContextMap(context);
+      log.info("[multiThread] Hello, I'm multiThread.");
+    });
+    thread.start();
+   ```
+3. 其它的方式也同理。
+
 ### 自定义业务逻辑
 
 实现接口`TracerContextCustomizer`，加入到Spring容器中即可。
