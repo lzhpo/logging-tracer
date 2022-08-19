@@ -17,15 +17,15 @@
 package com.lzhpo.tracer;
 
 import com.lzhpo.tracer.support.ThreadPoolTaskExecutorBeanPostProcessor;
-import java.util.List;
-import lombok.Setter;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Trace auto configure
@@ -41,12 +41,12 @@ import org.springframework.core.task.TaskDecorator;
 @EnableConfigurationProperties({TracerProperties.class})
 public class TracerAutoConfiguration {
 
-  @Setter(onMethod_ = {@Autowired(required = false)})
-  private List<TracerContextCustomizer> tracerContextCustomizers;
-
   @Bean
-  public TracerContextFactory tracerContextFactory() {
-    return new DefaultTracerContextFactory(tracerContextCustomizers);
+  public TracerContextFactory tracerContextFactory(
+      ObjectProvider<TracerContextCustomizer> contextCustomizerProvider) {
+    List<TracerContextCustomizer> contextCustomizers =
+        contextCustomizerProvider.stream().collect(Collectors.toList());
+    return new DefaultTracerContextFactory(contextCustomizers);
   }
 
   @Bean
