@@ -118,6 +118,10 @@ _PS：如果不需要定制，直接导入相关依赖按照下面组件说明�
 - **现在**：注入`OkHttpClient.Builder`Bean直接使用，就不是直接new了。
 
   ```java
+  @Autowired
+  private OkHttpClient.Builder okHttpClientBuilder;
+  
+  // 略...
   OkHttpClient okHttpClient = okHttpClientBuilder.build();
   ```
 
