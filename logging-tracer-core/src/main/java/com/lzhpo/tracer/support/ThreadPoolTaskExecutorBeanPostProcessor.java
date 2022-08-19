@@ -16,6 +16,7 @@
 
 package com.lzhpo.tracer.support;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -36,7 +37,8 @@ public class ThreadPoolTaskExecutorBeanPostProcessor implements BeanPostProcesso
   private final TaskDecorator taskDecorator;
 
   @Override
-  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+  public Object postProcessAfterInitialization(@NonNull Object bean, @NonNull String beanName)
+      throws BeansException {
     if (bean instanceof ThreadPoolTaskExecutor) {
       ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) bean;
       threadPoolTaskExecutor.setTaskDecorator(taskDecorator);
