@@ -25,10 +25,10 @@ import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
- * Inject {@link TaskDecorator} to {@link ThreadPoolTaskExecutor}
+ * Inject {@link TracerTaskDecoratorDelegate} into {@link ThreadPoolTaskExecutor}
  *
- * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
  * @author lzhpo
+ * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -37,12 +37,14 @@ public class ThreadPoolTaskExecutorBeanPostProcessor implements BeanPostProcesso
   private final TaskDecorator taskDecorator;
 
   @Override
-  public Object postProcessAfterInitialization(@NonNull Object bean, @NonNull String beanName)
+  public Object postProcessBeforeInitialization(@NonNull Object bean, @NonNull String beanName)
       throws BeansException {
     if (bean instanceof ThreadPoolTaskExecutor) {
       ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) bean;
-      threadPoolTaskExecutor.setTaskDecorator(taskDecorator);
-      log.info("Injected taskDecorator[{}] in {}[{}].", taskDecorator, beanName, bean);
+      TracerTaskDecoratorDelegate delegateTaskDecorator =
+          new TracerTaskDecoratorDelegate(taskDecorator);
+      threadPoolTaskExecutor.setTaskDecorator(delegateTaskDecorator);
+      log.info("Injected [{}] in {}[{}].", delegateTaskDecorator, beanName, bean);
       return threadPoolTaskExecutor;
     }
     return bean;

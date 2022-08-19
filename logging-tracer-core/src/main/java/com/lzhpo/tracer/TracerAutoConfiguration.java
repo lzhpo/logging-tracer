@@ -17,11 +17,10 @@
 package com.lzhpo.tracer;
 
 import com.lzhpo.tracer.support.ThreadPoolTaskExecutorBeanPostProcessor;
-import com.lzhpo.tracer.support.TracerContextTaskDecorator;
 import java.util.List;
 import lombok.Setter;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -51,14 +50,8 @@ public class TracerAutoConfiguration {
   }
 
   @Bean
-  @ConditionalOnMissingBean
-  public TracerContextTaskDecorator tracerContextTaskDecorator() {
-    return new TracerContextTaskDecorator();
-  }
-
-  @Bean
   public ThreadPoolTaskExecutorBeanPostProcessor threadPoolTaskExecutorBeanPostProcessor(
-      TaskDecorator taskDecorator) {
-    return new ThreadPoolTaskExecutorBeanPostProcessor(taskDecorator);
+      ObjectProvider<TaskDecorator> taskDecoratorProvider) {
+    return new ThreadPoolTaskExecutorBeanPostProcessor(taskDecoratorProvider.getIfAvailable());
   }
 }
