@@ -21,7 +21,6 @@ import com.lzhpo.tracer.TracerProperties;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -42,8 +41,7 @@ public class TracerWebfluxFilter implements WebFilter {
   private final TracerContextFactory tracerContextFactory;
 
   @Override
-  @NonNull
-  public Mono<Void> filter(ServerWebExchange exchange, @NonNull WebFilterChain chain) {
+  public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
     ServerHttpRequest request = exchange.getRequest();
     HttpHeaders headers = request.getHeaders();
     List<String> proxyHeaders = tracerProperties.getProxyHeaders();

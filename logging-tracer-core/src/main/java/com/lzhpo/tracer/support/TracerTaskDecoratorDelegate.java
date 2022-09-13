@@ -18,7 +18,6 @@ package com.lzhpo.tracer.support;
 
 import java.util.Map;
 import java.util.Objects;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -36,9 +35,8 @@ public class TracerTaskDecoratorDelegate implements TaskDecorator {
 
   private final TaskDecorator delegate;
 
-  @NonNull
   @Override
-  public Runnable decorate(@NonNull Runnable runnable) {
+  public Runnable decorate(Runnable runnable) {
     Map<String, String> context = MDC.getCopyOfContextMap();
     Runnable finalRunnable = Objects.nonNull(delegate) ? delegate.decorate(runnable) : runnable;
     return () -> {
