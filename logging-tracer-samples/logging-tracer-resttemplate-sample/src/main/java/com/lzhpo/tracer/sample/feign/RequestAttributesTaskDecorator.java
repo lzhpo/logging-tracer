@@ -16,7 +16,6 @@
 
 package com.lzhpo.tracer.sample.feign;
 
-import lombok.NonNull;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -30,9 +29,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 @Component
 public class RequestAttributesTaskDecorator implements TaskDecorator {
 
-  @NonNull
   @Override
-  public Runnable decorate(@NonNull Runnable runnable) {
+  public Runnable decorate(Runnable runnable) {
     RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
     return () -> {
       try {

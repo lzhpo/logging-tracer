@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -40,9 +39,7 @@ public class TracerServletInterceptor implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(
-      @NonNull HttpServletRequest request,
-      @NonNull HttpServletResponse response,
-      @NonNull Object handler) {
+      HttpServletRequest request, HttpServletResponse response, Object handler) {
 
     List<String> proxyHeaders = tracerProperties.getProxyHeaders();
     Map<String, String> context = new HashMap<>(proxyHeaders.size());
@@ -61,10 +58,7 @@ public class TracerServletInterceptor implements HandlerInterceptor {
 
   @Override
   public void afterCompletion(
-      @NonNull HttpServletRequest request,
-      @NonNull HttpServletResponse response,
-      @NonNull Object handler,
-      Exception ex) {
+      HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
     tracerContextFactory.clearContext();
   }
 }
