@@ -14,14 +14,14 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.lzhpo</groupId>
-      <artifactId>logging-tracer-webclient-adapter</artifactId>
-      <version>${revision}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-webflux</artifactId>
+      <groupId>com.lzhpo</groupId>
+      <artifactId>logging-tracer-webclient-adapter</artifactId>
+      <version>${revision}</version>
     </dependency>
   </dependencies>
 

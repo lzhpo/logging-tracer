@@ -14,6 +14,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>com.lzhpo</groupId>
       <artifactId>logging-tracer-feign-adapter</artifactId>
       <version>${revision}</version>
