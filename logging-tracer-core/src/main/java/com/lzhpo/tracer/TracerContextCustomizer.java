@@ -18,9 +18,7 @@ package com.lzhpo.tracer;
 
 import java.util.Map;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 public interface TracerContextCustomizer {
 
   /**

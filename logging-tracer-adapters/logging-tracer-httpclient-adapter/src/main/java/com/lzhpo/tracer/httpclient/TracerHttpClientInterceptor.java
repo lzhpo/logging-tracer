@@ -24,9 +24,7 @@ import org.apache.hc.core5.http.HttpRequest;
 import org.apache.hc.core5.http.HttpRequestInterceptor;
 import org.apache.hc.core5.http.protocol.HttpContext;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 @RequiredArgsConstructor
 public class TracerHttpClientInterceptor implements HttpRequestInterceptor, InjectTracerContext {
 

@@ -26,9 +26,7 @@ import okhttp3.Request.Builder;
 import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 @RequiredArgsConstructor
 public class TracerOkHttpInterceptor implements Interceptor {
 

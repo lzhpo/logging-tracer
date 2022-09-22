@@ -22,9 +22,7 @@ import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 @Data
 @ConfigurationProperties(prefix = "logging.tracer")
 public class TracerProperties implements InitializingBean {

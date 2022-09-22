@@ -23,9 +23,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.web.reactive.function.client.WebClient;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 @RequiredArgsConstructor
 public class TracerWebClientBeanPostProcessor implements BeanPostProcessor {
 

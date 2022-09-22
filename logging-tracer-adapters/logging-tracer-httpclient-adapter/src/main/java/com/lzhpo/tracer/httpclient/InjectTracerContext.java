@@ -20,9 +20,7 @@ import com.lzhpo.tracer.TracerContextFactory;
 import java.util.Map;
 import org.apache.hc.core5.http.HttpRequest;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 public interface InjectTracerContext {
 
   /**

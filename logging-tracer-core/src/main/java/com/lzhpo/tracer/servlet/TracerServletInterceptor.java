@@ -27,9 +27,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 @Slf4j
 @RequiredArgsConstructor
 public class TracerServletInterceptor implements HandlerInterceptor {

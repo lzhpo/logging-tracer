@@ -23,9 +23,7 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 @Slf4j
 @RequiredArgsConstructor
 public class TracerFeignRequestInterceptor implements RequestInterceptor {
