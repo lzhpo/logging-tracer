@@ -20,9 +20,7 @@ import com.lzhpo.tracer.TracerContextCustomizer;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 @Component
 public class SampleTracerContextCustomizer implements TracerContextCustomizer {
 

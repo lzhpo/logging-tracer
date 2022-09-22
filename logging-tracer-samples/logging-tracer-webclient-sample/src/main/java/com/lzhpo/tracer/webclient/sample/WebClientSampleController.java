@@ -26,9 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-/**
- * @author lzhpo
- */
+/** @author lzhpo */
 @Slf4j
 @RestController
 @RequestMapping("/")
