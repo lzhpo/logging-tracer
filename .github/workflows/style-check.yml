@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '8'
           distribution: 'adopt'
 
       - name: Execute style check
-        run: mvn -DdisplayFiles=true com.spotify.fmt:fmt-maven-plugin:check
+        run: mvn com.coveo:fmt-maven-plugin:format -Dverbose=true
