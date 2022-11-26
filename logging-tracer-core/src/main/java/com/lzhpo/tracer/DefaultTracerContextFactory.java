@@ -63,7 +63,14 @@ public class DefaultTracerContextFactory implements TracerContextFactory {
 
   @Override
   public Map<String, String> getContext() {
-    return ObjectUtil.defaultIfNull(MDC.getCopyOfContextMap(), MapUtil.newHashMap());
+    Map<String, String> context =
+        ObjectUtil.defaultIfNull(MDC.getCopyOfContextMap(), MapUtil.newHashMap());
+    if (isEmptyContext(context)) {
+      Map<String, String> tracerContext = createContext();
+      context.putAll(tracerContext);
+      MDC.setContextMap(context);
+    }
+    return context;
   }
 
   @Override

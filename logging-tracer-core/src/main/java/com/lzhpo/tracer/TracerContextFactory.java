@@ -16,7 +16,11 @@
 
 package com.lzhpo.tracer;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.extra.spring.SpringUtil;
+import java.util.HashMap;
 import java.util.Map;
+import org.springframework.util.ObjectUtils;
 
 /** @author lzhpo */
 public interface TracerContextFactory {
@@ -37,4 +41,35 @@ public interface TracerContextFactory {
 
   /** Clear tracer context. */
   void clearContext();
+
+  /**
+   * Create initialized tracer context.
+   *
+   * @return context
+   */
+  default Map<String, String> createContext() {
+    Map<String, String> context = new HashMap<>(4);
+    context.put(TracerConstants.X_B3_TRACE_ID, IdUtil.fastSimpleUUID());
+    context.put(TracerConstants.X_B3_PARENT_SPAN_NAME, TracerConstants.N_A);
+    context.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
+    context.put(TracerConstants.X_B3_SPAN_ID, "0");
+    return context;
+  }
+
+  /**
+   * Whether is an empty tracer context, that means not has any {@link TracerConstants} for this
+   * {@code context}.
+   *
+   * @param context context
+   * @return is an empty tracer context
+   */
+  default boolean isEmptyContext(Map<String, String> context) {
+    if (ObjectUtils.isEmpty(context)) {
+      return true;
+    }
+    return !context.containsKey(TracerConstants.X_B3_TRACE_ID)
+        && !context.containsKey(TracerConstants.X_B3_SPAN_ID)
+        && !context.containsKey(TracerConstants.X_B3_SPAN_NAME)
+        && !context.containsKey(TracerConstants.X_B3_PARENT_SPAN_NAME);
+  }
 }
