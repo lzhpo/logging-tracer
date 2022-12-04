@@ -42,11 +42,10 @@ public class TracerWebfluxFilter implements WebFilter {
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
     ServerHttpRequest request = exchange.getRequest();
     HttpHeaders headers = request.getHeaders();
+
     List<String> proxyHeaders = tracerProperties.getProxyHeaders();
     Map<String, String> context = new HashMap<>(proxyHeaders.size());
-
     proxyHeaders.forEach(headerName -> context.put(headerName, headers.getFirst(headerName)));
-    log.debug("Original tracer context from proxy headers: {}", context);
 
     tracerContextFactory.setContext(context);
     log.debug("Built logging tracer context: {}", context);

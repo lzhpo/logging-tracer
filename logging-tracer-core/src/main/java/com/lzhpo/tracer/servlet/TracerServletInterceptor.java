@@ -42,7 +42,6 @@ public class TracerServletInterceptor implements HandlerInterceptor {
     List<String> proxyHeaders = tracerProperties.getProxyHeaders();
     Map<String, String> context = new HashMap<>(proxyHeaders.size());
     proxyHeaders.forEach(headerName -> context.put(headerName, request.getHeader(headerName)));
-    log.debug("Original tracer context from proxy headers: {}", context);
 
     tracerContextFactory.setContext(context);
     log.debug("Built logging tracer context: {}", context);
