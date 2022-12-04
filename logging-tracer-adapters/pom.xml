@@ -18,6 +18,7 @@
     <module>logging-tracer-okhttp-adapter</module>
     <module>logging-tracer-reactor-netty-adapter</module>
     <module>logging-tracer-resttemplate-adapter</module>
+    <module>logging-tracer-scg-adapter</module>
     <module>logging-tracer-webclient-adapter</module>
   </modules>
 </project>

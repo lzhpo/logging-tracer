@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lzhpo.tracer.scg.TracerScgAutoConfiguration
