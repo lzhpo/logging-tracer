@@ -18,17 +18,17 @@
 ![](./docs/images/service-sample-console-log.png)
 
 ```shell
-2022-08-18 21:44:17.611 DEBUG [service-sample,webclient-sample,a43972b7c68846ccafa4fc9676869d1a,0.1.1.1.1.1] 15788 --- [nio-9000-exec-1] c.l.t.servlet.TracerServletInterceptor   : Built logging tracer context: {X-B3-TraceId=a43972b7c68846ccafa4fc9676869d1a, X-B3-SpanName=service-sample, X-B3-SpanId=0.1.1.1.1.1, X-B3-Parent-SpanName=webclient-sample}
-2022-08-18 21:44:17.622  INFO [service-sample,webclient-sample,a43972b7c68846ccafa4fc9676869d1a,0.1.1.1.1.1] 15788 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Received new request for hello api.
-2022-08-18 21:44:17.622  INFO [service-sample,webclient-sample,a43972b7c68846ccafa4fc9676869d1a,0.1.1.1.1.1] 15788 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [accept-encoding: gzip]
+2022-12-04 17:24:33.015 DEBUG [service-sample,reactor-netty-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1.1.1.1.1] 22456 --- [nio-9000-exec-1] c.l.t.servlet.TracerServletInterceptor   : Built logging tracer context: {X-B3-TraceId=3a13f40b0ac24c0bb6b981ffde658ff6, X-B3-SpanName=service-sample, X-B3-SpanId=0.1.1.1.1.1.1, X-B3-Parent-SpanName=reactor-netty-sample}
+2022-12-04 17:24:33.028  INFO [service-sample,reactor-netty-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1.1.1.1.1] 22456 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Received new request for hello api.
+2022-12-04 17:24:33.028  INFO [service-sample,reactor-netty-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1.1.1.1.1] 22456 --- [nio-9000-exec-1] c.l.t.s.service.ServiceSampleController  : Request header with [user-agent: ReactorNetty/1.0.25]
 ```
 
-`[service-sample,webclient-sample,a43972b7c68846ccafa4fc9676869d1a,0.1.1.1.1.1]`：
+`[service-sample,webclient-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1.1.1.1]`：
 
 - `service-sample`：当前服务名称。
 - `webclient-sample`：上游服务名称。
-- `a43972b7c68846ccafa4fc9676869d1a`：链路ID，即traceId。
-- `0.1.1.1.1.1`：请求经历的服务层级。
+- `3a13f40b0ac24c0bb6b981ffde658ff6`：链路ID，即traceId。
+- `0.1.1.1.1.1.1`：请求经历的服务层级。
   - 假设是0：表示到达当前位置，没有经历下游服务。
   - 假设是0.1：表示到达当前位置，已经经历了1层下游服务。
   - 假设是0.1.1：表示到达当前位置，已经经历了2层下游服务。
@@ -59,14 +59,15 @@ _PS：如果不需要定制，直接导入相关依赖按照下面组件说明�
 
 在这模拟多链路调用服务，按如下顺序逐层call：
 
-| 顺序 |      服务名称       |                     截取的部分trace样例                      |
-| :--: | :-----------------: | :----------------------------------------------------------: |
-|  1   |    feign-sample     |   `[feign-sample,N/A,a43972b7c68846ccafa4fc9676869d1a,0]`    |
-|  2   |  httpclient-sample  | `[httpclient-sample,feign-sample,a43972b7c68846ccafa4fc9676869d1a,0.1]` |
-|  3   |    okhttp-sample    | `[okhttp-sample,httpclient-sample,a43972b7c68846ccafa4fc9676869d1a,0.1.1]` |
-|  4   | resttemplate-sample | `[resttemplate-sample,okhttp-sample,a43972b7c68846ccafa4fc9676869d1a,0.1.1.1]` |
-|  5   |  webclient-sample   | `[webclient-sample,okhttp-sample,a43972b7c68846ccafa4fc9676869d1a,0.1.1.1.1]` |
-|  6   |   service-sample    | `[service-sample,webclient-sample,a43972b7c68846ccafa4fc9676869d1a,0.1.1.1.1.1]` |
+| 顺序 |       服务名称       |                     截取的部分trace样例                      |
+| :--: | :------------------: | :----------------------------------------------------------: |
+|  1   |     feign-sample     |   `[feign-sample,N/A,3a13f40b0ac24c0bb6b981ffde658ff6,0]`    |
+|  2   |  httpclient-sample   | `[httpclient-sample,feign-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1]` |
+|  3   |    okhttp-sample     | `[okhttp-sample,httpclient-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1]` |
+|  4   | resttemplate-sample  | `[resttemplate-sample,okhttp-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1.1]` |
+|  5   |   webclient-sample   | `[webclient-sample,okhttp-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1.1.1]` |
+|  6   | reactor-netty-sample | `[reactor-netty-sample,webclient-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1.1.1.1]` |
+|  7   |    service-sample    | `[service-sample,reactor-netty-sample,3a13f40b0ac24c0bb6b981ffde658ff6,0.1.1.1.1.1.1]` |
 
 #### 1.Feign
 
@@ -138,6 +139,12 @@ _PS：如果不需要定制，直接导入相关依赖按照下面组件说明�
 直接注入`Webclient`Bean使用即可。
 
 **参考示例**：logging-tracer-webclient-sample
+
+#### 6.Reactor-Netty
+
+直接注入`HttpClient`Bean使用即可。
+
+**参考示例**：logging-tracer-reactor-netty-sample
 
 ## 自定义配置
 

@@ -16,6 +16,7 @@
     <module>logging-tracer-feign-sample</module>
     <module>logging-tracer-httpclient-sample</module>
     <module>logging-tracer-okhttp-sample</module>
+    <module>logging-tracer-reactor-netty-sample</module>
     <module>logging-tracer-service-sample</module>
     <module>logging-tracer-resttemplate-sample</module>
     <module>logging-tracer-webclient-sample</module>

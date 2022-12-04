@@ -14,32 +14,31 @@
  * limitations under the License.
  */
 
-package com.lzhpo.tracer.webclient.sample;
+package com.lzhpo.tracer.reactor.netty.sample;
 
+import io.netty.handler.codec.http.HttpMethod;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.netty.http.client.HttpClient;
 
 /** @author lzhpo */
-@Slf4j
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
-public class WebClientSampleController {
+public class ReactorNettySampleController {
 
-  private final WebClient webClient;
+  private final HttpClient httpClient;
 
   @GetMapping("/hello")
-  public Mono<String> hello(ServerHttpRequest request) {
-    log.info("Received new request for hello api.");
-    HttpHeaders headers = request.getHeaders();
-    headers.forEach((k, v) -> log.info("Request header with [{}: {}]", k, v));
-    return webClient.get().uri("http://127.0.0.1:8005/hello").retrieve().bodyToMono(String.class);
+  public Mono<String> hello() {
+    return httpClient
+        .request(HttpMethod.GET)
+        .uri("http://127.0.0.1:9000/hello")
+        .responseContent()
+        .aggregate()
+        .asString();
   }
 }

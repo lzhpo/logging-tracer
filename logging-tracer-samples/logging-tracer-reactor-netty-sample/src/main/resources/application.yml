@@ -1,0 +1,10 @@
+server:
+  port: 8005
+
+spring:
+  application:
+    name: reactor-netty-sample
+
+logging:
+  level:
+    com.lzhpo: debug
