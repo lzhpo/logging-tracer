@@ -34,9 +34,9 @@ public class ReactorNettyBeanPostProcessor implements BeanPostProcessor {
     if (bean instanceof HttpClient) {
       HttpClient httpClient = (HttpClient) bean;
       return httpClient.doOnRequest(
-          (httpClientRequest, connection) -> {
+          (request, connection) -> {
             Map<String, String> context = tracerContextFactory.getContext();
-            context.forEach(httpClientRequest::header);
+            context.forEach(request::header);
           });
     }
     return bean;
