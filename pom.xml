@@ -19,10 +19,10 @@
   <description>logging tracer</description>
 
   <scm>
-    <url>git@github.com:lzhpo/logging-tracer.git</url>
-    <connection>scm:git@github.com:lzhpo/logging-tracer.git</connection>
-    <developerConnection>scm:git@github.com:lzhpo/logging-tracer.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>master</tag>
+    <connection>https://github.com/lzhpo/logging-tracer</connection>
+    <developerConnection>http://www.lzhpo.com</developerConnection>
+    <url>https://github.com/lzhpo/logging-tracer.git</url>
   </scm>
 
   <licenses>
@@ -34,14 +34,8 @@
 
   <developers>
     <developer>
-      <id>lzhpo</id>
       <name>lzhpo</name>
       <email>lzhpo1024@gmail.com</email>
-      <organizationUrl>http://www.lzhpo.com</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+8</timezone>
     </developer>
   </developers>
 
