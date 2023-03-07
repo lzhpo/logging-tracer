@@ -20,7 +20,6 @@ import cn.hutool.core.lang.Console;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor;
-import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -32,7 +31,7 @@ import org.springframework.util.StringUtils;
  * <p>Prefer logging.pattern.level in the environment.
  *
  * <pre>
- * {@link ConfigFileApplicationListener} deprecated.
+ * {@link org.springframework.boot.context.config.ConfigFileApplicationListener} deprecated.
  * since 2.4.0 for removal in 3.0.0 in favor of {@link ConfigDataEnvironmentPostProcessor}
  * </pre>
  *

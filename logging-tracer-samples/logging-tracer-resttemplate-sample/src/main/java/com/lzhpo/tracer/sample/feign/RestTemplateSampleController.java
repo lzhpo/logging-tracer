@@ -17,10 +17,10 @@
 package com.lzhpo.tracer.sample.feign;
 
 import cn.hutool.core.lang.Console;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.Enumeration;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;

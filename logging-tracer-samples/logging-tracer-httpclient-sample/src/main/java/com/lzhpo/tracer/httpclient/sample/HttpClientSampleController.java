@@ -17,9 +17,9 @@
 package com.lzhpo.tracer.httpclient.sample;
 
 import com.lzhpo.tracer.httpclient.TracerHttpClients;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Enumeration;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
