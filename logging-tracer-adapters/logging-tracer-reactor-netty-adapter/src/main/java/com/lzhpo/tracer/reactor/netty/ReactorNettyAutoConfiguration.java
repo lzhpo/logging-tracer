@@ -45,7 +45,7 @@ public class ReactorNettyAutoConfiguration {
 
   @Bean
   @ConditionalOnBean({HttpClient.class})
-  public ReactorNettyBeanPostProcessor reactorNettyBeanProcessor(
+  public ReactorNettyBeanPostProcessor reactorNettyBeanPostProcessor(
       TracerContextFactory tracerContextFactory) {
     return new ReactorNettyBeanPostProcessor(tracerContextFactory);
   }

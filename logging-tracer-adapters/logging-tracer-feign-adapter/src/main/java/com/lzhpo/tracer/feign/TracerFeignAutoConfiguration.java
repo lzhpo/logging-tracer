@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Configuration;
 public class TracerFeignAutoConfiguration {
 
   @Bean
-  public TracerFeignRequestInterceptor loggingTraceFeignRequestInterceptor(
+  public TracerFeignRequestInterceptor tracerFeignRequestInterceptor(
       TracerContextFactory tracerContextFactory) {
     return new TracerFeignRequestInterceptor(tracerContextFactory);
   }
