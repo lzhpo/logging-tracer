@@ -46,7 +46,8 @@ public class TracerRestTemplateAuoConfiguration {
   }
 
   @Bean
-  public TracerRestTemplateBeanPostProcessor tracerRestTemplateBeanPostProcessor() {
-    return new TracerRestTemplateBeanPostProcessor(tracerRestTemplateInterceptor());
+  public TracerRestTemplateBeanPostProcessor tracerRestTemplateBeanPostProcessor(
+      TracerRestTemplateInterceptor tracerRestTemplateInterceptor) {
+    return new TracerRestTemplateBeanPostProcessor(tracerRestTemplateInterceptor);
   }
 }

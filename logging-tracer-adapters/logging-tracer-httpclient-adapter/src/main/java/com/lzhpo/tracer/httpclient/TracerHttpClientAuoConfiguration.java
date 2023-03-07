@@ -34,8 +34,9 @@ public class TracerHttpClientAuoConfiguration {
   private final TracerContextFactory tracerContextFactory;
 
   @Bean
-  public TracerHttpClients tracerHttpClients() {
-    return new TracerHttpClients(tracerHttpClientInterceptor());
+  public TracerHttpClients tracerHttpClients(
+      TracerHttpClientInterceptor tracerHttpClientInterceptor) {
+    return new TracerHttpClients(tracerHttpClientInterceptor);
   }
 
   @Bean

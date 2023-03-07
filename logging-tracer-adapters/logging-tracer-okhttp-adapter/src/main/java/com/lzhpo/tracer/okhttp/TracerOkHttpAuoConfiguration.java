@@ -34,8 +34,8 @@ public class TracerOkHttpAuoConfiguration {
   private final TracerContextFactory tracerContextFactory;
 
   @Bean
-  public OkHttpClient.Builder okHttpClientBuilder() {
-    return new OkHttpClient.Builder().addInterceptor(tracerOkHttpInterceptor());
+  public OkHttpClient.Builder okHttpClientBuilder(TracerOkHttpInterceptor tracerOkHttpInterceptor) {
+    return new OkHttpClient.Builder().addInterceptor(tracerOkHttpInterceptor);
   }
 
   @Bean

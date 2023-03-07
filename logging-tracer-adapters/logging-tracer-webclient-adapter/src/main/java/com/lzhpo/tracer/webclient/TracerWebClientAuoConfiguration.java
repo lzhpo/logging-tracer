@@ -42,7 +42,7 @@ public class TracerWebClientAuoConfiguration {
   }
 
   @Bean
-  public TracerWebClientBeanPostProcessor loggingTraceWebClientBeanPostProcessor(
+  public TracerWebClientBeanPostProcessor tracerWebClientBeanPostProcessor(
       TracerContextFactory tracerContextFactory) {
     return new TracerWebClientBeanPostProcessor(tracerContextFactory);
   }

@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 public class TracerWebfluxAutoConfiguration {
 
   @Bean
-  public TracerWebfluxFilter loggingTraceWebfluxFilter(
+  public TracerWebfluxFilter tracerWebfluxFilter(
       TracerProperties tracerProperties, TracerContextFactory tracerContextFactory) {
     return new TracerWebfluxFilter(tracerProperties, tracerContextFactory);
   }
