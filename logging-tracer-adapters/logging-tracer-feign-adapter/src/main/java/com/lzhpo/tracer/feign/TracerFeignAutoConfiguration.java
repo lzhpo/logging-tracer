@@ -23,7 +23,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @Configuration
 @ConditionalOnClass({RequestInterceptor.class})
 @ConditionalOnBean({TracerContextFactory.class})

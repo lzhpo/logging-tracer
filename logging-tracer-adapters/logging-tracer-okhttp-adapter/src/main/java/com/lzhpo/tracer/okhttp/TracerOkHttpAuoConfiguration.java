@@ -24,7 +24,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @Configuration
 @RequiredArgsConstructor
 @ConditionalOnClass({OkHttpClient.class})
@@ -34,8 +36,8 @@ public class TracerOkHttpAuoConfiguration {
   private final TracerContextFactory tracerContextFactory;
 
   @Bean
-  public OkHttpClient.Builder okHttpClientBuilder() {
-    return new OkHttpClient.Builder().addInterceptor(tracerOkHttpInterceptor());
+  public OkHttpClient.Builder okHttpClientBuilder(TracerOkHttpInterceptor tracerOkHttpInterceptor) {
+    return new OkHttpClient.Builder().addInterceptor(tracerOkHttpInterceptor);
   }
 
   @Bean

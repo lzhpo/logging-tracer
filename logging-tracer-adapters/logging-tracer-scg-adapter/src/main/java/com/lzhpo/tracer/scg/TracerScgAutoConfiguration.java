@@ -26,7 +26,9 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.NettyRoutingFilter;
 import org.springframework.context.annotation.Bean;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @AutoConfiguration
 @ConditionalOnClass({GlobalFilter.class})
 @ConditionalOnWebApplication(type = Type.REACTIVE)

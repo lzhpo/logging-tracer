@@ -23,7 +23,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import reactor.netty.http.client.HttpClient;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @RequiredArgsConstructor
 public class ReactorNettyBeanPostProcessor implements BeanPostProcessor {
 
@@ -31,8 +33,7 @@ public class ReactorNettyBeanPostProcessor implements BeanPostProcessor {
 
   @Override
   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-    if (bean instanceof HttpClient) {
-      HttpClient httpClient = (HttpClient) bean;
+    if (bean instanceof HttpClient httpClient) {
       return httpClient.doOnRequest(
           (request, connection) -> {
             Map<String, String> context = tracerContextFactory.getContext();

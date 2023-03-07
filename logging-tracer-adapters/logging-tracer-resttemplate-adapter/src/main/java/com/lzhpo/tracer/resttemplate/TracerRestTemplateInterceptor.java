@@ -26,7 +26,9 @@ import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @RequiredArgsConstructor
 public class TracerRestTemplateInterceptor implements ClientHttpRequestInterceptor {
 

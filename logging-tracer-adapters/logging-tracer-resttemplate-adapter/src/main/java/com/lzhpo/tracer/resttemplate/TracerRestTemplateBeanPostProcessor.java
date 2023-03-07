@@ -21,7 +21,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.web.client.RestTemplate;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @RequiredArgsConstructor
 public class TracerRestTemplateBeanPostProcessor implements BeanPostProcessor {
 
@@ -29,8 +31,7 @@ public class TracerRestTemplateBeanPostProcessor implements BeanPostProcessor {
 
   @Override
   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-    if (bean instanceof RestTemplate) {
-      RestTemplate restTemplate = (RestTemplate) bean;
+    if (bean instanceof RestTemplate restTemplate) {
       restTemplate.getInterceptors().add(traceRestTemplateInterceptor);
       return restTemplate;
     }

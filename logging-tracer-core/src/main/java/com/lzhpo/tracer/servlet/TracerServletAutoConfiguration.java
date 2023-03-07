@@ -26,7 +26,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @Configuration
 @ConditionalOnBean({TracerContextFactory.class})
 @ConditionalOnWebApplication(type = Type.SERVLET)

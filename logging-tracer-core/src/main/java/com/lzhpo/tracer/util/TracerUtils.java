@@ -20,7 +20,9 @@ import com.lzhpo.tracer.TracerConstants;
 import lombok.experimental.UtilityClass;
 import org.slf4j.MDC;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @UtilityClass
 public class TracerUtils {
 

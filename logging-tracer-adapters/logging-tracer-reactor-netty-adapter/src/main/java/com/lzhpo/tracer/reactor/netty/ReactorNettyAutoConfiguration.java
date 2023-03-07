@@ -27,7 +27,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.context.annotation.Bean;
 import reactor.netty.http.client.HttpClient;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @AutoConfiguration
 @ConditionalOnClass({HttpClient.class})
 @ConditionalOnBean({TracerContextFactory.class})

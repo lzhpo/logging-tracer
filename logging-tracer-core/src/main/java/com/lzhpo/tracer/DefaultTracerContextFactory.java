@@ -29,7 +29,9 @@ import org.slf4j.MDC;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @Slf4j
 @RequiredArgsConstructor
 public class DefaultTracerContextFactory implements TracerContextFactory {

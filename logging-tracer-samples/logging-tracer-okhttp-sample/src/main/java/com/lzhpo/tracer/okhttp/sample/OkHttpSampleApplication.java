@@ -19,7 +19,9 @@ package com.lzhpo.tracer.okhttp.sample;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @SpringBootApplication
 public class OkHttpSampleApplication {
 

@@ -25,7 +25,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @Configuration
 @RequiredArgsConstructor
 @ConditionalOnClass({RestTemplate.class})
@@ -46,7 +48,8 @@ public class TracerRestTemplateAuoConfiguration {
   }
 
   @Bean
-  public TracerRestTemplateBeanPostProcessor tracerRestTemplateBeanPostProcessor() {
-    return new TracerRestTemplateBeanPostProcessor(tracerRestTemplateInterceptor());
+  public TracerRestTemplateBeanPostProcessor tracerRestTemplateBeanPostProcessor(
+      TracerRestTemplateInterceptor tracerRestTemplateInterceptor) {
+    return new TracerRestTemplateBeanPostProcessor(tracerRestTemplateInterceptor);
   }
 }

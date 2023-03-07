@@ -24,17 +24,17 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @RequiredArgsConstructor
 public class TracerOkHttpInterceptor implements Interceptor {
 
   private final TracerContextFactory tracerContextFactory;
 
-  @NotNull
   @Override
-  public Response intercept(@NotNull Chain chain) throws IOException {
+  public Response intercept(Chain chain) throws IOException {
     Builder builder = chain.request().newBuilder();
     Map<String, String> context = tracerContextFactory.getContext();
     context.forEach(builder::addHeader);

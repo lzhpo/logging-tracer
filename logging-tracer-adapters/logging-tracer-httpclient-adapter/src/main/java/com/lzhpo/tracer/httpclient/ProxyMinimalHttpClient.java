@@ -27,7 +27,9 @@ import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.protocol.HttpContext;
 import org.apache.hc.core5.io.CloseMode;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @RequiredArgsConstructor
 public class ProxyMinimalHttpClient extends CloseableHttpClient implements InjectTracerContext {
 

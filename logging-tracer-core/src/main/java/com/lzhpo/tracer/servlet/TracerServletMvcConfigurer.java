@@ -22,7 +22,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @RequiredArgsConstructor
 public class TracerServletMvcConfigurer implements WebMvcConfigurer {
 

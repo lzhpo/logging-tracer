@@ -38,8 +38,7 @@ public class ThreadPoolTaskExecutorBeanPostProcessor implements BeanPostProcesso
   @Override
   public Object postProcessBeforeInitialization(Object bean, String beanName)
       throws BeansException {
-    if (bean instanceof ThreadPoolTaskExecutor) {
-      ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) bean;
+    if (bean instanceof ThreadPoolTaskExecutor threadPoolTaskExecutor) {
       TracerTaskDecoratorDelegate delegateTaskDecorator =
           new TracerTaskDecoratorDelegate(taskDecorator);
       threadPoolTaskExecutor.setTaskDecorator(delegateTaskDecorator);

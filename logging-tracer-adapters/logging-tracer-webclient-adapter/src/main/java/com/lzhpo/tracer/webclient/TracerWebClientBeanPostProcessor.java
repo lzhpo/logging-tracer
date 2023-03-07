@@ -23,7 +23,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.web.reactive.function.client.WebClient;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 @RequiredArgsConstructor
 public class TracerWebClientBeanPostProcessor implements BeanPostProcessor {
 
@@ -31,8 +33,7 @@ public class TracerWebClientBeanPostProcessor implements BeanPostProcessor {
 
   @Override
   public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-    if (bean instanceof WebClient) {
-      WebClient webClient = (WebClient) bean;
+    if (bean instanceof WebClient webClient) {
       return webClient
           .mutate()
           .defaultRequest(
