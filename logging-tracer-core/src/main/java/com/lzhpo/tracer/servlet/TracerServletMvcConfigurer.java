@@ -26,11 +26,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class TracerServletMvcConfigurer implements WebMvcConfigurer {
 
-  private final TracerProperties tracerProperties;
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerProperties tracerProperties;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new TracerServletInterceptor(tracerProperties, tracerContextFactory));
-  }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new TracerServletInterceptor(tracerProperties, tracerContextFactory));
+    }
 }

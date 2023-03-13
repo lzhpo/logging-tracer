@@ -27,24 +27,24 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "logging.tracer")
 public class TracerProperties implements InitializingBean {
 
-  /** Whether enable logging trace */
-  private boolean enabled = true;
+    /** Whether enable logging trace */
+    private boolean enabled = true;
 
-  /**
-   * Console log pattern, also can configure "logging.pattern.level".
-   *
-   * <p>priority: "logging.tracer.pattern" > "logging.pattern.level"
-   */
-  private String pattern = TracerConstants.DEFAULT_PATTERN;
+    /**
+     * Console log pattern, also can configure "logging.pattern.level".
+     *
+     * <p>priority: "logging.tracer.pattern" > "logging.pattern.level"
+     */
+    private String pattern = TracerConstants.DEFAULT_PATTERN;
 
-  /** Will proxy headers, ignore the case */
-  private List<String> proxyHeaders = new ArrayList<>();
+    /** Will proxy headers, ignore the case */
+    private List<String> proxyHeaders = new ArrayList<>();
 
-  @Override
-  public void afterPropertiesSet() {
-    proxyHeaders.add(TracerConstants.X_B3_SPAN_NAME);
-    proxyHeaders.add(TracerConstants.X_B3_PARENT_SPAN_NAME);
-    proxyHeaders.add(TracerConstants.X_B3_TRACE_ID);
-    proxyHeaders.add(TracerConstants.X_B3_SPAN_ID);
-  }
+    @Override
+    public void afterPropertiesSet() {
+        proxyHeaders.add(TracerConstants.X_B3_SPAN_NAME);
+        proxyHeaders.add(TracerConstants.X_B3_PARENT_SPAN_NAME);
+        proxyHeaders.add(TracerConstants.X_B3_TRACE_ID);
+        proxyHeaders.add(TracerConstants.X_B3_SPAN_ID);
+    }
 }

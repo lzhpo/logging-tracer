@@ -47,13 +47,13 @@
     <hutool.version>5.8.14</hutool.version>
     <httpclient.version>5.2.1</httpclient.version>
     <spring-cloud.version>2021.0.4</spring-cloud.version>
-    <fmt-maven-plugin.version>2.9.1</fmt-maven-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.gpg.version>3.0.1</maven.gpg.version>
     <maven.source.version>3.2.1</maven.source.version>
     <maven.javadoc.version>3.5.0</maven.javadoc.version>
     <flatten-maven-plugin>1.2.7</flatten-maven-plugin>
+    <spotless-plugin.version>2.34.0</spotless-plugin.version>
   </properties>
 
   <modules>
@@ -124,17 +124,14 @@
       </plugin>
 
       <plugin>
-        <groupId>com.coveo</groupId>
-        <artifactId>fmt-maven-plugin</artifactId>
-        <version>${fmt-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <!-- format/check -->
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${spotless-plugin.version}</version>
+        <configuration>
+          <java>
+            <palantirJavaFormat/>
+          </java>
+        </configuration>
       </plugin>
     </plugins>
   </build>

@@ -31,18 +31,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class FeignSampleController {
 
-  private final ServiceSampleClient serviceSampleClient;
+    private final ServiceSampleClient serviceSampleClient;
 
-  @GetMapping("/hello")
-  public String hello(HttpServletRequest request) {
-    log.info("Received new request for hello api.");
+    @GetMapping("/hello")
+    public String hello(HttpServletRequest request) {
+        log.info("Received new request for hello api.");
 
-    Enumeration<String> headerNames = request.getHeaderNames();
-    while (headerNames.hasMoreElements()) {
-      String headerName = headerNames.nextElement();
-      log.info("Request header with [{}: {}]", headerName, request.getHeader(headerName));
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            log.info("Request header with [{}: {}]", headerName, request.getHeader(headerName));
+        }
+
+        return serviceSampleClient.hello();
     }
-
-    return serviceSampleClient.hello();
-  }
 }

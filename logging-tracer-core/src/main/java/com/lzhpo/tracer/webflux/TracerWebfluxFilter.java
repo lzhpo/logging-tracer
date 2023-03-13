@@ -35,21 +35,21 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class TracerWebfluxFilter implements WebFilter {
 
-  private final TracerProperties tracerProperties;
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerProperties tracerProperties;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-    ServerHttpRequest request = exchange.getRequest();
-    HttpHeaders headers = request.getHeaders();
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+        ServerHttpRequest request = exchange.getRequest();
+        HttpHeaders headers = request.getHeaders();
 
-    List<String> proxyHeaders = tracerProperties.getProxyHeaders();
-    Map<String, String> context = new HashMap<>(proxyHeaders.size());
-    proxyHeaders.forEach(headerName -> context.put(headerName, headers.getFirst(headerName)));
+        List<String> proxyHeaders = tracerProperties.getProxyHeaders();
+        Map<String, String> context = new HashMap<>(proxyHeaders.size());
+        proxyHeaders.forEach(headerName -> context.put(headerName, headers.getFirst(headerName)));
 
-    tracerContextFactory.setContext(context);
-    log.debug("Built logging tracer context: {}", context);
+        tracerContextFactory.setContext(context);
+        log.debug("Built logging tracer context: {}", context);
 
-    return chain.filter(exchange).doFinally(x -> tracerContextFactory.clearContext());
-  }
+        return chain.filter(exchange).doFinally(x -> tracerContextFactory.clearContext());
+    }
 }

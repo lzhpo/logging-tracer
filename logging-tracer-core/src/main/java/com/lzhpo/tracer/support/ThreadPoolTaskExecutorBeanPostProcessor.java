@@ -33,19 +33,17 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @RequiredArgsConstructor
 public class ThreadPoolTaskExecutorBeanPostProcessor implements BeanPostProcessor {
 
-  private final TaskDecorator taskDecorator;
+    private final TaskDecorator taskDecorator;
 
-  @Override
-  public Object postProcessBeforeInitialization(Object bean, String beanName)
-      throws BeansException {
-    if (bean instanceof ThreadPoolTaskExecutor) {
-      ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) bean;
-      TracerTaskDecoratorDelegate delegateTaskDecorator =
-          new TracerTaskDecoratorDelegate(taskDecorator);
-      threadPoolTaskExecutor.setTaskDecorator(delegateTaskDecorator);
-      log.info("Injected [{}] in {}[{}].", delegateTaskDecorator, beanName, bean);
-      return threadPoolTaskExecutor;
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        if (bean instanceof ThreadPoolTaskExecutor) {
+            ThreadPoolTaskExecutor threadPoolTaskExecutor = (ThreadPoolTaskExecutor) bean;
+            TracerTaskDecoratorDelegate delegateTaskDecorator = new TracerTaskDecoratorDelegate(taskDecorator);
+            threadPoolTaskExecutor.setTaskDecorator(delegateTaskDecorator);
+            log.info("Injected [{}] in {}[{}].", delegateTaskDecorator, beanName, bean);
+            return threadPoolTaskExecutor;
+        }
+        return bean;
     }
-    return bean;
-  }
 }

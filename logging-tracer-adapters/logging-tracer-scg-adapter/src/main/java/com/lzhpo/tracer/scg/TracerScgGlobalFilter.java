@@ -31,22 +31,19 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class TracerScgGlobalFilter implements GlobalFilter, Ordered {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-    Map<String, String> context = tracerContextFactory.getContext();
-    return chain
-        .filter(
-            exchange
-                .mutate()
-                .request(builder -> builder.headers(headers -> context.forEach(headers::set)))
-                .build())
-        .doFinally(x -> tracerContextFactory.clearContext());
-  }
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        Map<String, String> context = tracerContextFactory.getContext();
+        return chain.filter(exchange.mutate()
+                        .request(builder -> builder.headers(headers -> context.forEach(headers::set)))
+                        .build())
+                .doFinally(x -> tracerContextFactory.clearContext());
+    }
 
-  @Override
-  public int getOrder() {
-    return Ordered.HIGHEST_PRECEDENCE;
-  }
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
 }

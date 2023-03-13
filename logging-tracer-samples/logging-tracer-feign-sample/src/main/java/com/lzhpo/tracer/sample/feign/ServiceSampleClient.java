@@ -23,6 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name = "logging-trace-service-sample", url = "http://127.0.0.1:8001")
 public interface ServiceSampleClient {
 
-  @GetMapping("/hello")
-  String hello();
+    @GetMapping("/hello")
+    String hello();
 }

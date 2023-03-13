@@ -33,8 +33,8 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnBean({NettyRoutingFilter.class, NettyRoutingFilter.class})
 public class TracerScgAutoConfiguration {
 
-  @Bean
-  public TracerScgGlobalFilter tracerScgGlobalFilter(TracerContextFactory tracerContextFactory) {
-    return new TracerScgGlobalFilter(tracerContextFactory);
-  }
+    @Bean
+    public TracerScgGlobalFilter tracerScgGlobalFilter(TracerContextFactory tracerContextFactory) {
+        return new TracerScgGlobalFilter(tracerContextFactory);
+    }
 }

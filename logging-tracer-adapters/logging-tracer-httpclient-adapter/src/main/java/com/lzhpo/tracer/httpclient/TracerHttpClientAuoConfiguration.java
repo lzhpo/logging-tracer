@@ -31,16 +31,15 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean({TracerContextFactory.class})
 public class TracerHttpClientAuoConfiguration {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Bean
-  public TracerHttpClients tracerHttpClients(
-      TracerHttpClientInterceptor tracerHttpClientInterceptor) {
-    return new TracerHttpClients(tracerHttpClientInterceptor);
-  }
+    @Bean
+    public TracerHttpClients tracerHttpClients(TracerHttpClientInterceptor tracerHttpClientInterceptor) {
+        return new TracerHttpClients(tracerHttpClientInterceptor);
+    }
 
-  @Bean
-  public TracerHttpClientInterceptor tracerHttpClientInterceptor() {
-    return new TracerHttpClientInterceptor(tracerContextFactory);
-  }
+    @Bean
+    public TracerHttpClientInterceptor tracerHttpClientInterceptor() {
+        return new TracerHttpClientInterceptor(tracerContextFactory);
+    }
 }

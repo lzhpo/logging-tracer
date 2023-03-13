@@ -32,22 +32,22 @@ import org.springframework.web.client.RestTemplate;
 @ConditionalOnBean({TracerContextFactory.class})
 public class TracerRestTemplateAuoConfiguration {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Bean
-  @ConditionalOnMissingBean
-  public RestTemplate restTemplate() {
-    return new RestTemplate();
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-  @Bean
-  public TracerRestTemplateInterceptor tracerRestTemplateInterceptor() {
-    return new TracerRestTemplateInterceptor(tracerContextFactory);
-  }
+    @Bean
+    public TracerRestTemplateInterceptor tracerRestTemplateInterceptor() {
+        return new TracerRestTemplateInterceptor(tracerContextFactory);
+    }
 
-  @Bean
-  public TracerRestTemplateBeanPostProcessor tracerRestTemplateBeanPostProcessor(
-      TracerRestTemplateInterceptor tracerRestTemplateInterceptor) {
-    return new TracerRestTemplateBeanPostProcessor(tracerRestTemplateInterceptor);
-  }
+    @Bean
+    public TracerRestTemplateBeanPostProcessor tracerRestTemplateBeanPostProcessor(
+            TracerRestTemplateInterceptor tracerRestTemplateInterceptor) {
+        return new TracerRestTemplateBeanPostProcessor(tracerRestTemplateInterceptor);
+    }
 }

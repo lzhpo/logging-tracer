@@ -31,23 +31,23 @@ import org.apache.hc.core5.io.CloseMode;
 @RequiredArgsConstructor
 public class ProxyMinimalHttpClient extends CloseableHttpClient implements InjectTracerContext {
 
-  private final TracerContextFactory tracerContextFactory;
-  private final MinimalHttpClient minimalHttpClient;
+    private final TracerContextFactory tracerContextFactory;
+    private final MinimalHttpClient minimalHttpClient;
 
-  @Override
-  protected CloseableHttpResponse doExecute(
-      HttpHost target, ClassicHttpRequest request, HttpContext context) throws IOException {
-    inject(tracerContextFactory, request);
-    return minimalHttpClient.execute(target, request, context);
-  }
+    @Override
+    protected CloseableHttpResponse doExecute(HttpHost target, ClassicHttpRequest request, HttpContext context)
+            throws IOException {
+        inject(tracerContextFactory, request);
+        return minimalHttpClient.execute(target, request, context);
+    }
 
-  @Override
-  public void close(CloseMode closeMode) {
-    minimalHttpClient.close(closeMode);
-  }
+    @Override
+    public void close(CloseMode closeMode) {
+        minimalHttpClient.close(closeMode);
+    }
 
-  @Override
-  public void close() throws IOException {
-    minimalHttpClient.close();
-  }
+    @Override
+    public void close() throws IOException {
+        minimalHttpClient.close();
+    }
 }

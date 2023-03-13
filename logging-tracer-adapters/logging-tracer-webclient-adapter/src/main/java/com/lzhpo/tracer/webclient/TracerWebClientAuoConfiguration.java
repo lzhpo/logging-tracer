@@ -35,15 +35,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 @ConditionalOnMissingClass({"com.lzhpo.tracer.scg.TracerScgGlobalFilter"})
 public class TracerWebClientAuoConfiguration {
 
-  @Bean
-  @ConditionalOnMissingBean
-  public WebClient webClient() {
-    return WebClient.create();
-  }
+    @Bean
+    @ConditionalOnMissingBean
+    public WebClient webClient() {
+        return WebClient.create();
+    }
 
-  @Bean
-  public TracerWebClientBeanPostProcessor tracerWebClientBeanPostProcessor(
-      TracerContextFactory tracerContextFactory) {
-    return new TracerWebClientBeanPostProcessor(tracerContextFactory);
-  }
+    @Bean
+    public TracerWebClientBeanPostProcessor tracerWebClientBeanPostProcessor(
+            TracerContextFactory tracerContextFactory) {
+        return new TracerWebClientBeanPostProcessor(tracerContextFactory);
+    }
 }

@@ -38,23 +38,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class HttpClientSampleController {
 
-  private final TracerHttpClients tracerHttpClients;
+    private final TracerHttpClients tracerHttpClients;
 
-  @GetMapping("/hello")
-  public String hello(HttpServletRequest request) throws IOException, ParseException {
-    log.info("Received new request for hello api.");
+    @GetMapping("/hello")
+    public String hello(HttpServletRequest request) throws IOException, ParseException {
+        log.info("Received new request for hello api.");
 
-    Enumeration<String> headerNames = request.getHeaderNames();
-    while (headerNames.hasMoreElements()) {
-      String headerName = headerNames.nextElement();
-      log.info("Request header with [{}: {}]", headerName, request.getHeader(headerName));
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            log.info("Request header with [{}: {}]", headerName, request.getHeader(headerName));
+        }
+
+        HttpGet httpGet = new HttpGet("http://127.0.0.1:8002/hello");
+        CloseableHttpResponse response;
+        try (CloseableHttpClient closeableHttpClient = tracerHttpClients.createDefault()) {
+            response = closeableHttpClient.execute(httpGet);
+        }
+        return EntityUtils.toString(response.getEntity());
     }
-
-    HttpGet httpGet = new HttpGet("http://127.0.0.1:8002/hello");
-    CloseableHttpResponse response;
-    try (CloseableHttpClient closeableHttpClient = tracerHttpClients.createDefault()) {
-      response = closeableHttpClient.execute(httpGet);
-    }
-    return EntityUtils.toString(response.getEntity());
-  }
 }

@@ -33,19 +33,19 @@ import org.springframework.core.task.TaskDecorator;
 @RequiredArgsConstructor
 public class TracerTaskDecoratorDelegate implements TaskDecorator {
 
-  private final TaskDecorator delegate;
+    private final TaskDecorator delegate;
 
-  @Override
-  public Runnable decorate(Runnable runnable) {
-    Map<String, String> context = MDC.getCopyOfContextMap();
-    Runnable finalRunnable = Objects.nonNull(delegate) ? delegate.decorate(runnable) : runnable;
-    return () -> {
-      try {
-        MDC.setContextMap(context);
-        finalRunnable.run();
-      } finally {
-        MDC.clear();
-      }
-    };
-  }
+    @Override
+    public Runnable decorate(Runnable runnable) {
+        Map<String, String> context = MDC.getCopyOfContextMap();
+        Runnable finalRunnable = Objects.nonNull(delegate) ? delegate.decorate(runnable) : runnable;
+        return () -> {
+            try {
+                MDC.setContextMap(context);
+                finalRunnable.run();
+            } finally {
+                MDC.clear();
+            }
+        };
+    }
 }

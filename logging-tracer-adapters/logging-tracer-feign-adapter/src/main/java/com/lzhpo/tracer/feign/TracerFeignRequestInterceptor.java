@@ -28,11 +28,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class TracerFeignRequestInterceptor implements RequestInterceptor {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public void apply(RequestTemplate requestTemplate) {
-    Map<String, String> context = tracerContextFactory.getContext();
-    context.forEach(requestTemplate::header);
-  }
+    @Override
+    public void apply(RequestTemplate requestTemplate) {
+        Map<String, String> context = tracerContextFactory.getContext();
+        context.forEach(requestTemplate::header);
+    }
 }

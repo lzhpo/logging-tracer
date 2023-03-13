@@ -23,14 +23,14 @@ import org.apache.hc.core5.http.HttpRequest;
 /** @author lzhpo */
 public interface InjectTracerContext {
 
-  /**
-   * Inject tracer logic
-   *
-   * @param tracerContextFactory {@link TracerContextFactory}
-   * @param httpRequest {@link HttpRequest}
-   */
-  default void inject(TracerContextFactory tracerContextFactory, HttpRequest httpRequest) {
-    Map<String, String> context = tracerContextFactory.getContext();
-    context.forEach(httpRequest::addHeader);
-  }
+    /**
+     * Inject tracer logic
+     *
+     * @param tracerContextFactory {@link TracerContextFactory}
+     * @param httpRequest {@link HttpRequest}
+     */
+    default void inject(TracerContextFactory tracerContextFactory, HttpRequest httpRequest) {
+        Map<String, String> context = tracerContextFactory.getContext();
+        context.forEach(httpRequest::addHeader);
+    }
 }
