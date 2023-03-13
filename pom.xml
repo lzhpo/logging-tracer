@@ -42,7 +42,8 @@
 
     <properties>
         <server.id>ossrh</server.id>
-        <java.version>1.8</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <okhttp.version>4.10.0</okhttp.version>
         <hutool.version>5.8.14</hutool.version>
         <httpclient.version>5.2.1</httpclient.version>
@@ -132,6 +133,13 @@
                         <palantirJavaFormat/>
                     </java>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
