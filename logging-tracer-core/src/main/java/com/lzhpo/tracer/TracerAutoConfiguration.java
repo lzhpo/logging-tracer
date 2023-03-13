@@ -32,25 +32,21 @@ import org.springframework.core.task.TaskDecorator;
  * @author lzhpo
  */
 @Configuration
-@ConditionalOnProperty(
-    prefix = "logging.tracer",
-    value = "enabled",
-    havingValue = "true",
-    matchIfMissing = true)
+@ConditionalOnProperty(prefix = "logging.tracer", value = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({TracerProperties.class})
 public class TracerAutoConfiguration {
 
-  @Bean
-  public TracerContextFactory tracerContextFactory(
-      ObjectProvider<TracerContextCustomizer> contextCustomizerProvider) {
-    List<TracerContextCustomizer> contextCustomizers =
-        contextCustomizerProvider.stream().collect(Collectors.toList());
-    return new DefaultTracerContextFactory(contextCustomizers);
-  }
+    @Bean
+    public TracerContextFactory tracerContextFactory(
+            ObjectProvider<TracerContextCustomizer> contextCustomizerProvider) {
+        List<TracerContextCustomizer> contextCustomizers =
+                contextCustomizerProvider.stream().collect(Collectors.toList());
+        return new DefaultTracerContextFactory(contextCustomizers);
+    }
 
-  @Bean
-  public ThreadPoolTaskExecutorBeanPostProcessor threadPoolTaskExecutorBeanPostProcessor(
-      ObjectProvider<TaskDecorator> taskDecoratorProvider) {
-    return new ThreadPoolTaskExecutorBeanPostProcessor(taskDecoratorProvider.getIfAvailable());
-  }
+    @Bean
+    public ThreadPoolTaskExecutorBeanPostProcessor threadPoolTaskExecutorBeanPostProcessor(
+            ObjectProvider<TaskDecorator> taskDecoratorProvider) {
+        return new ThreadPoolTaskExecutorBeanPostProcessor(taskDecoratorProvider.getIfAvailable());
+    }
 }

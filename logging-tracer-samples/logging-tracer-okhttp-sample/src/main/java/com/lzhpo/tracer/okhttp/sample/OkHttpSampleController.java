@@ -17,9 +17,6 @@
 package com.lzhpo.tracer.okhttp.sample;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
@@ -28,6 +25,10 @@ import okhttp3.Response;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Objects;
 
 /**
  * @author lzhpo
@@ -38,22 +39,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OkHttpSampleController {
 
-  private final OkHttpClient.Builder okHttpClientBuilder;
+    private final OkHttpClient.Builder okHttpClientBuilder;
 
-  @GetMapping("/hello")
-  public String hello(HttpServletRequest request) throws IOException {
-    log.info("Received new request for hello api.");
+    @GetMapping("/hello")
+    public String hello(HttpServletRequest request) throws IOException {
+        log.info("Received new request for hello api.");
 
-    Enumeration<String> headerNames = request.getHeaderNames();
-    while (headerNames.hasMoreElements()) {
-      String headerName = headerNames.nextElement();
-      log.info("Request header with [{}: {}]", headerName, request.getHeader(headerName));
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            log.info("Request header with [{}: {}]", headerName, request.getHeader(headerName));
+        }
+
+        Request okHttpRequest =
+                new Request.Builder().url("http://127.0.0.1:8003/hello").get().build();
+        OkHttpClient okHttpClient = okHttpClientBuilder.build();
+        try (Response response = okHttpClient.newCall(okHttpRequest).execute()) {
+            return Objects.requireNonNull(response.body()).string();
+        }
     }
-
-    Request okHttpRequest = new Request.Builder().url("http://127.0.0.1:8003/hello").get().build();
-    OkHttpClient okHttpClient = okHttpClientBuilder.build();
-    try (Response response = okHttpClient.newCall(okHttpRequest).execute()) {
-      return Objects.requireNonNull(response.body()).string();
-    }
-  }
 }

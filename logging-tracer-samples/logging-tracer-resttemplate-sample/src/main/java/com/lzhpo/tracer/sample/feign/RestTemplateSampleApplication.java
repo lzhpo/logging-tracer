@@ -27,7 +27,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 public class RestTemplateSampleApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(RestTemplateSampleApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(RestTemplateSampleApplication.class, args);
+    }
 }

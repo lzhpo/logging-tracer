@@ -32,14 +32,14 @@ import org.springframework.http.client.ClientHttpResponse;
 @RequiredArgsConstructor
 public class TracerRestTemplateInterceptor implements ClientHttpRequestInterceptor {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public ClientHttpResponse intercept(
-      HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-    HttpHeaders requestHeaders = request.getHeaders();
-    Map<String, String> context = tracerContextFactory.getContext();
-    context.forEach(requestHeaders::add);
-    return execution.execute(request, body);
-  }
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+            throws IOException {
+        HttpHeaders requestHeaders = request.getHeaders();
+        Map<String, String> context = tracerContextFactory.getContext();
+        context.forEach(requestHeaders::add);
+        return execution.execute(request, body);
+    }
 }

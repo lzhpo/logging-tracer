@@ -26,19 +26,19 @@ import org.slf4j.MDC;
 @UtilityClass
 public class TracerUtils {
 
-  public static String getTraceId() {
-    return MDC.get(TracerConstants.X_B3_TRACE_ID);
-  }
+    public static String getTraceId() {
+        return MDC.get(TracerConstants.X_B3_TRACE_ID);
+    }
 
-  public static String getSpanId() {
-    return MDC.get(TracerConstants.X_B3_SPAN_ID);
-  }
+    public static String getSpanId() {
+        return MDC.get(TracerConstants.X_B3_SPAN_ID);
+    }
 
-  public static String getSpanName() {
-    return MDC.get(TracerConstants.X_B3_SPAN_NAME);
-  }
+    public static String getSpanName() {
+        return MDC.get(TracerConstants.X_B3_SPAN_NAME);
+    }
 
-  public static String getParentSpanName() {
-    return MDC.get(TracerConstants.X_B3_PARENT_SPAN_NAME);
-  }
+    public static String getParentSpanName() {
+        return MDC.get(TracerConstants.X_B3_PARENT_SPAN_NAME);
+    }
 }

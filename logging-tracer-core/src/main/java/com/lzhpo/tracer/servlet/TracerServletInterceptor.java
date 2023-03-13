@@ -34,26 +34,25 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @RequiredArgsConstructor
 public class TracerServletInterceptor implements HandlerInterceptor {
 
-  private final TracerProperties tracerProperties;
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerProperties tracerProperties;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public boolean preHandle(
-      HttpServletRequest request, HttpServletResponse response, Object handler) {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-    List<String> proxyHeaders = tracerProperties.getProxyHeaders();
-    Map<String, String> context = new HashMap<>(proxyHeaders.size());
-    proxyHeaders.forEach(headerName -> context.put(headerName, request.getHeader(headerName)));
+        List<String> proxyHeaders = tracerProperties.getProxyHeaders();
+        Map<String, String> context = new HashMap<>(proxyHeaders.size());
+        proxyHeaders.forEach(headerName -> context.put(headerName, request.getHeader(headerName)));
 
-    tracerContextFactory.setContext(context);
-    log.debug("Built logging tracer context: {}", context);
+        tracerContextFactory.setContext(context);
+        log.debug("Built logging tracer context: {}", context);
 
-    return true;
-  }
+        return true;
+    }
 
-  @Override
-  public void afterCompletion(
-      HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-    tracerContextFactory.clearContext();
-  }
+    @Override
+    public void afterCompletion(
+            HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        tracerContextFactory.clearContext();
+    }
 }

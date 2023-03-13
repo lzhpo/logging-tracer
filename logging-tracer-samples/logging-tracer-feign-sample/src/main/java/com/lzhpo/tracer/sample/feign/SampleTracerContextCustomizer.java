@@ -26,9 +26,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class SampleTracerContextCustomizer implements TracerContextCustomizer {
 
-  @Override
-  public void customize(Map<String, String> context) {
-    context.put("abc", "123");
-    context.put("def", "456");
-  }
+    @Override
+    public void customize(Map<String, String> context) {
+        context.put("abc", "123");
+        context.put("def", "456");
+    }
 }

@@ -35,9 +35,9 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter({TracerAutoConfiguration.class})
 public class TracerWebfluxAutoConfiguration {
 
-  @Bean
-  public TracerWebfluxFilter tracerWebfluxFilter(
-      TracerProperties tracerProperties, TracerContextFactory tracerContextFactory) {
-    return new TracerWebfluxFilter(tracerProperties, tracerContextFactory);
-  }
+    @Bean
+    public TracerWebfluxFilter tracerWebfluxFilter(
+            TracerProperties tracerProperties, TracerContextFactory tracerContextFactory) {
+        return new TracerWebfluxFilter(tracerProperties, tracerContextFactory);
+    }
 }

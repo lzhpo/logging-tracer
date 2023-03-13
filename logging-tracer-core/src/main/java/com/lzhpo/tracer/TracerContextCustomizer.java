@@ -23,10 +23,10 @@ import java.util.Map;
  */
 public interface TracerContextCustomizer {
 
-  /**
-   * Customize context.
-   *
-   * @param context context
-   */
-  void customize(Map<String, String> context);
+    /**
+     * Customize context.
+     *
+     * @param context context
+     */
+    void customize(Map<String, String> context);
 }

@@ -25,7 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HttpClientSampleApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(HttpClientSampleApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(HttpClientSampleApplication.class, args);
+    }
 }

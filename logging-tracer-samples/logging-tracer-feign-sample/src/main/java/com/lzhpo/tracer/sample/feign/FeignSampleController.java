@@ -17,12 +17,13 @@
 package com.lzhpo.tracer.sample.feign;
 
 import jakarta.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Enumeration;
 
 /**
  * @author lzhpo
@@ -33,18 +34,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class FeignSampleController {
 
-  private final ServiceSampleClient serviceSampleClient;
+    private final ServiceSampleClient serviceSampleClient;
 
-  @GetMapping("/hello")
-  public String hello(HttpServletRequest request) {
-    log.info("Received new request for hello api.");
+    @GetMapping("/hello")
+    public String hello(HttpServletRequest request) {
+        log.info("Received new request for hello api.");
 
-    Enumeration<String> headerNames = request.getHeaderNames();
-    while (headerNames.hasMoreElements()) {
-      String headerName = headerNames.nextElement();
-      log.info("Request header with [{}: {}]", headerName, request.getHeader(headerName));
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            log.info("Request header with [{}: {}]", headerName, request.getHeader(headerName));
+        }
+
+        return serviceSampleClient.hello();
     }
-
-    return serviceSampleClient.hello();
-  }
 }

@@ -40,29 +40,28 @@ import org.springframework.util.StringUtils;
 @Slf4j
 public class TracerEnvPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-  /** Default value: "logging.pattern.level=%5p" */
-  private static final String LEVEL_KEY = "logging.pattern.level";
+    /** Default value: "logging.pattern.level=%5p" */
+    private static final String LEVEL_KEY = "logging.pattern.level";
 
-  @Override
-  public void postProcessEnvironment(
-      ConfigurableEnvironment environment, SpringApplication application) {
+    @Override
+    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
 
-    Boolean enabled = environment.getProperty("logging.tracer.enabled", Boolean.class, true);
-    if (Boolean.FALSE.equals(enabled) || StringUtils.hasText(System.getProperty(LEVEL_KEY))) {
-      return;
+        Boolean enabled = environment.getProperty("logging.tracer.enabled", Boolean.class, true);
+        if (Boolean.FALSE.equals(enabled) || StringUtils.hasText(System.getProperty(LEVEL_KEY))) {
+            return;
+        }
+
+        String pattern = environment.getProperty("logging.tracer.pattern", String.class);
+        if (!StringUtils.hasText(pattern)) {
+            pattern = environment.getProperty(LEVEL_KEY, TracerConstants.DEFAULT_PATTERN);
+        }
+
+        System.setProperty(LEVEL_KEY, pattern);
+        Console.log("[logging-tracer] {} updated new value: {}", LEVEL_KEY, pattern);
     }
 
-    String pattern = environment.getProperty("logging.tracer.pattern", String.class);
-    if (!StringUtils.hasText(pattern)) {
-      pattern = environment.getProperty(LEVEL_KEY, TracerConstants.DEFAULT_PATTERN);
+    @Override
+    public int getOrder() {
+        return ConfigDataEnvironmentPostProcessor.ORDER + 1;
     }
-
-    System.setProperty(LEVEL_KEY, pattern);
-    Console.log("[logging-tracer] {} updated new value: {}", LEVEL_KEY, pattern);
-  }
-
-  @Override
-  public int getOrder() {
-    return ConfigDataEnvironmentPostProcessor.ORDER + 1;
-  }
 }

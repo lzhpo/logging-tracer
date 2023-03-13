@@ -37,16 +37,15 @@ import reactor.netty.http.client.HttpClient;
 @ConditionalOnMissingClass({"com.lzhpo.tracer.scg.TracerScgGlobalFilter"})
 public class ReactorNettyAutoConfiguration {
 
-  @Bean
-  @ConditionalOnMissingBean({HttpClient.class})
-  public HttpClient httpClient() {
-    return HttpClient.create();
-  }
+    @Bean
+    @ConditionalOnMissingBean({HttpClient.class})
+    public HttpClient httpClient() {
+        return HttpClient.create();
+    }
 
-  @Bean
-  @ConditionalOnBean({HttpClient.class})
-  public ReactorNettyBeanPostProcessor reactorNettyBeanPostProcessor(
-      TracerContextFactory tracerContextFactory) {
-    return new ReactorNettyBeanPostProcessor(tracerContextFactory);
-  }
+    @Bean
+    @ConditionalOnBean({HttpClient.class})
+    public ReactorNettyBeanPostProcessor reactorNettyBeanPostProcessor(TracerContextFactory tracerContextFactory) {
+        return new ReactorNettyBeanPostProcessor(tracerContextFactory);
+    }
 }

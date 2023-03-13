@@ -46,58 +46,56 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequiredArgsConstructor
 public class RestTemplateSampleController {
 
-  private final RestTemplate restTemplate;
-  private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
+    private final RestTemplate restTemplate;
+    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-  @GetMapping("/hello")
-  public String hello(HttpServletRequest request) {
-    log.info("Received new request for hello api.");
+    @GetMapping("/hello")
+    public String hello(HttpServletRequest request) {
+        log.info("Received new request for hello api.");
 
-    // Test multiThread environment
-    async();
-    threadPool();
-    multiThread();
+        // Test multiThread environment
+        async();
+        threadPool();
+        multiThread();
 
-    Enumeration<String> headerNames = request.getHeaderNames();
-    while (headerNames.hasMoreElements()) {
-      String headerName = headerNames.nextElement();
-      String headerValue = request.getHeader(headerName);
-      log.info("Request header with [{}: {}]", headerName, headerValue);
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            log.info("Request header with [{}: {}]", headerName, headerValue);
+        }
+
+        URI uri = UriComponentsBuilder.fromHttpUrl("http://127.0.0.1:8004/hello")
+                .build()
+                .toUri();
+        HttpEntity<Object> entity = new HttpEntity<>(null, null);
+        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
+        return response.getBody();
     }
 
-    URI uri = UriComponentsBuilder.fromHttpUrl("http://127.0.0.1:8004/hello").build().toUri();
-    HttpEntity<Object> entity = new HttpEntity<>(null, null);
-    ResponseEntity<String> response =
-        restTemplate.exchange(uri, HttpMethod.GET, entity, String.class);
-    return response.getBody();
-  }
+    @Async
+    public void async() {
+        log.info("[async] Hello, I'm async.");
+    }
 
-  @Async
-  public void async() {
-    log.info("[async] Hello, I'm async.");
-  }
+    private void threadPool() {
+        threadPoolTaskExecutor.execute(() -> {
+            RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+            Console.log("requestAttributes: {}", requestAttributes);
 
-  private void threadPool() {
-    threadPoolTaskExecutor.execute(
-        () -> {
-          RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-          Console.log("requestAttributes: {}", requestAttributes);
+            Map<String, String> context = MDC.getCopyOfContextMap();
+            Console.log("MDC context: {}", context);
 
-          Map<String, String> context = MDC.getCopyOfContextMap();
-          Console.log("MDC context: {}", context);
-
-          log.info("[threadPool] Hello, I'm threadPool.");
+            log.info("[threadPool] Hello, I'm threadPool.");
         });
-  }
+    }
 
-  private void multiThread() {
-    Map<String, String> context = MDC.getCopyOfContextMap();
-    Thread thread =
-        new Thread(
-            () -> {
-              MDC.setContextMap(context);
-              log.info("[multiThread] Hello, I'm multiThread.");
-            });
-    thread.start();
-  }
+    private void multiThread() {
+        Map<String, String> context = MDC.getCopyOfContextMap();
+        Thread thread = new Thread(() -> {
+            MDC.setContextMap(context);
+            log.info("[multiThread] Hello, I'm multiThread.");
+        });
+        thread.start();
+    }
 }

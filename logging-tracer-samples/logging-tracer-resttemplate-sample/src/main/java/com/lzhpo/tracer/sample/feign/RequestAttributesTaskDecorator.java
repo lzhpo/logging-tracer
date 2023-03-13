@@ -29,16 +29,16 @@ import org.springframework.web.context.request.RequestContextHolder;
 @Component
 public class RequestAttributesTaskDecorator implements TaskDecorator {
 
-  @Override
-  public Runnable decorate(Runnable runnable) {
-    RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-    return () -> {
-      try {
-        RequestContextHolder.setRequestAttributes(requestAttributes);
-        runnable.run();
-      } finally {
-        RequestContextHolder.resetRequestAttributes();
-      }
-    };
-  }
+    @Override
+    public Runnable decorate(Runnable runnable) {
+        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+        return () -> {
+            try {
+                RequestContextHolder.setRequestAttributes(requestAttributes);
+                runnable.run();
+            } finally {
+                RequestContextHolder.resetRequestAttributes();
+            }
+        };
+    }
 }

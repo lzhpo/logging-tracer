@@ -30,11 +30,11 @@ import org.apache.hc.core5.http.protocol.HttpContext;
 @RequiredArgsConstructor
 public class TracerHttpClientInterceptor implements HttpRequestInterceptor, InjectTracerContext {
 
-  @Getter private final TracerContextFactory tracerContextFactory;
+    @Getter
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public void process(
-      HttpRequest httpRequest, EntityDetails entityDetails, HttpContext httpContext) {
-    inject(tracerContextFactory, httpRequest);
-  }
+    @Override
+    public void process(HttpRequest httpRequest, EntityDetails entityDetails, HttpContext httpContext) {
+        inject(tracerContextFactory, httpRequest);
+    }
 }

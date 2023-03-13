@@ -29,20 +29,19 @@ import org.springframework.web.reactive.function.client.WebClient;
 @RequiredArgsConstructor
 public class TracerWebClientBeanPostProcessor implements BeanPostProcessor {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-    if (bean instanceof WebClient webClient) {
-      return webClient
-          .mutate()
-          .defaultRequest(
-              requestHeadersSpec -> {
-                Map<String, String> context = tracerContextFactory.getContext();
-                context.forEach(requestHeadersSpec::header);
-              })
-          .build();
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        if (bean instanceof WebClient webClient) {
+            return webClient
+                    .mutate()
+                    .defaultRequest(requestHeadersSpec -> {
+                        Map<String, String> context = tracerContextFactory.getContext();
+                        context.forEach(requestHeadersSpec::header);
+                    })
+                    .build();
+        }
+        return bean;
     }
-    return bean;
-  }
 }

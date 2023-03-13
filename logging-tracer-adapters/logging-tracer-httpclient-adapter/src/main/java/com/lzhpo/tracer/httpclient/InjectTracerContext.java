@@ -17,22 +17,23 @@
 package com.lzhpo.tracer.httpclient;
 
 import com.lzhpo.tracer.TracerContextFactory;
-import java.util.Map;
 import org.apache.hc.core5.http.HttpRequest;
+
+import java.util.Map;
 
 /**
  * @author lzhpo
  */
 public interface InjectTracerContext {
 
-  /**
-   * Inject tracer logic
-   *
-   * @param tracerContextFactory {@link TracerContextFactory}
-   * @param httpRequest {@link HttpRequest}
-   */
-  default void inject(TracerContextFactory tracerContextFactory, HttpRequest httpRequest) {
-    Map<String, String> context = tracerContextFactory.getContext();
-    context.forEach(httpRequest::addHeader);
-  }
+    /**
+     * Inject tracer logic
+     *
+     * @param tracerContextFactory {@link TracerContextFactory}
+     * @param httpRequest {@link HttpRequest}
+     */
+    default void inject(TracerContextFactory tracerContextFactory, HttpRequest httpRequest) {
+        Map<String, String> context = tracerContextFactory.getContext();
+        context.forEach(httpRequest::addHeader);
+    }
 }

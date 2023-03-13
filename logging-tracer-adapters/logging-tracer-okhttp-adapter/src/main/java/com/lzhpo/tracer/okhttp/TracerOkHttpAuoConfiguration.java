@@ -33,15 +33,15 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean({TracerContextFactory.class})
 public class TracerOkHttpAuoConfiguration {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Bean
-  public OkHttpClient.Builder okHttpClientBuilder(TracerOkHttpInterceptor tracerOkHttpInterceptor) {
-    return new OkHttpClient.Builder().addInterceptor(tracerOkHttpInterceptor);
-  }
+    @Bean
+    public OkHttpClient.Builder okHttpClientBuilder(TracerOkHttpInterceptor tracerOkHttpInterceptor) {
+        return new OkHttpClient.Builder().addInterceptor(tracerOkHttpInterceptor);
+    }
 
-  @Bean
-  public TracerOkHttpInterceptor tracerOkHttpInterceptor() {
-    return new TracerOkHttpInterceptor(tracerContextFactory);
-  }
+    @Bean
+    public TracerOkHttpInterceptor tracerOkHttpInterceptor() {
+        return new TracerOkHttpInterceptor(tracerContextFactory);
+    }
 }

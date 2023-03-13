@@ -29,17 +29,16 @@ import reactor.netty.http.client.HttpClient;
 @RequiredArgsConstructor
 public class ReactorNettyBeanPostProcessor implements BeanPostProcessor {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-    if (bean instanceof HttpClient httpClient) {
-      return httpClient.doOnRequest(
-          (request, connection) -> {
-            Map<String, String> context = tracerContextFactory.getContext();
-            context.forEach(request::header);
-          });
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        if (bean instanceof HttpClient httpClient) {
+            return httpClient.doOnRequest((request, connection) -> {
+                Map<String, String> context = tracerContextFactory.getContext();
+                context.forEach(request::header);
+            });
+        }
+        return bean;
     }
-    return bean;
-  }
 }

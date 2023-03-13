@@ -27,14 +27,14 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class TracerRestTemplateBeanPostProcessor implements BeanPostProcessor {
 
-  private final TracerRestTemplateInterceptor traceRestTemplateInterceptor;
+    private final TracerRestTemplateInterceptor traceRestTemplateInterceptor;
 
-  @Override
-  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-    if (bean instanceof RestTemplate restTemplate) {
-      restTemplate.getInterceptors().add(traceRestTemplateInterceptor);
-      return restTemplate;
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        if (bean instanceof RestTemplate restTemplate) {
+            restTemplate.getInterceptors().add(traceRestTemplateInterceptor);
+            return restTemplate;
+        }
+        return bean;
     }
-    return bean;
-  }
 }

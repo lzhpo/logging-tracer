@@ -31,14 +31,14 @@ import okhttp3.Response;
 @RequiredArgsConstructor
 public class TracerOkHttpInterceptor implements Interceptor {
 
-  private final TracerContextFactory tracerContextFactory;
+    private final TracerContextFactory tracerContextFactory;
 
-  @Override
-  public Response intercept(Chain chain) throws IOException {
-    Builder builder = chain.request().newBuilder();
-    Map<String, String> context = tracerContextFactory.getContext();
-    context.forEach(builder::addHeader);
-    Request newRequest = builder.build();
-    return chain.proceed(newRequest);
-  }
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Builder builder = chain.request().newBuilder();
+        Map<String, String> context = tracerContextFactory.getContext();
+        context.forEach(builder::addHeader);
+        Request newRequest = builder.build();
+        return chain.proceed(newRequest);
+    }
 }

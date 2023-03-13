@@ -35,13 +35,13 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class WebClientSampleController {
 
-  private final WebClient webClient;
+    private final WebClient webClient;
 
-  @GetMapping("/hello")
-  public Mono<String> hello(ServerHttpRequest request) {
-    log.info("Received new request for hello api.");
-    HttpHeaders headers = request.getHeaders();
-    headers.forEach((k, v) -> log.info("Request header with [{}: {}]", k, v));
-    return webClient.get().uri("http://127.0.0.1:8005/hello").retrieve().bodyToMono(String.class);
-  }
+    @GetMapping("/hello")
+    public Mono<String> hello(ServerHttpRequest request) {
+        log.info("Received new request for hello api.");
+        HttpHeaders headers = request.getHeaders();
+        headers.forEach((k, v) -> log.info("Request header with [{}: {}]", k, v));
+        return webClient.get().uri("http://127.0.0.1:8005/hello").retrieve().bodyToMono(String.class);
+    }
 }

@@ -31,9 +31,8 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean({TracerContextFactory.class})
 public class TracerFeignAutoConfiguration {
 
-  @Bean
-  public TracerFeignRequestInterceptor tracerFeignRequestInterceptor(
-      TracerContextFactory tracerContextFactory) {
-    return new TracerFeignRequestInterceptor(tracerContextFactory);
-  }
+    @Bean
+    public TracerFeignRequestInterceptor tracerFeignRequestInterceptor(TracerContextFactory tracerContextFactory) {
+        return new TracerFeignRequestInterceptor(tracerContextFactory);
+    }
 }

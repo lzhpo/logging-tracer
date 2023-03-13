@@ -29,18 +29,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class TracerConstants {
 
-  public static final String N_A = "N/A";
+    public static final String N_A = "N/A";
 
-  public static final String X_B3_TRACE_ID = "X-B3-TraceId";
+    public static final String X_B3_TRACE_ID = "X-B3-TraceId";
 
-  public static final String X_B3_SPAN_ID = "X-B3-SpanId";
+    public static final String X_B3_SPAN_ID = "X-B3-SpanId";
 
-  public static final String X_B3_SPAN_NAME = "X-B3-SpanName";
+    public static final String X_B3_SPAN_NAME = "X-B3-SpanName";
 
-  public static final String X_B3_PARENT_SPAN_NAME = "X-B3-Parent-SpanName";
+    public static final String X_B3_PARENT_SPAN_NAME = "X-B3-Parent-SpanName";
 
-  public static final String DEFAULT_PATTERN =
-      StrFormatter.formatWith(
-          "%5p [${spring.application.name:},%X{#},%X{#},%X{#}]",
-          "#", X_B3_PARENT_SPAN_NAME, X_B3_TRACE_ID, X_B3_SPAN_ID);
+    public static final String DEFAULT_PATTERN = StrFormatter.formatWith(
+            "%5p [${spring.application.name:},%X{#},%X{#},%X{#}]",
+            "#", X_B3_PARENT_SPAN_NAME, X_B3_TRACE_ID, X_B3_SPAN_ID);
 }

@@ -32,15 +32,15 @@ import reactor.netty.http.client.HttpClient;
 @RequiredArgsConstructor
 public class ReactorNettySampleController {
 
-  private final HttpClient httpClient;
+    private final HttpClient httpClient;
 
-  @GetMapping("/hello")
-  public Mono<String> hello() {
-    return httpClient
-        .request(HttpMethod.GET)
-        .uri("http://127.0.0.1:9000/hello")
-        .responseContent()
-        .aggregate()
-        .asString();
-  }
+    @GetMapping("/hello")
+    public Mono<String> hello() {
+        return httpClient
+                .request(HttpMethod.GET)
+                .uri("http://127.0.0.1:9000/hello")
+                .responseContent()
+                .aggregate()
+                .asString();
+    }
 }

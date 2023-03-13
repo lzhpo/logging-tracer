@@ -25,7 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ReactorNettySampleApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(ReactorNettySampleApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(ReactorNettySampleApplication.class, args);
+    }
 }
