@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <packaging>pom</packaging>
-  <parent>
-    <groupId>com.lzhpo</groupId>
-    <artifactId>logging-tracer</artifactId>
-    <version>${revision}</version>
-  </parent>
-  <artifactId>logging-tracer-adapters</artifactId>
-  <name>${project.groupId} ::: ${project.artifactId}</name>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>com.lzhpo</groupId>
+        <artifactId>logging-tracer</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <artifactId>logging-tracer-adapters</artifactId>
+    <name>${project.groupId} ::: ${project.artifactId}</name>
 
-  <modules>
-    <module>logging-tracer-feign-adapter</module>
-    <module>logging-tracer-httpclient-adapter</module>
-    <module>logging-tracer-okhttp-adapter</module>
-    <module>logging-tracer-reactor-netty-adapter</module>
-    <module>logging-tracer-resttemplate-adapter</module>
-    <module>logging-tracer-scg-adapter</module>
-    <module>logging-tracer-webclient-adapter</module>
-  </modules>
+    <modules>
+        <module>logging-tracer-feign-adapter</module>
+        <module>logging-tracer-httpclient-adapter</module>
+        <module>logging-tracer-okhttp-adapter</module>
+        <module>logging-tracer-reactor-netty-adapter</module>
+        <module>logging-tracer-resttemplate-adapter</module>
+        <module>logging-tracer-scg-adapter</module>
+        <module>logging-tracer-webclient-adapter</module>
+    </modules>
 </project>
