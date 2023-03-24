@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
         <relativePath/>
     </parent>
 
@@ -42,11 +42,12 @@
 
     <properties>
         <server.id>ossrh</server.id>
-        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <okhttp.version>4.10.0</okhttp.version>
-        <hutool.version>5.8.14</hutool.version>
+        <hutool.version>5.8.15</hutool.version>
         <httpclient.version>5.2.1</httpclient.version>
         <spring-cloud.version>2022.0.1</spring-cloud.version>
         <maven.gpg.version>3.0.1</maven.gpg.version>
