@@ -133,6 +133,7 @@
                         <palantirJavaFormat/>
                     </java>
                 </configuration>
+                <!--
                 <executions>
                     <execution>
                         <goals>
@@ -140,6 +141,7 @@
                         </goals>
                     </execution>
                 </executions>
+                -->
             </plugin>
         </plugins>
     </build>
