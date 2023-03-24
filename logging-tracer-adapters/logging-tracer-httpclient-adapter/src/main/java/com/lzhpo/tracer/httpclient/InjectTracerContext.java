@@ -17,9 +17,8 @@
 package com.lzhpo.tracer.httpclient;
 
 import com.lzhpo.tracer.TracerContextFactory;
-import org.apache.hc.core5.http.HttpRequest;
-
 import java.util.Map;
+import org.apache.hc.core5.http.HttpRequest;
 
 /**
  * @author lzhpo

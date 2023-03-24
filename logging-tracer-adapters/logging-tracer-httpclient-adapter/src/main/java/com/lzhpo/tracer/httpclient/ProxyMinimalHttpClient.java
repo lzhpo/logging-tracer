@@ -17,6 +17,7 @@
 package com.lzhpo.tracer.httpclient;
 
 import com.lzhpo.tracer.TracerContextFactory;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -25,8 +26,6 @@ import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.protocol.HttpContext;
 import org.apache.hc.core5.io.CloseMode;
-
-import java.io.IOException;
 
 /**
  * @author lzhpo
