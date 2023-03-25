@@ -9,13 +9,31 @@
         <artifactId>logging-tracer-samples</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>logging-tracer-service-sample</artifactId>
+    <artifactId>logging-tracer-dubbo-provider-sample</artifactId>
     <name>${project.groupId} ::: ${project.artifactId}</name>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-registry-nacos</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lzhpo</groupId>
+            <artifactId>logging-tracer-dubbo-api-sample</artifactId>
+            <version>${revision}</version>
         </dependency>
 
         <dependency>

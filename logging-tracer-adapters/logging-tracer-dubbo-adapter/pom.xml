@@ -6,31 +6,30 @@
     <packaging>jar</packaging>
     <parent>
         <groupId>com.lzhpo</groupId>
-        <artifactId>logging-tracer-samples</artifactId>
+        <artifactId>logging-tracer-adapters</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>logging-tracer-service-sample</artifactId>
+    <artifactId>logging-tracer-dubbo-adapter</artifactId>
     <name>${project.groupId} ::: ${project.artifactId}</name>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>com.lzhpo</groupId>
-            <artifactId>logging-tracer-spring-boot-starter</artifactId>
+            <artifactId>logging-tracer-core</artifactId>
             <version>${revision}</version>
         </dependency>
-    </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>${dubbo.version}</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 </project>

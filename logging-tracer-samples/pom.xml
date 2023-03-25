@@ -13,6 +13,9 @@
     <name>${project.groupId} ::: ${project.artifactId}</name>
 
     <modules>
+        <module>logging-tracer-dubbo-api-sample</module>
+        <module>logging-tracer-dubbo-consumer-sample</module>
+        <module>logging-tracer-dubbo-provider-sample</module>
         <module>logging-tracer-feign-sample</module>
         <module>logging-tracer-httpclient-sample</module>
         <module>logging-tracer-okhttp-sample</module>

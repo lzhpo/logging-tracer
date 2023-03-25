@@ -20,7 +20,6 @@ import cn.hutool.core.lang.Console;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor;
-import org.springframework.boot.context.config.ConfigFileApplicationListener;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -29,10 +28,12 @@ import org.springframework.util.StringUtils;
 /**
  * Set custom log trace format style.
  *
+ * <p>default value: logging.pattern.level=%5p
+ *
  * <p>Prefer logging.pattern.level in the environment.
  *
  * <pre>
- * {@link ConfigFileApplicationListener} deprecated.
+ * {@link org.springframework.boot.context.config.ConfigFileApplicationListener} deprecated.
  * since 2.4.0 for removal in 3.0.0 in favor of {@link ConfigDataEnvironmentPostProcessor}
  * </pre>
  *
@@ -41,18 +42,18 @@ import org.springframework.util.StringUtils;
 @Slf4j
 public class TracerEnvPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    /** Default value: "logging.pattern.level=%5p" */
     private static final String LEVEL_KEY = "logging.pattern.level";
+    private static final String LOGGING_TRACER_ENABLED = "logging.tracer.enabled";
+    private static final String LOGGING_TRACER_PATTERN = "logging.tracer.pattern";
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-
-        Boolean enabled = environment.getProperty("logging.tracer.enabled", Boolean.class, true);
+        Boolean enabled = environment.getProperty(LOGGING_TRACER_ENABLED, Boolean.class, true);
         if (Boolean.FALSE.equals(enabled) || StringUtils.hasText(System.getProperty(LEVEL_KEY))) {
             return;
         }
 
-        String pattern = environment.getProperty("logging.tracer.pattern", String.class);
+        String pattern = environment.getProperty(LOGGING_TRACER_PATTERN, String.class);
         if (!StringUtils.hasText(pattern)) {
             pattern = environment.getProperty(LEVEL_KEY, TracerConstants.DEFAULT_PATTERN);
         }
