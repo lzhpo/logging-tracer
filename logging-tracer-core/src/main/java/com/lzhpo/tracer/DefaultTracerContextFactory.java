@@ -16,9 +16,7 @@
 
 package com.lzhpo.tracer;
 
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.text.StrPool;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import java.util.List;
@@ -26,7 +24,6 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -36,35 +33,35 @@ import org.springframework.util.StringUtils;
 @RequiredArgsConstructor
 public class DefaultTracerContextFactory implements TracerContextFactory {
 
-    private final List<TracerContextCustomizer> tracerContextCustomizers;
+    private final List<TracerContextCustomizer> contextCustomizers;
 
     @Override
     public void setContext(Map<String, String> context) {
         String traceId = context.get(TracerConstants.X_B3_TRACE_ID);
-
         if (StringUtils.hasText(traceId)) {
             String spanId = context.get(TracerConstants.X_B3_SPAN_ID);
             String asParentSpanName = context.getOrDefault(TracerConstants.X_B3_SPAN_NAME, TracerConstants.N_A);
             context.put(TracerConstants.X_B3_PARENT_SPAN_NAME, asParentSpanName);
+            context.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
             context.put(TracerConstants.X_B3_TRACE_ID, traceId);
             context.put(TracerConstants.X_B3_SPAN_ID, spanId + StrPool.DOT + 1);
         } else {
-            context.put(TracerConstants.X_B3_PARENT_SPAN_NAME, TracerConstants.N_A);
-            context.put(TracerConstants.X_B3_TRACE_ID, IdUtil.fastSimpleUUID());
-            context.put(TracerConstants.X_B3_SPAN_ID, "0");
+            Map<String, String> defaultContext = createContext();
+            context.putAll(defaultContext);
         }
 
-        context.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
-        if (!ObjectUtils.isEmpty(tracerContextCustomizers)) {
-            tracerContextCustomizers.forEach(customizer -> customizer.customize(context));
-        }
-
-        context.forEach(MDC::put);
+        depositMDC(context, contextCustomizers);
+        log.debug("Built logging tracer context: {}", context);
     }
 
     @Override
     public Map<String, String> getContext() {
-        return ObjectUtil.defaultIfNull(MDC.getCopyOfContextMap(), MapUtil.newHashMap());
+        return ObjectUtil.defaultIfNull(MDC.getCopyOfContextMap(), () -> {
+            Map<String, String> context = createContext();
+            depositMDC(context, contextCustomizers);
+            log.info("MDC context is empty, created default context {} in MDC.", context);
+            return context;
+        });
     }
 
     @Override
