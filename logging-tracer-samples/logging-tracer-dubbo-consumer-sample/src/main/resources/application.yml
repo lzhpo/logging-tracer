@@ -1,0 +1,21 @@
+server:
+  port: 6001
+
+logging:
+  level:
+    com.lzhpo: debug
+
+spring:
+  application:
+    name: dubbo-consumer-sample
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  registry:
+    address: nacos://127.0.0.1:8848
+    username: nacos
+    password: nacos
+  protocol:
+    name: dubbo
+    port: -1

@@ -13,6 +13,7 @@
     <name>${project.groupId} ::: ${project.artifactId}</name>
 
     <modules>
+        <module>logging-tracer-dubbo-adapter</module>
         <module>logging-tracer-feign-adapter</module>
         <module>logging-tracer-httpclient-adapter</module>
         <module>logging-tracer-okhttp-adapter</module>

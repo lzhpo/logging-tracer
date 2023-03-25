@@ -19,15 +19,15 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lzhpo</groupId>
-            <artifactId>logging-tracer-okhttp-adapter</artifactId>
-            <version>${revision}</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>${okhttp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lzhpo</groupId>
+            <artifactId>logging-tracer-spring-boot-starter</artifactId>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 
