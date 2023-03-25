@@ -154,6 +154,12 @@ _PS：如果不需要定制，直接导入相关依赖按照下面组件说明�
 
 加入了`logging-tracer-spring-boot-starter`依赖即可，在SpringCloud-Gateway环境中会自动生效。
 
+#### 8.Dubbo
+
+导入dubbo依赖将自动生效。
+
+**参考示例**：logging-tracer-dubbo-api-sample、logging-tracer-dubbo-consumer-sample、logging-tracer-dubbo-provider-sample
+
 ## 自定义配置
 
 ### 自定义配置文件
