@@ -16,9 +16,17 @@
 
 package com.lzhpo.tracer;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.extra.spring.SpringUtil;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import org.slf4j.MDC;
+import org.springframework.util.ObjectUtils;
 
-/** @author lzhpo */
+/**
+ * @author lzhpo
+ */
 public interface TracerContextFactory {
 
     /**
@@ -35,6 +43,35 @@ public interface TracerContextFactory {
      */
     Map<String, String> getContext();
 
-    /** Clear tracer context. */
+    /**
+     * Clear tracer context.
+     */
     void clearContext();
+
+    /**
+     * Create tracer context.
+     *
+     * @return tracer context
+     */
+    default Map<String, String> createContext() {
+        Map<String, String> context = new HashMap<>(3);
+        context.put(TracerConstants.X_B3_PARENT_SPAN_NAME, TracerConstants.N_A);
+        context.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
+        context.put(TracerConstants.X_B3_TRACE_ID, IdUtil.fastSimpleUUID());
+        context.put(TracerConstants.X_B3_SPAN_ID, "0");
+        return context;
+    }
+
+    /**
+     * Deposit context into MDC.
+     *
+     * @param context context
+     * @param contextCustomizers tracer context customizers
+     */
+    default void depositMDC(Map<String, String> context, List<TracerContextCustomizer> contextCustomizers) {
+        if (!ObjectUtils.isEmpty(contextCustomizers)) {
+            contextCustomizers.forEach(customizer -> customizer.customize(context));
+        }
+        context.forEach(MDC::put);
+    }
 }

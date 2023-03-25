@@ -46,13 +46,11 @@ public class TracerDubboFilter implements Filter {
         } else {
             TracerProperties tracerProperties = SpringUtil.getBean(TracerProperties.class);
             List<String> proxyHeaders = tracerProperties.getProxyHeaders();
+            Map<String, String> attachments = invocation.getAttachments();
 
             Map<String, String> context = new HashMap<>(proxyHeaders.size());
-            Map<String, String> attachments = invocation.getAttachments();
             proxyHeaders.forEach(headerName -> context.put(headerName, attachments.get(headerName)));
-
             tracerContextFactory.setContext(context);
-            log.debug("Built logging tracer context: {}", context);
         }
 
         return invoker.invoke(invocation);

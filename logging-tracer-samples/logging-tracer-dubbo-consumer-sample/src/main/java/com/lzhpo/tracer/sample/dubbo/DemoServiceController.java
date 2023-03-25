@@ -19,6 +19,7 @@ package com.lzhpo.tracer.sample.dubbo;
 import cn.hutool.extra.spring.SpringUtil;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,17 @@ public class DemoServiceController {
 
     @DubboReference
     private DemoService demoService;
+
+    @PostConstruct
+    public void postConstruct() throws ExecutionException, InterruptedException {
+        String applicationName = SpringUtil.getApplicationName();
+
+        String sayHello = demoService.sayHello(applicationName);
+        log.info("sayHello: {}", sayHello);
+
+        CompletableFuture<String> sayHelloAsync = demoService.sayHelloAsync(applicationName);
+        log.info("sayHelloAsync: {}", sayHelloAsync.get());
+    }
 
     @GetMapping("sayHello")
     public ResponseEntity<String> sayHello() {
