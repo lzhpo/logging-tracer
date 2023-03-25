@@ -55,6 +55,7 @@
         <maven.javadoc.version>3.5.0</maven.javadoc.version>
         <flatten-maven-plugin>1.2.7</flatten-maven-plugin>
         <spotless-plugin.version>2.34.0</spotless-plugin.version>
+        <dubbo.version>3.2.0-beta.6</dubbo.version>
     </properties>
 
     <modules>
