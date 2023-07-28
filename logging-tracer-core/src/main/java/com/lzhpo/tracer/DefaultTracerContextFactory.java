@@ -59,7 +59,7 @@ public class DefaultTracerContextFactory implements TracerContextFactory {
         return ObjectUtil.defaultIfNull(MDC.getCopyOfContextMap(), () -> {
             Map<String, String> context = createContext();
             depositMDC(context, contextCustomizers);
-            log.info("MDC context is empty, created default context {} in MDC.", context);
+            log.debug("MDC context is empty, created default context {} in MDC.", context);
             return context;
         });
     }

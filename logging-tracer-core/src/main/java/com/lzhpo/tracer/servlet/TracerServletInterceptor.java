@@ -39,6 +39,7 @@ public class TracerServletInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        log.debug("Current request URI: {}", request.getRequestURI());
         List<String> proxyHeaders = tracerProperties.getProxyHeaders();
         Map<String, String> context = new HashMap<>(proxyHeaders.size());
         proxyHeaders.forEach(headerName -> context.put(headerName, request.getHeader(headerName)));

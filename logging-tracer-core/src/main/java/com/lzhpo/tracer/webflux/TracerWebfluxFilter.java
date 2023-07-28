@@ -43,6 +43,7 @@ public class TracerWebfluxFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        log.debug("Current request URI: {}", request.getURI().getPath());
         HttpHeaders headers = request.getHeaders();
 
         List<String> proxyHeaders = tracerProperties.getProxyHeaders();
