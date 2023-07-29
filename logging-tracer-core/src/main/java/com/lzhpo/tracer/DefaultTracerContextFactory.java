@@ -33,6 +33,7 @@ import org.springframework.util.StringUtils;
 @RequiredArgsConstructor
 public class DefaultTracerContextFactory implements TracerContextFactory {
 
+    private final TracerProperties tracerProperties;
     private final List<TracerContextCustomizer> contextCustomizers;
 
     @Override
@@ -66,6 +67,10 @@ public class DefaultTracerContextFactory implements TracerContextFactory {
 
     @Override
     public void clearContext() {
-        MDC.clear();
+        MDC.remove(TracerConstants.X_B3_PARENT_SPAN_NAME);
+        MDC.remove(TracerConstants.X_B3_SPAN_NAME);
+        MDC.remove(TracerConstants.X_B3_TRACE_ID);
+        MDC.remove(TracerConstants.X_B3_SPAN_ID);
+        tracerProperties.getProxyHeaders().forEach(MDC::remove);
     }
 }
