@@ -38,10 +38,10 @@ public class TracerAutoConfiguration {
 
     @Bean
     public TracerContextFactory tracerContextFactory(
-            TracerProperties tracerProperties, ObjectProvider<TracerContextCustomizer> contextCustomizerProvider) {
+            ObjectProvider<TracerContextCustomizer> contextCustomizerProvider) {
         List<TracerContextCustomizer> contextCustomizers =
                 contextCustomizerProvider.stream().collect(Collectors.toList());
-        return new DefaultTracerContextFactory(tracerProperties, contextCustomizers);
+        return new DefaultTracerContextFactory(contextCustomizers);
     }
 
     @Bean
