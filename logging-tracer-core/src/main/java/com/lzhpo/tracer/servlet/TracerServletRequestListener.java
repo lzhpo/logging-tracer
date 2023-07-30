@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 lzhpo
+ * Copyright 2023 lzhpo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,38 +18,38 @@ package com.lzhpo.tracer.servlet;
 
 import com.lzhpo.tracer.TracerContextFactory;
 import com.lzhpo.tracer.TracerProperties;
+import jakarta.servlet.ServletRequestEvent;
+import jakarta.servlet.ServletRequestListener;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.context.request.RequestContextListener;
 
 /**
+ * @see RequestContextListener
  * @author lzhpo
  */
 @Slf4j
 @RequiredArgsConstructor
-public class TracerServletInterceptor implements HandlerInterceptor {
+public class TracerServletRequestListener implements ServletRequestListener {
 
     private final TracerProperties tracerProperties;
     private final TracerContextFactory tracerContextFactory;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public void requestInitialized(ServletRequestEvent sre) {
+        HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
         List<String> proxyHeaders = tracerProperties.getProxyHeaders();
         Map<String, String> context = new HashMap<>(proxyHeaders.size());
         proxyHeaders.forEach(headerName -> context.put(headerName, request.getHeader(headerName)));
         tracerContextFactory.setContext(context);
-        log.debug("Current request URI: {}", request.getRequestURI());
-        return true;
     }
 
     @Override
-    public void afterCompletion(
-            HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void requestDestroyed(ServletRequestEvent sre) {
         tracerContextFactory.clearContext();
     }
 }

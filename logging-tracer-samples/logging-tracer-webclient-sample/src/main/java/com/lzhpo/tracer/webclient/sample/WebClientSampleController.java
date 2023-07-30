@@ -42,6 +42,7 @@ public class WebClientSampleController {
         log.info("Received new request for hello api.");
         HttpHeaders headers = request.getHeaders();
         headers.forEach((k, v) -> log.info("Request header with [{}: {}]", k, v));
-        return webClient.get().uri("http://127.0.0.1:8005/hello").retrieve().bodyToMono(String.class);
+        throw new RuntimeException("Error");
+        //        return webClient.get().uri("http://127.0.0.1:8005/hello").retrieve().bodyToMono(String.class);
     }
 }
