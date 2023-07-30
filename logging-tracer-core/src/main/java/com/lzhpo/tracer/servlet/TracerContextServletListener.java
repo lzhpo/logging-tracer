@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 /** @author lzhpo */
 @Slf4j
 @RequiredArgsConstructor
-public class TracerServletRequestListener implements ServletRequestListener {
+public class TracerContextServletListener implements ServletRequestListener {
 
     private final TracerProperties tracerProperties;
     private final TracerContextFactory tracerContextFactory;

@@ -34,8 +34,8 @@ import org.springframework.context.annotation.Configuration;
 public class TracerServletAutoConfiguration {
 
     @Bean
-    public TracerServletRequestListener tracerServletRequestListener(
+    public TracerContextServletListener tracerContextServletListener(
             TracerProperties tracerProperties, TracerContextFactory tracerContextFactory) {
-        return new TracerServletRequestListener(tracerProperties, tracerContextFactory);
+        return new TracerContextServletListener(tracerProperties, tracerContextFactory);
     }
 }
