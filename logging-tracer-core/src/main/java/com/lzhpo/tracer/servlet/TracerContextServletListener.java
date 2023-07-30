@@ -34,7 +34,7 @@ import org.springframework.web.context.request.RequestContextListener;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class TracerServletRequestListener implements ServletRequestListener {
+public class TracerContextServletListener implements ServletRequestListener {
 
     private final TracerProperties tracerProperties;
     private final TracerContextFactory tracerContextFactory;
