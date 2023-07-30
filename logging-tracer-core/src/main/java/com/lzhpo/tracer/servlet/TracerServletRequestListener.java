@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 lzhpo
+ * Copyright 2023 lzhpo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,32 +21,31 @@ import com.lzhpo.tracer.TracerProperties;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.ServletRequestEvent;
+import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 /** @author lzhpo */
 @Slf4j
 @RequiredArgsConstructor
-public class TracerServletInterceptor implements HandlerInterceptor {
+public class TracerServletRequestListener implements ServletRequestListener {
 
     private final TracerProperties tracerProperties;
     private final TracerContextFactory tracerContextFactory;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public void requestInitialized(ServletRequestEvent sre) {
+        HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
         List<String> proxyHeaders = tracerProperties.getProxyHeaders();
         Map<String, String> context = new HashMap<>(proxyHeaders.size());
         proxyHeaders.forEach(headerName -> context.put(headerName, request.getHeader(headerName)));
         tracerContextFactory.setContext(context);
-        return true;
     }
 
     @Override
-    public void afterCompletion(
-            HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void requestDestroyed(ServletRequestEvent sre) {
         tracerContextFactory.clearContext();
     }
 }

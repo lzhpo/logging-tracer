@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
@@ -33,10 +34,15 @@ import reactor.core.publisher.Mono;
 /** @author lzhpo */
 @Slf4j
 @RequiredArgsConstructor
-public class TracerWebfluxFilter implements WebFilter {
+public class TracerWebfluxFilter implements WebFilter, Ordered {
 
     private final TracerProperties tracerProperties;
     private final TracerContextFactory tracerContextFactory;
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
