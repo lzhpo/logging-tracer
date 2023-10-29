@@ -58,7 +58,7 @@ public interface TracerContextFactory {
         context.put(TracerConstants.X_B3_PARENT_SPAN_NAME, TracerConstants.N_A);
         context.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
         context.put(TracerConstants.X_B3_TRACE_ID, IdUtil.fastSimpleUUID());
-        context.put(TracerConstants.X_B3_SPAN_ID, "0");
+        context.put(TracerConstants.X_B3_SPAN_ID, TracerConstants.ZERO);
         return context;
     }
 

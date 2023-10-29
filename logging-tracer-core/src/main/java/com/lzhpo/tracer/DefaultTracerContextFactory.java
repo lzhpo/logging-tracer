@@ -39,7 +39,7 @@ public class DefaultTracerContextFactory implements TracerContextFactory {
     public void setContext(Map<String, String> context) {
         String traceId = context.get(TracerConstants.X_B3_TRACE_ID);
         if (StringUtils.hasText(traceId)) {
-            String spanId = context.get(TracerConstants.X_B3_SPAN_ID);
+            String spanId = context.getOrDefault(TracerConstants.X_B3_SPAN_ID, TracerConstants.ZERO);
             String asParentSpanName = context.getOrDefault(TracerConstants.X_B3_SPAN_NAME, TracerConstants.N_A);
             context.put(TracerConstants.X_B3_PARENT_SPAN_NAME, asParentSpanName);
             context.put(TracerConstants.X_B3_SPAN_NAME, SpringUtil.getApplicationName());
