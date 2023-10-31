@@ -51,7 +51,7 @@
         <spotless-plugin.version>2.30.0</spotless-plugin.version>
         <palantirJavaFormat.version>1.1.0</palantirJavaFormat.version>
 
-        <dubbo.version>3.2.4</dubbo.version>
+        <dubbo.version>3.2.7</dubbo.version>
         <okhttp.version>4.12.0</okhttp.version>
         <hutool.version>5.8.22</hutool.version>
         <httpclient.version>5.2.1</httpclient.version>
