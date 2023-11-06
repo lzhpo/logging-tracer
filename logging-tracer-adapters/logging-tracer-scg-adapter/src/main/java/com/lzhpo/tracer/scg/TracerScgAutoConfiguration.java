@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 @ConditionalOnClass({GlobalFilter.class})
 @ConditionalOnWebApplication(type = Type.REACTIVE)
-@ConditionalOnBean({NettyRoutingFilter.class, NettyRoutingFilter.class})
+@ConditionalOnBean({NettyRoutingFilter.class, NettyRoutingFilter.class, TracerContextFactory.class})
 public class TracerScgAutoConfiguration {
 
     @Bean
