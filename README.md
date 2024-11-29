@@ -256,13 +256,6 @@ public class SampleTracerContextCustomizer implements TracerContextCustomizer {
 
 <img width="150" height="150" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo (Main) logo.">
 
-## 公众号
+## 微信公众号
 
-|         微信          |            公众号             |
-|:-------------------:|:--------------------------:|
-| ![](./docs/images/微信.jpg) | ![](./docs/images/公众号.jpg) |
-
-
-
-
-
+![](./docs/images/微信公众号.jpg)
